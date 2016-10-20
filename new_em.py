@@ -377,11 +377,11 @@ if __name__ == "__main__":
 
 	graph_size_counts.sort()
 	plt.hist(graph_size_counts, bins=[i for i in xrange(100)])
-	plt.show()
-
+	
 	for r in rules:
 		print r
 
+	plt.show()
 	"""
 	rules_dict = {}
 	i = 0
