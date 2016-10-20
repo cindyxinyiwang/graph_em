@@ -376,7 +376,11 @@ if __name__ == "__main__":
 		graph_size_counts.append(term_count)
 
 	graph_size_counts.sort()
-	plt.hist(graph_size_counts, bins=[i for i in xrange(100)])
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	ax.set_xlabel('size of tree')
+	ax.set_ylabel('count')
+	ax.hist(graph_size_counts, bins=[i for i in xrange(100)])
 	
 	for r in rules:
 		print r
