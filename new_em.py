@@ -91,8 +91,16 @@ class Grammar(object):
 					term_count += 1
 		return rules, term_count
 
-
-	
+	def get_valid_rules(self):
+		# return all rules with positive probability
+		count = 0
+		rules = []
+		for lhs in self.rule_dict:
+			for rhs, prob in self.rule_dict[lhs].items():
+				if prob > 0:
+					rules.append(("r" + str(count), lhs, rhs.split(), prob))
+					count += 1
+		return rules
 
 class TreeNode(object):
 	def __init__(self, val, children=None):
@@ -382,9 +390,13 @@ if __name__ == "__main__":
 	ax.set_ylabel('count')
 	ax.hist(graph_size_counts, bins=[i for i in xrange(100)])
 	
-	for r in rules:
-		print r
+	#for r in rules:
+	#	print r
 
+	grammar = em.gram.get_valid_rules()
+	for r in grammar:
+		print r 
+	
 	plt.show()
 	"""
 	rules_dict = {}
