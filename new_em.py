@@ -3,6 +3,9 @@ import sys
 from collections import deque, OrderedDict
 import numpy as np
 import david as da
+import PHRG.probabilistic_cfg as pcfg
+import PHRG.salPHRG
+import networkx as nx
 
 import matplotlib.pyplot as plt
 
@@ -384,21 +387,22 @@ if __name__ == "__main__":
 		graph_size_counts.append(term_count)
 
 	graph_size_counts.sort()
-	fig = plt.figure()
+	'''
+  fig = plt.figure()
 	ax = fig.add_subplot(111)
 	ax.set_xlabel('size of tree')
 	ax.set_ylabel('count')
 	ax.hist(graph_size_counts, bins=[i for i in xrange(100)])
-	
+	'''
 	#for r in rules:
 	#	print r
 
 	grammar = em.gram.get_valid_rules()
+	"""
 	for r in grammar:
 		print r 
 	
 	plt.show()
-	"""
 	rules_dict = {}
 	i = 0
 	for lhs, rule_dic in em.gram.rule_dict.items():
@@ -416,4 +420,24 @@ if __name__ == "__main__":
 	for id in samp:
 		print rules_dict[id]
 	"""
+	rules_dict = {}
+	i = 0
+	for lhs, rule_dic in em.gram.rule_dict.items():
+		for rhs, prob in rule_dic.items():
+			i += 1
+			#rules.append(("r"+str(i), lhs, rhs.split(), prob))
+			rules_dict["r"+str(i)] = ("r"+str(i), lhs, rhs.split(), prob)
 
+	sample_gram = pcfg.Grammar('S')
+	for (id, lhs, rhs, prob) in rules_dict.values():
+		# sample_gram.add_rule(pcfg.Rule(id, lhs, rhs, prob, False))
+		sample_gram.add_rule(pcfg.Rule(id, lhs, rhs, prob))
+
+	sample_gram.set_max_size(34)
+	samp = sample_gram.sample(34)
+	# for id in samp:
+	#	 print rules_dict[id]
+	# # """
+	hstar = salPHRG.grow(samp, sample_gram)[0]
+
+	print nx.info(hstar) 
