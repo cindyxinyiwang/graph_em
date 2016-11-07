@@ -75,30 +75,38 @@ class Grammar(object):
 		return d
 
 	def sample(self):
+		tree = TreeNode(self.start)
 		rules = []
 		cur_nonterm = deque([self.start])
+		cur_tree = deque([tree])
 		term_count = 0
 		while cur_nonterm:
 			lhs = cur_nonterm.popleft()
+			root_node = cur_tree.popleft()
 			rhs_dic = self.rule_dict[lhs]
 			rule = np.random.choice(rhs_dic.keys(), p = rhs_dic.values())
 			rules.append((lhs, rule, rhs_dic[rule]))
 			rule = rule.split()
 			for r in rule:
+				child_node = TreeNode(r)
+				root_node.children.append(child_node)
 				if r != "t":
 					cur_nonterm.append(r)
+					cur_tree.append(child_node)
 				else:
 					term_count += 1
-		return rules, term_count
+		return rules, term_count, tree
 
-	def get_valid_rules(self):
+	def get_valid_rules(self, cv):
 		# return all rules with positive probability
 		count = 0
 		rules = []
 		for lhs in self.rule_dict:
 			for rhs, prob in self.rule_dict[lhs].items():
+				hrg = cv.get_orig_cfg(lhs, rhs)
 				if prob > 0:
-					rules.append(("r" + str(count), lhs, rhs.split(), prob))
+					#rules.append(("r" + str(count), lhs, rhs.split(), prob))
+					rules.append(("r" + str(count), hrg, prob))
 					count += 1
 		return rules
 
@@ -106,6 +114,9 @@ class TreeNode(object):
 	def __init__(self, val, children=None):
 		self.val = val
 		self.children = []
+		self.term_count = 0
+		self.counted = False
+
 	def print_tree(self):
 		cur_level = deque([self])
 		next_level = deque()
@@ -118,6 +129,27 @@ class TreeNode(object):
 				sys.stdout.write("\n")
 				cur_level = next_level
 				next_level = deque()
+
+	def get_term_count(self, term_count_dic, nonterm_count_dict, nonterm_size_dic):
+		if self.val == 't':
+			#count_dic[self.val] = count_dic.get(self.val, 0) + 1
+			return 1
+		nonterm_count_dict[self.val] = nonterm_count_dict.get(self.val, 0) + 1
+		if self.counted:
+			return self.term_count
+		count = 0
+		for c in self.children:
+			count += c.get_term_count(term_count_dic, nonterm_count_dict, nonterm_size_dic)
+		self.term_count = count
+		self.counted = True
+
+		term_count_dic[self.val] = term_count_dic.get(self.val, 0) + count
+
+		if self.val not in nonterm_size_dic:
+			nonterm_size_dic[self.val] = []
+		nonterm_size_dic[self.val].append(count)
+
+		return count
 
 class ConvertRule(object):
 	def __init__(self, tree_file):
@@ -163,6 +195,7 @@ class ConvertRule(object):
 				lhs, rhs = rules[0], rules[2]
 				lhs = re.findall(r'\((.*?)\)', lhs)
 				rhs = re.findall(r'\((.*?)\)', rhs)
+				hrg = (lhs[0], rhs)
 				#print lhs, rhs
 				lhs, rhs = self.hrg_to_cfg(lhs[0], rhs)
 				# add to grammar
@@ -170,6 +203,7 @@ class ConvertRule(object):
 					self.rule_dict[lhs] = {}
 				self.rule_dict[lhs][rhs] = 1
 
+				self.cfg_to_hrg_map[lhs + "->" + rhs] = hrg
 				#self.cfg_to_hrg_map[] = line
 				"""
 				if not stack:
@@ -188,6 +222,36 @@ class ConvertRule(object):
 				add_stack.reverse()
 				stack.extend(add_stack)
 		self.Tree = tree
+
+	def get_orig_cfg(self, lhs, rhs):
+		if lhs == "S":
+			base_lhs, c_lhs = "S", -1
+		else:
+			base_lhs, c_lhs = lhs.split("_")[0], lhs.split("_")[1]
+		base_rhs, c_rhs = [], []
+		rhs = rhs.split()
+		for t in rhs:
+			if t != "t":
+				t = t.split("_")
+				base_rhs.append(t[0])
+				c_rhs.append(t[1])
+			else:
+				base_rhs.append("t")
+		orig_hrg = self.cfg_to_hrg_map[base_lhs + "->" + " ".join(base_rhs)]
+		#print (orig_hrg, lhs, rhs)
+		orig_hrg_lhs, orig_hrg_rhs = orig_hrg[0], orig_hrg[1]
+		if c_lhs >= 0:
+			hrg_lhs = "(" + orig_hrg_lhs + ")_" + c_lhs
+		else:
+			hrg_lhs = "(" + orig_hrg_lhs + ")"
+		hrg_rhs = []
+		i = 0
+		for t in orig_hrg_rhs:
+			if t.endswith("N"):
+				t = t + "_" + c_rhs[i]
+				i += 1
+			hrg_rhs.append(t)
+		return (hrg_lhs, hrg_rhs)
 
 def get_level_nodes(tree):
 	i = 0
@@ -364,24 +428,64 @@ class EM(object):
 			self.maximize()
 			print self.loglikelihood
 
+def plot_nonterm_stats(nonterm_size_dic):
+	nonterm_groups = {}
+	for n in nonterm_ave_size_dic.keys():
+		base = n.split("_")[0]
+		if not base in nonterm_groups:
+			nonterm_groups[base] = []
+		nonterm_groups[base].append(n)
+
+	for base in nonterm_groups:
+		nonterms = nonterm_groups[base]
+		for n in nonterms:
+			print (n, "mean: ", np.mean(nonterm_size_dic[n]), "std: ", np.std(nonterm_size_dic[n]))
+			print nonterm_size_dic[n]
+	"""
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	ax.set_xlabel('size of subtree for N2')
+	ax.set_ylabel('count')
+	ax.hist(nonterm_size_dic["N5_1"], bins=[i for i in xrange(100)], alpha=0.5)
+	ax.hist(nonterm_size_dic["N5_2"], bins=[i for i in xrange(100)], alpha=0.5)
+	ax.hist(nonterm_size_dic["N5_3"], bins=[i for i in xrange(100)], alpha=0.5)
+	"""
+
 if __name__ == "__main__":
 	cv = ConvertRule("decomp_new.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
-	gram = Grammar(cv.rule_dict, 3)
+	gram = Grammar(cv.rule_dict, 2)
 	#gram.printAllRules()
 	
 	#cv.Tree.print_tree()
 	em = EM(gram, cv.Tree)
 	em.iterations(50)
+	"""
+	rules, term_count, tree = em.gram.sample()
+	count_dict = {}
+	tree.get_term_count(count_dict)
+	print count_dict
 
+	"""
 	graph_size_counts = []
 	rules = []
+	
+	nonterm_ave_size_dic = {}
+	nonterm_size_dic = {}
 	for i in xrange(100):
-		rules, term_count = em.gram.sample()
-		#print "graph ", i
-		#print len(rules)
+		term_count_dict = {}
+		nonterm_count_dict = {}
+		rules, term_count, tree = em.gram.sample()
+		tree.get_term_count(term_count_dict, nonterm_count_dict, nonterm_size_dic)
+		for t in term_count_dict:
+			if t not in nonterm_ave_size_dic:
+				nonterm_ave_size_dic[t] = []
+			nonterm_ave_size_dic[t].append(term_count_dict[t] / float(nonterm_count_dict[t]))
 		graph_size_counts.append(term_count)
+
+	plot_nonterm_stats(nonterm_ave_size_dic)
+	plot_nonterm_stats(nonterm_size_dic)
 
 	graph_size_counts.sort()
 	fig = plt.figure()
@@ -390,14 +494,14 @@ if __name__ == "__main__":
 	ax.set_ylabel('count')
 	ax.hist(graph_size_counts, bins=[i for i in xrange(100)])
 	
-	#for r in rules:
-	#	print r
-
-	grammar = em.gram.get_valid_rules()
+	grammar = em.gram.get_valid_rules(cv)
 	for r in grammar:
 		print r 
 	
 	plt.show()
+	
+
+
 	"""
 	rules_dict = {}
 	i = 0
