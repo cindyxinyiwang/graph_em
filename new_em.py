@@ -1,5 +1,7 @@
 import re
 import sys
+from random import random
+from bisect import bisect
 from collections import deque, OrderedDict
 import numpy as np
 import david as da
@@ -454,6 +456,66 @@ def plot_nonterm_stats(nonterm_size_dic):
 	ax.hist(nonterm_size_dic["N5_3"], bins=[i for i in xrange(100)], alpha=0.5)
 	"""
 
+def choice(values, p):
+	total = 0
+	cum_weights = []
+	for w in p:
+		total += w
+		cum_weights.append(total)
+	x = random() * total
+	i = bisect(cum_weights, x)
+	return values[i]
+
+def grow_graph(grammar):
+	grammar_dict = {}
+	graph_rules = []
+	graph_file = open("graph.txt", "w")
+	for id, rules, prob in grammar:
+		lhs, rhs = rules[0], rules[1]
+		rhs.append(id)
+		if lhs == '(S)':
+			new_lhs = 'S'
+		else:
+			toks = lhs.split("_")
+			new_lhs = "N" + str(len(toks[0].split(","))) + "_" + toks[1]
+		if new_lhs not in grammar_dict:
+			grammar_dict[new_lhs] = {}
+		grammar_dict[new_lhs][tuple(rhs)] = prob
+
+	queue = deque("S")
+	while queue:
+		lhs = queue.popleft()
+		rhs = choice(grammar_dict[lhs].keys(), grammar_dict[lhs].values())
+		for t in rhs[:-1]:
+			if not t.endswith("T"):
+				toks = t.split("_")
+				queue.append("N" + str(len(toks[0].split(","))) + "_" + toks[1])
+		graph_rules.append((lhs, rhs, grammar_dict[lhs][rhs]))
+
+	print graph_rules
+
+	for lhs, rhs, prob in graph_rules:
+		if lhs == 'S':
+			new_lhs = lhs
+		else:
+			node_count = int(lhs.split("_")[0][1])
+			new_lhs = []
+			for i in range(node_count):
+				new_lhs.append(chr(ord('a') + i))
+			new_lhs = ",".join(new_lhs)
+		graph_file.write("(%s) -> " % new_lhs)
+		for t in rhs[:-1]:
+			if t.endswith("T"):
+				graph_file.write("(%s)" % t)
+			else:
+				t = t.split(":")
+				graph_file.write("(%s:%s)" % (t[0], "N"))
+		graph_file.write(" " + rhs[-1])
+		graph_file.write("\n")
+
+	graph_file.close()
+
+
 if __name__ == "__main__":
 	cv = ConvertRule("decomp_new.txt")
 	#for tree in cv.tree_list:
@@ -505,8 +567,10 @@ if __name__ == "__main__":
 
 	for r in grammar:
 		print r 
+
+	grow_graph(grammar)
 	
-	plt.show()
+	#plt.show()
 
 	"""
 	rules_dict = {}
@@ -526,6 +590,8 @@ if __name__ == "__main__":
 	for id in samp:
 		print rules_dict[id]
 	"""
+
+	"""
 	rules_dict = {}
 	i = 0
 	for lhs, rule_dic in em.gram.rule_dict.items():
@@ -543,7 +609,8 @@ if __name__ == "__main__":
 	samp = sample_gram.sample(34)
 	# for id in samp:
 	#	 print rules_dict[id]
-	# # """
+	# # 
 	hstar = salPHRG.grow(samp, sample_gram)[0]
 
 	print nx.info(hstar) 
+	"""
