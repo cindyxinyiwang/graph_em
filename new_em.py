@@ -520,7 +520,7 @@ if __name__ == "__main__":
 	cv = ConvertRule("decomp_new.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
-	gram = Grammar(cv.rule_dict, 2)
+	gram = Grammar(cv.rule_dict, 5)
 	#gram.printAllRules()
 	
 	#cv.Tree.print_tree()
