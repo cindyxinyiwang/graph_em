@@ -1,5 +1,7 @@
 import re
-from graphviz import Digraph
+import networkx as nx
+import matplotlib.pyplot as plt
+from collections import deque
 
 class Graph(object):
 	paren_re = re.compile(r'\((.*?)\)')
@@ -7,7 +9,7 @@ class Graph(object):
 	def __init__(self):
 		self.node_list = {}
 		self.open_node_label = 0
-		self.dot = Digraph(comment="graph from HRG")
+		self.graph = nx.Graph()
 
 	def __str__(self):
 		ret = []
@@ -16,13 +18,15 @@ class Graph(object):
 		return " ".join(ret)
 
 	def get_graph(self, out_file):
-		edges = []
+		#edges = []
 		for n in self.node_list:
-			self.dot.node(n, n)
+			self.graph.add_node(n)
 			for c in self.node_list[n].children:
-				edges.append(n + str(c.label))
-		self.dot.edges(edges)
-		self.dot.render(out_file, view=True)
+				#edges.append(n + str(c.label))
+				self.graph.add_edge(n, c.label)
+		
+		nx.draw(self.graph)
+		plt.show()
 
 	def tokenize_graph_file(self, line):
 		tokens = line.split()
@@ -36,15 +40,14 @@ class Graph(object):
 
 	def build_graph(self, file):
 		with open(file) as myfile:
-			stack = []
+			queue = deque()
 			for line in myfile:
 				# left most derivation stack
 				# pop the last item, then push the reverse of current nonterms on stack
 				lhs, rhs = self.tokenize_graph_file(line)
 
-				if not stack:
+				if not queue:
 					# start of tree file
-					nonterms = []
 					for rhs_node in rhs:
 						edge_group = []
 						for n in rhs_node[0]:
@@ -53,20 +56,19 @@ class Graph(object):
 								self.open_node_label += 1
 							edge_group.append(self.node_list[n])
 						if rhs_node[1] == 'N':
-							nonterms.append(edge_group)
+							queue.append(edge_group)
 						# add edges 
 						for i, n_u in enumerate(edge_group):
 							for n_v in edge_group[i+1:]:
 								n_u.add_child(n_v)
 								n_v.add_child(n_u)
-					nonterms.reverse()
-					stack.extend(nonterms)
 				else:
 					#print(stack)
-					start_clique = stack.pop()
+					start_clique = queue.popleft()
 					lhs, rhs = self.tokenize_graph_file(line)
 					lhs = lhs.split(",")
 					lhs_map = {}
+
 					for key, node in zip(lhs, start_clique):
 						lhs_map[key] = node
 
@@ -84,14 +86,12 @@ class Graph(object):
 									self.open_node_label += 1
 								edge_group.append(new_node_map[int(n)])
 						if rhs_node[1] == 'N':
-							nonterms.append(edge_group)
+							queue.append(edge_group)
 						# add edges
 						for i, n_u in enumerate(edge_group):
 							for n_v in edge_group[i+1:]:
 								n_u.add_child(n_v)
-								n_v.add_child(n_u)	
-					nonterms.reverse()
-					stack.extend(nonterms)					
+								n_v.add_child(n_u)						
 
 class Node(object):
 	def __init__(self, label, children):
