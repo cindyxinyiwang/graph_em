@@ -105,14 +105,17 @@ class Grammar(object):
 	def get_valid_rules(self, cv):
 		# return all rules with positive probability
 		count = 0
+		total = 0
 		rules = []
 		for lhs in self.rule_dict:
 			for rhs, prob in self.rule_dict[lhs].items():
+				total += 1
 				hrg = cv.get_orig_cfg(lhs, rhs)
 				if prob > 0:
 					#rules.append(("r" + str(count), lhs, rhs.split(), prob))
 					rules.append(("r" + str(count), hrg, prob))
 					count += 1
+		print ("total number of original rules", str(total))
 		return rules
 
 class TreeNode(object):
@@ -280,6 +283,10 @@ class EM(object):
 	def __init__(self, gram, tree):
 		self.gram = gram
 		self.tree = tree
+		for x in self.gram.rule_dict:
+			r_rules = self.gram.rule_dict[x]
+			for r in r_rules:
+				self.gram.rule_dict[x][r] = np.log(self.gram.rule_dict[x][r])
 
 	def get_nonterm_num(self, string):
 		# get how many numbers the nonterminal contains
@@ -293,7 +300,7 @@ class EM(object):
 		for s in self.gram.rule_dict:
 			self.f_rules[s] = {}
 			for r in self.gram.rule_dict[s]:
-				self.f_rules[s][r] = 0.0
+				self.f_rules[s][r] = -float("inf")
 
 		self.loglikelihood = 0
 		self.inside = {}
@@ -313,7 +320,7 @@ class EM(object):
 					for i in xrange(1, self.gram.k+1):
 						node_nonterm.add(n.val + "_" + str(i))
 				for x in self.gram.alphabet:
-					self.inside[n][x] = 0.0
+					self.inside[n][x] = -float("inf")
 					if x not in node_nonterm:
 						continue
 					l_children = len(n.children)
@@ -327,10 +334,10 @@ class EM(object):
 								if xi == "t":
 									continue
 								else:
-									tmp = 0
+									tmp = -float("inf")
 									break
-							tmp = tmp * self.inside[ni][xi]
-						self.inside[n][x] += tmp
+							tmp += self.inside[ni][xi]
+						self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
 		"""
 		for l, probs in self.inside.items():
 			for r, p in probs.items():
@@ -341,10 +348,10 @@ class EM(object):
 		level_tree_nodes = OrderedDict(sorted(level_tree_nodes.items()))
 		self.outside[level_tree_nodes[0][0]] = {}
 		for x in self.gram.alphabet:
-			self.outside[level_tree_nodes[0][0]][x] = 0.0
-		self.outside[level_tree_nodes[0][0]][self.gram.start] = 1.0
+			self.outside[level_tree_nodes[0][0]][x] = -float("inf")
+		self.outside[level_tree_nodes[0][0]][self.gram.start] = 0.0
 
-		self.loglikelihood = np.log(self.inside[level_tree_nodes[0][0]][self.gram.start])
+		self.loglikelihood = self.inside[level_tree_nodes[0][0]][self.gram.start]
 
 		for level in level_tree_nodes:
 			for n in level_tree_nodes[level]:
@@ -367,9 +374,9 @@ class EM(object):
 							if ni not in self.outside:
 								self.outside[ni] = {}
 								for x_p in self.gram.alphabet:
-									self.outside[ni][x_p] = 0.0
+									self.outside[ni][x_p] = - float("inf")
 							#print self.inside[ni][xi], product, prob
-							product = 1.0
+							product = 0.0
 							#print [c.val for c in n.children]
 							for ni_p, xi_p in zip(n.children, rhs):
 								if ni_p.val == "t":
@@ -379,9 +386,10 @@ class EM(object):
 										product = 0
 										break
 								if ni != ni_p:
-									product = self.inside[ni_p][xi_p] * product
+									product += self.inside[ni_p][xi_p]
 							#self.outside[ni][xi] += self.outside[n][x] * prob * product / self.inside[ni][xi]
-							self.outside[ni][xi] += self.outside[n][x] * prob * product
+							t = self.outside[n][x] + prob + product
+							self.outside[ni][xi] = np.logaddexp(t, self.outside[ni][xi])
 		
 		#print self.outside
 		# get expected counts
@@ -402,36 +410,44 @@ class EM(object):
 						rhs = rhs.split()
 						if len(rhs) != l_children:
 							continue
-						tmp = prob * self.outside[n][x]
+						tmp = prob + self.outside[n][x]
 						for ni, xi in zip(n.children, rhs):
 							if ni.val == "t":
 								if xi == "t":
 									continue
 								else:
-									tmp = 0
+									tmp = -float("inf")
 									break
-							tmp *= self.inside[ni][xi]
+							tmp += self.inside[ni][xi]
 						#print x, rhs
 						#print self.gram.rule_dict[x]
-						self.f_rules[x][" ".join(rhs)] += tmp
+						self.f_rules[x][" ".join(rhs)] = np.logaddexp(tmp, self.f_rules[x][" ".join(rhs)])
 		#print self.f_rules
 
 	def maximize(self):
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			r_expects = self.f_rules[x]
-			sum_x = 0
+			sum_x = None
 			for s in r_expects:
-				sum_x += r_expects[s]
+				if sum_x is None:
+					sum_x = r_expects[s]
+				else:
+					sum_x = np.logaddexp(sum_x, r_expects[s])
 
 			for r in r_rules:
-				self.gram.rule_dict[x][r] = r_expects[r]/sum_x
+				self.gram.rule_dict[x][r] = r_expects[r] - sum_x
+				#print self.gram.rule_dict[x][r]
 
 	def iterations(self, iteration):
 		for i in xrange(iteration):
 			self.expect()
 			self.maximize()
 			print self.loglikelihood
+		for x in self.gram.rule_dict:
+			r_rules = self.gram.rule_dict[x]
+			for r in r_rules:
+				self.gram.rule_dict[x][r] = np.exp(self.gram.rule_dict[x][r])
 
 def plot_nonterm_stats(nonterm_size_dic):
 	nonterm_groups = {}
@@ -466,6 +482,73 @@ def choice(values, p):
 	i = bisect(cum_weights, x)
 	return values[i]
 
+def grow_graph_with_root(grammar_dict, root_symbol, out_file):
+	graph_rules = []
+	graph_file = open(out_file, "w")
+
+	queue = deque([root_symbol])
+	while queue:
+		lhs = queue.popleft()
+		rhs = choice(grammar_dict[lhs].keys(), grammar_dict[lhs].values())
+		#print (rhs)
+		for t in rhs[:-1]:
+			if not t.endswith("T"):
+				toks = t.split("_")
+				print (toks)
+				queue.append("N" + str(len(toks[0].split(","))) + "_" + toks[1])
+		graph_rules.append((lhs, rhs, grammar_dict[lhs][rhs]))
+
+	print graph_rules
+
+	i = 0
+	for lhs, rhs, prob in graph_rules:
+		if i == 0:
+			new_lhs = lhs
+			graph_file.write("(%s) -> " % (new_lhs))
+			i += 1
+		else:
+			node_count = int(lhs.split("_")[0][1])
+			nonterm_idx = lhs.split("_")[1]
+			new_lhs = []
+			for i in range(node_count):
+				new_lhs.append(chr(ord('a') + i))
+			new_lhs = ",".join(new_lhs)
+			graph_file.write("(%s)_%s -> " % (new_lhs, nonterm_idx))
+		for t in rhs[:-1]:
+			graph_file.write("(%s)" % t)
+			#if t.endswith("T"):
+			#	graph_file.write("(%s)" % t)
+			#else:
+			#	t = t.split(":")
+			#	graph_file.write("(%s:%s)" % (t[0], "N"))
+		graph_file.write(" " + rhs[-1])
+		graph_file.write("\n")
+
+	graph_file.close()
+
+def grow_nonterminal_graphs(grammar, out_dir):
+	# convert grammar format
+	grammar_dict = {}
+	nonterms = set()
+	versions = set()
+	for id, rules, prob in grammar:
+		lhs, rhs = rules[0], rules[1]
+		rhs.append(id)
+		if lhs == '(S)':
+			new_lhs = 'S'
+		else:
+			toks = lhs.split("_")
+			n_type, v_type = str(len(toks[0].split(","))), toks[1]
+			new_lhs = "N" + n_type + "_" + v_type
+			nonterms.add(n_type)
+			versions.add(v_type)
+		if new_lhs not in grammar_dict:
+			grammar_dict[new_lhs] = {}
+		grammar_dict[new_lhs][tuple(rhs)] = prob
+	for i in range(1, len(versions) + 1):
+		for j in range(1, len(nonterms) + 1):
+			grow_graph_with_root(grammar_dict, 'N%d_%d' % (j, i), '%s/N%d_%d.txt' % (out_dir, j, i))
+
 def grow_graph(grammar):
 	grammar_dict = {}
 	graph_rules = []
@@ -497,19 +580,22 @@ def grow_graph(grammar):
 	for lhs, rhs, prob in graph_rules:
 		if lhs == 'S':
 			new_lhs = lhs
+			graph_file.write("(%s) -> " % (new_lhs))
 		else:
 			node_count = int(lhs.split("_")[0][1])
+			nonterm_idx = lhs.split("_")[1]
 			new_lhs = []
 			for i in range(node_count):
 				new_lhs.append(chr(ord('a') + i))
 			new_lhs = ",".join(new_lhs)
-		graph_file.write("(%s) -> " % new_lhs)
+			graph_file.write("(%s)_%s -> " % (new_lhs, nonterm_idx))
 		for t in rhs[:-1]:
-			if t.endswith("T"):
-				graph_file.write("(%s)" % t)
-			else:
-				t = t.split(":")
-				graph_file.write("(%s:%s)" % (t[0], "N"))
+			graph_file.write("(%s)" % t)
+			#if t.endswith("T"):
+			#	graph_file.write("(%s)" % t)
+			#else:
+			#	t = t.split(":")
+			#	graph_file.write("(%s:%s)" % (t[0], "N"))
 		graph_file.write(" " + rhs[-1])
 		graph_file.write("\n")
 
@@ -520,7 +606,7 @@ if __name__ == "__main__":
 	cv = ConvertRule("decomp_new.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
-	gram = Grammar(cv.rule_dict, 5)
+	gram = Grammar(cv.rule_dict, 2)
 	#gram.printAllRules()
 	
 	#cv.Tree.print_tree()
@@ -562,14 +648,12 @@ if __name__ == "__main__":
 	
 	grammar = em.gram.get_valid_rules(cv)
 
-	#for r in rules:
-	#	print r
-
 	for r in grammar:
 		print r 
 
-	grow_graph(grammar)
-	
+	#grow_graph(grammar)
+
+	grow_nonterminal_graphs(grammar, "out_graphs")
 	#plt.show()
 
 	"""
