@@ -500,12 +500,12 @@ def grow_graph_with_root(grammar_dict, root_symbol, out_file):
 
 	print graph_rules
 
-	i = 0
+	k = 0
 	for lhs, rhs, prob in graph_rules:
-		if i == 0:
+		if k == 0:
 			new_lhs = lhs
 			graph_file.write("(%s) -> " % (new_lhs))
-			i += 1
+			k += 1
 		else:
 			node_count = int(lhs.split("_")[0][1])
 			nonterm_idx = lhs.split("_")[1]

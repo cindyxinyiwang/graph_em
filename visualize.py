@@ -3,6 +3,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from collections import deque
 
+import os
+
 class Graph(object):
 	paren_re = re.compile(r'\((.*?)\)')
 
@@ -17,7 +19,7 @@ class Graph(object):
 			ret.append(str(self.node_list[n]))
 		return " ".join(ret)
 
-	def get_graph(self, out_file):
+	def get_graph(self, out_file, title, plot_count=1, total_count=1, start_figure=False, figure_count=1):
 		#edges = []
 		color_values = []
 		for n in self.node_list:
@@ -30,9 +32,11 @@ class Graph(object):
 			for c in self.node_list[n].children:
 				#edges.append(n + str(c.label))
 				self.graph.add_edge(n, c.label)
-		
+		if start_figure:
+			plt.figure(figure_count)
+		ax = plt.subplot(total_count, 1, plot_count)
+		ax.set_title(title)
 		nx.draw(self.graph, node_color=color_values)
-		plt.show()
 
 	def tokenize_graph_file(self, line):
 		tokens = line.split()
@@ -57,12 +61,14 @@ class Graph(object):
 
 				if not queue:
 					# start of tree file
+					added_node_label = set()
 					for rhs_node in rhs:
 						edge_group = []
 						for n in rhs_node[0]:
-							if int(n) >= self.open_node_label:
+							if n not in added_node_label:
 								self.node_list[n] = Node(n, set())
 								self.open_node_label += 1
+								added_node_label.add(n)
 							edge_group.append(self.node_list[n])
 						if rhs_node[1] != 'T':
 							queue.append(edge_group)
@@ -71,6 +77,13 @@ class Graph(object):
 							for n_v in edge_group[i+1:]:
 								n_u.add_child(n_v)
 								n_v.add_child(n_u)
+					# start symbol is a clique
+					if lhs != 'S':
+						for ni in added_node_label:
+							for nj in added_node_label:
+								if ni != nj:
+									self.node_list[ni].add_child(self.node_list[nj])
+									self.node_list[nj].add_child(self.node_list[ni])
 				else:
 					#print(stack)
 					start_clique = queue.popleft()
@@ -127,9 +140,32 @@ class Node(object):
 		self.nonterm = s
 
 
-if __name__ == "__main__":
+def visualize_dir_pairs(dir_name):
 	graph = Graph()
-	graph.build_graph("graph.txt")
-	graph.get_graph("vis")
+	#graph.build_graph("out_graphs/N5_1.txt")
+	#graph.get_graph("vis")
+
+	graph_files = [(dir_name + "/" + f) for f in os.listdir(dir_name) if os.path.isfile(os.path.join(dir_name, f))]
+	count = 1
+	total_count = len(graph_files)
+	total_plots = 2
+	figure_count = 0
+	start_figure = True
+
+	for f in graph_files:
+		g = Graph()
+		g.build_graph(f)
+		if count % 2 == 1:
+			figure_count += 1
+			start_figure = True
+			plot_count = 1
+		else:
+			start_figure = False
+			plot_count = 2
+		g.get_graph("vis", os.path.basename(f).split(".")[0], plot_count, total_plots, start_figure, figure_count)
+		count += 1
+	plt.show()	
 
 
+if __name__ == "__main__":
+	visualize_dir_pairs("out_graphs")
