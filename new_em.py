@@ -5,9 +5,9 @@ from bisect import bisect
 from collections import deque, OrderedDict
 import numpy as np
 import david as da
-import PHRG.probabilistic_cfg as pcfg
-import PHRG.salPHRG
 import networkx as nx
+
+import visualize
 
 import matplotlib.pyplot as plt
 
@@ -115,8 +115,18 @@ class Grammar(object):
 					#rules.append(("r" + str(count), lhs, rhs.split(), prob))
 					rules.append(("r" + str(count), hrg, prob))
 					count += 1
-		print ("total number of original rules", str(total))
+		print "number of original rules", str(total)
+		print "number of reduced rules", str(count)
 		return rules
+
+	def get_valid_rule_count(self):
+		# return number of rules with positive probability
+		count = 0
+		for lhs in self.rule_dict:
+			for rhs, prob in self.rule_dict[lhs].items():
+				if prob > 0:
+					count += 1
+		return count
 
 class TreeNode(object):
 	def __init__(self, val, children=None):
@@ -124,6 +134,45 @@ class TreeNode(object):
 		self.children = []
 		self.term_count = 0
 		self.counted = False
+		self.num_nodes = -1
+
+		self.left = []
+		self.right = []
+
+	def get_num_nodes(self):
+		"""
+		Get total number of nodes of subtree rooted at current node
+		"""
+		if self.num_nodes >= 0:
+			return self.num_nodes
+		if not self.children:
+			self.num_nodes = 1
+			return 1
+		count = 1
+		for c in self.children:
+			count += c.get_num_nodes()
+		self.num_nodes = count
+		return count
+
+	def print_left_right(self):
+		cur_level = deque([self])
+		next_level = deque()
+		while cur_level:
+			cur = cur_level.popleft()
+			if not cur:
+				sys.stdout.write("||||||")
+				continue
+			sys.stdout.write(cur.val + " ")
+			for child in cur.left:
+				next_level.append(child)
+			#next_level.append(None)
+			for child in cur.right:
+				next_level.append(child)
+			if not cur_level:
+				sys.stdout.write("\n")
+				cur_level = next_level
+				next_level = deque()
+
 
 	def print_tree(self):
 		cur_level = deque([self])
@@ -197,6 +246,7 @@ class ConvertRule(object):
 	def build_rules(self):
 		tree = TreeNode("S")
 		stack = [tree]
+		i = 0
 		with open(self.treefile) as myfile:
 			for line in myfile:
 				rules = line.split()
@@ -213,20 +263,25 @@ class ConvertRule(object):
 
 				self.cfg_to_hrg_map[lhs + "->" + rhs] = hrg
 				#self.cfg_to_hrg_map[] = line
-				"""
+	
 				if not stack:
-					self.tree_list.append(tree)
-					tree = TreeNode("S")
+					#self.tree_list.append(tree)
 					stack = [tree]
-				"""
+
 				parent = stack.pop()
 				
 				add_stack = []
+				rhs_list = []
 				for r in rhs.split():
 					n = TreeNode(r)
 					if r != "t":
 						add_stack.append(n)
 					parent.children.append(n)
+					rhs_list.append(n)
+				if parent.left:
+					parent.right = rhs_list
+				else:
+					parent.left = rhs_list
 				add_stack.reverse()
 				stack.extend(add_stack)
 		self.Tree = tree
@@ -323,21 +378,34 @@ class EM(object):
 					self.inside[n][x] = -float("inf")
 					if x not in node_nonterm:
 						continue
-					l_children = len(n.children)
+					
 					for rhs, prob in self.gram.rule_dict[x].items():
 						rhs = rhs.split()
-						if len(rhs) != l_children:
-							continue
-						tmp = prob
-						for ni, xi in zip(n.children, rhs):
-							if ni.val == "t":
-								if xi == "t":
-									continue
-								else:
-									tmp = -float("inf")
-									break
-							tmp += self.inside[ni][xi]
-						self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
+						l_children = len(n.left)
+						if len(rhs) == l_children:
+							tmp = prob
+							for ni, xi in zip(n.left, rhs):
+								if ni.val == "t":
+									if xi == "t":
+										continue
+									else:
+										tmp = -float("inf")
+										break
+								tmp += self.inside[ni][xi]
+							self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
+						l_children = len(n.right)
+						if len(rhs) == l_children:
+							tmp = prob
+							for ni, xi in zip(n.right, rhs):
+								if ni.val == "t":
+									if xi == "t":
+										continue
+									else:
+										tmp = -float("inf")
+										break
+								tmp += self.inside[ni][xi]
+							self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
+
 		"""
 		for l, probs in self.inside.items():
 			for r, p in probs.items():
@@ -347,6 +415,7 @@ class EM(object):
 		#print self.inside
 		level_tree_nodes = OrderedDict(sorted(level_tree_nodes.items()))
 		self.outside[level_tree_nodes[0][0]] = {}
+
 		for x in self.gram.alphabet:
 			self.outside[level_tree_nodes[0][0]][x] = -float("inf")
 		self.outside[level_tree_nodes[0][0]][self.gram.start] = 0.0
@@ -355,7 +424,7 @@ class EM(object):
 
 		for level in level_tree_nodes:
 			for n in level_tree_nodes[level]:
-				l_children = len(n.children)
+				
 				node_nonterm = set()
 				if n.val == "S":
 					node_nonterm.add("S")
@@ -368,28 +437,51 @@ class EM(object):
 					for rhs, prob in self.gram.rule_dict[x].items():
 						rhs = rhs.split()
 						#print product
-						if len(rhs) != l_children:
-							continue
-						for ni, xi in zip(n.children, rhs):
-							if ni not in self.outside:
-								self.outside[ni] = {}
-								for x_p in self.gram.alphabet:
-									self.outside[ni][x_p] = - float("inf")
-							#print self.inside[ni][xi], product, prob
-							product = 0.0
-							#print [c.val for c in n.children]
-							for ni_p, xi_p in zip(n.children, rhs):
-								if ni_p.val == "t":
-									if xi_p == "t":
-										continue
-									else:
-										product = 0
-										break
-								if ni != ni_p:
-									product += self.inside[ni_p][xi_p]
-							#self.outside[ni][xi] += self.outside[n][x] * prob * product / self.inside[ni][xi]
-							t = self.outside[n][x] + prob + product
-							self.outside[ni][xi] = np.logaddexp(t, self.outside[ni][xi])
+						l_children = len(n.left)
+						if len(rhs) == l_children:
+							for ni, xi in zip(n.left, rhs):
+								if ni not in self.outside:
+									self.outside[ni] = {}
+									for x_p in self.gram.alphabet:
+										self.outside[ni][x_p] = - float("inf")
+								#print self.inside[ni][xi], product, prob
+								product = self.outside[n][x] + prob
+								#print [c.val for c in n.children]
+								for ni_p, xi_p in zip(n.left, rhs):
+									if ni_p.val == "t":
+										if xi_p == "t":
+											continue
+										else:
+											product = - float("inf")
+											break
+									if ni != ni_p:
+										product += self.inside[ni_p][xi_p]
+								#self.outside[ni][xi] += self.outside[n][x] * prob * product / self.inside[ni][xi]
+								#t = self.outside[n][x] + prob + product
+								self.outside[ni][xi] = np.logaddexp(product, self.outside[ni][xi])
+
+						l_children = len(n.right)
+						if len(rhs) == l_children:
+							for ni, xi in zip(n.right, rhs):
+								if ni not in self.outside:
+									self.outside[ni] = {}
+									for x_p in self.gram.alphabet:
+										self.outside[ni][x_p] = - float("inf")
+								#print self.inside[ni][xi], product, prob
+								product = self.outside[n][x] + prob
+								#print [c.val for c in n.children]
+								for ni_p, xi_p in zip(n.right, rhs):
+									if ni_p.val == "t":
+										if xi_p == "t":
+											continue
+										else:
+											product = - float("inf")
+											break
+									if ni != ni_p:
+										product += self.inside[ni_p][xi_p]
+								#self.outside[ni][xi] += self.outside[n][x] * prob * product / self.inside[ni][xi]
+								#t = self.outside[n][x] + prob + product
+								self.outside[ni][xi] = np.logaddexp(product, self.outside[ni][xi])
 		
 		#print self.outside
 		# get expected counts
@@ -402,26 +494,43 @@ class EM(object):
 					for i in xrange(1, self.gram.k+1):
 						node_nonterm.add(n.val + "_" + str(i))
 
-				l_children = len(n.children)
+				
 				for x in self.gram.alphabet:
 					if x not in node_nonterm:
 						continue
 					for rhs, prob in self.gram.rule_dict[x].items():
 						rhs = rhs.split()
-						if len(rhs) != l_children:
-							continue
-						tmp = prob + self.outside[n][x]
-						for ni, xi in zip(n.children, rhs):
-							if ni.val == "t":
-								if xi == "t":
-									continue
-								else:
-									tmp = -float("inf")
-									break
-							tmp += self.inside[ni][xi]
-						#print x, rhs
-						#print self.gram.rule_dict[x]
-						self.f_rules[x][" ".join(rhs)] = np.logaddexp(tmp, self.f_rules[x][" ".join(rhs)])
+
+						l_children = len(n.left)
+						if len(rhs) == l_children:
+							tmp = prob + self.outside[n][x]
+							for ni, xi in zip(n.left, rhs):
+								if ni.val == "t":
+									if xi == "t":
+										continue
+									else:
+										tmp = -float("inf")
+										break
+								tmp += self.inside[ni][xi]
+							#print x, rhs
+							#print self.gram.rule_dict[x]
+							self.f_rules[x][" ".join(rhs)] = np.logaddexp(tmp, self.f_rules[x][" ".join(rhs)])
+						
+						l_children = len(n.right)
+						if len(rhs) == l_children:
+							tmp = prob + self.outside[n][x]
+							for ni, xi in zip(n.right, rhs):
+								if ni.val == "t":
+									if xi == "t":
+										continue
+									else:
+										tmp = -float("inf")
+										break
+								tmp += self.inside[ni][xi]
+							#print x, rhs
+							#print self.gram.rule_dict[x]
+							self.f_rules[x][" ".join(rhs)] = np.logaddexp(tmp, self.f_rules[x][" ".join(rhs)])
+
 		#print self.f_rules
 
 	def maximize(self):
@@ -443,11 +552,18 @@ class EM(object):
 		for i in xrange(iteration):
 			self.expect()
 			self.maximize()
-			print self.loglikelihood
+			print "log likelihood: ", self.loglikelihood
+
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
 				self.gram.rule_dict[x][r] = np.exp(self.gram.rule_dict[x][r])
+
+		print "tree nodes: ", self.tree.get_num_nodes()
+		print "grammar size: ", self.gram.get_valid_rule_count()
+		# get BIC = -2 * L + k * ln(N)
+		bic = -2 * self.loglikelihood + self.gram.get_valid_rule_count() * np.log(self.tree.get_num_nodes())
+		print "bic: ", bic
 
 def plot_nonterm_stats(nonterm_size_dic):
 	nonterm_groups = {}
@@ -494,12 +610,9 @@ def grow_graph_with_root(grammar_dict, root_symbol, out_file):
 		for t in rhs[:-1]:
 			if not t.endswith("T"):
 				toks = t.split("_")
-				print (toks)
 				queue.append("N" + str(len(toks[0].split(","))) + "_" + toks[1])
 		graph_rules.append((lhs, rhs, grammar_dict[lhs][rhs]))
-
-	print graph_rules
-
+	#print graph_rules
 	k = 0
 	for lhs, rhs, prob in graph_rules:
 		if k == 0:
@@ -574,9 +687,7 @@ def grow_graph(grammar):
 				toks = t.split("_")
 				queue.append("N" + str(len(toks[0].split(","))) + "_" + toks[1])
 		graph_rules.append((lhs, rhs, grammar_dict[lhs][rhs]))
-
-	print graph_rules
-
+	#print graph_rules
 	for lhs, rhs, prob in graph_rules:
 		if lhs == 'S':
 			new_lhs = lhs
@@ -603,7 +714,7 @@ def grow_graph(grammar):
 
 
 if __name__ == "__main__":
-	cv = ConvertRule("decomp_new.txt")
+	cv = ConvertRule("data/amazon_left_derive.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
 	gram = Grammar(cv.rule_dict, 2)
@@ -612,13 +723,9 @@ if __name__ == "__main__":
 	#cv.Tree.print_tree()
 	em = EM(gram, cv.Tree)
 	em.iterations(50)
-	"""
-	rules, term_count, tree = em.gram.sample()
-	count_dict = {}
-	tree.get_term_count(count_dict)
-	print count_dict
 
 	"""
+	# sample graph size
 	graph_size_counts = []
 	rules = []
 	
@@ -652,49 +759,8 @@ if __name__ == "__main__":
 		print r 
 
 	#grow_graph(grammar)
-
+	"""
+	grammar = em.gram.get_valid_rules(cv)
 	grow_nonterminal_graphs(grammar, "out_graphs")
+	visualize.dir_node_count("out_graphs")
 	#plt.show()
-
-	"""
-	rules_dict = {}
-	i = 0
-	for lhs, rule_dic in em.gram.rule_dict.items():
-		for rhs, prob in rule_dic.items():
-			i += 1
-			#rules.append(("r"+str(i), lhs, rhs.split(), prob))
-			rules_dict["r"+str(i)] = ("r"+str(i), lhs, rhs.split(), prob)
-
-	sample_gram = da.Grammar('S')
-	for (id, lhs, rhs, prob) in rules_dict.values():
-		sample_gram.add_rule(da.Rule(id, lhs, rhs, prob, False))
-
-	sample_gram.set_max_size(20)
-	samp = sample_gram.sample(20)
-	for id in samp:
-		print rules_dict[id]
-	"""
-
-	"""
-	rules_dict = {}
-	i = 0
-	for lhs, rule_dic in em.gram.rule_dict.items():
-		for rhs, prob in rule_dic.items():
-			i += 1
-			#rules.append(("r"+str(i), lhs, rhs.split(), prob))
-			rules_dict["r"+str(i)] = ("r"+str(i), lhs, rhs.split(), prob)
-
-	sample_gram = pcfg.Grammar('S')
-	for (id, lhs, rhs, prob) in rules_dict.values():
-		# sample_gram.add_rule(pcfg.Rule(id, lhs, rhs, prob, False))
-		sample_gram.add_rule(pcfg.Rule(id, lhs, rhs, prob))
-
-	sample_gram.set_max_size(34)
-	samp = sample_gram.sample(34)
-	# for id in samp:
-	#	 print rules_dict[id]
-	# # 
-	hstar = salPHRG.grow(samp, sample_gram)[0]
-
-	print nx.info(hstar) 
-	"""
