@@ -141,7 +141,7 @@ class Node(object):
 
 
 def visualize_dir_pairs(dir_name):
-	graph = Graph()
+	#graph = Graph()
 	#graph.build_graph("out_graphs/N5_1.txt")
 	#graph.get_graph("vis")
 
@@ -165,6 +165,22 @@ def visualize_dir_pairs(dir_name):
 		g.get_graph("vis", os.path.basename(f).split(".")[0], plot_count, total_plots, start_figure, figure_count)
 		count += 1
 	plt.show()	
+
+
+def dir_node_count(dir_name):
+	graph_files = [(dir_name + "/" + f) for f in os.listdir(dir_name) if os.path.isfile(os.path.join(dir_name, f))]
+	count = 1
+	total_count = len(graph_files)
+	total_plots = 2
+	figure_count = 0
+	start_figure = True
+
+	node_dic = {}
+	for f in graph_files:
+		g = Graph()
+		g.build_graph(f)
+		node_dic[os.path.basename(f).split(".")[0]] = len(g.node_list)
+	return node_dic
 
 
 if __name__ == "__main__":
