@@ -557,6 +557,7 @@ class EM(object):
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
+				#print self.gram.rule_dict[x][r], np.exp(self.gram.rule_dict[x][r])
 				self.gram.rule_dict[x][r] = np.exp(self.gram.rule_dict[x][r])
 
 		print "tree nodes: ", self.tree.get_num_nodes()
@@ -564,6 +565,8 @@ class EM(object):
 		# get BIC = -2 * L + k * ln(N)
 		bic = -2 * self.loglikelihood + self.gram.get_valid_rule_count() * np.log(self.tree.get_num_nodes())
 		print "bic: ", bic
+		aic = -2 * self.loglikelihood + 2 * self.gram.get_valid_rule_count()
+		print "aic: ", aic
 
 def plot_nonterm_stats(nonterm_size_dic):
 	nonterm_groups = {}
@@ -612,7 +615,7 @@ def grow_graph_with_root(grammar_dict, root_symbol, out_file):
 				toks = t.split("_")
 				queue.append("N" + str(len(toks[0].split(","))) + "_" + toks[1])
 		graph_rules.append((lhs, rhs, grammar_dict[lhs][rhs]))
-	#print graph_rules
+
 	k = 0
 	for lhs, rhs, prob in graph_rules:
 		if k == 0:
@@ -620,7 +623,7 @@ def grow_graph_with_root(grammar_dict, root_symbol, out_file):
 			graph_file.write("(%s) -> " % (new_lhs))
 			k += 1
 		else:
-			node_count = int(lhs.split("_")[0][1])
+			node_count = int(lhs.split("_")[0][1:])
 			nonterm_idx = lhs.split("_")[1]
 			new_lhs = []
 			for i in range(node_count):
@@ -714,7 +717,7 @@ def grow_graph(grammar):
 
 
 if __name__ == "__main__":
-	cv = ConvertRule("data/amazon_left_derive.txt")
+	cv = ConvertRule("data/enron_left_derive.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
 	gram = Grammar(cv.rule_dict, 2)
@@ -722,9 +725,8 @@ if __name__ == "__main__":
 	
 	#cv.Tree.print_tree()
 	em = EM(gram, cv.Tree)
-	em.iterations(50)
+	em.iterations(100)
 
-	"""
 	# sample graph size
 	graph_size_counts = []
 	rules = []
@@ -742,25 +744,29 @@ if __name__ == "__main__":
 			nonterm_ave_size_dic[t].append(term_count_dict[t] / float(nonterm_count_dict[t]))
 		graph_size_counts.append(term_count)
 
-	plot_nonterm_stats(nonterm_ave_size_dic)
-	plot_nonterm_stats(nonterm_size_dic)
+	#plot_nonterm_stats(nonterm_ave_size_dic)
+	#plot_nonterm_stats(nonterm_size_dic)
 
 	graph_size_counts.sort()
+	print "graph size mean: ", np.mean(graph_size_counts), "graph size std: ", np.std(graph_size_counts)
 
   	fig = plt.figure()
 	ax = fig.add_subplot(111)
 	ax.set_xlabel('size of tree')
 	ax.set_ylabel('count')
 	ax.hist(graph_size_counts, bins=[i for i in xrange(100)])
-	
+
 	grammar = em.gram.get_valid_rules(cv)
 
-	for r in grammar:
-		print r 
+	#for r in grammar:
+	#	print r 
 
-	#grow_graph(grammar)
-	"""
+	grow_graph(grammar)
+
+
 	grammar = em.gram.get_valid_rules(cv)
 	grow_nonterminal_graphs(grammar, "out_graphs")
-	visualize.dir_node_count("out_graphs")
+	#visualize.dir_node_count("out_graphs")
 	#plt.show()
+
+	

@@ -1,2 +1,4 @@
 *.pyc
 out_graphs
+data
+nonterm_graphs

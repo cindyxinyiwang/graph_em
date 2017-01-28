@@ -34,9 +34,14 @@ class Graph(object):
 				self.graph.add_edge(n, c.label)
 		if start_figure:
 			plt.figure(figure_count)
+
+		#pos = nx.spectral_layout(self.graph)
+		#pos = nx.circular_layout(self.graph)
+		#pos = nx.shell_layout(self.graph)
+		pos = nx.fruchterman_reingold_layout(self.graph)
 		ax = plt.subplot(total_count, 1, plot_count)
 		ax.set_title(title)
-		nx.draw(self.graph, node_color=color_values)
+		nx.draw(self.graph, pos=pos, node_color=color_values)
 
 	def tokenize_graph_file(self, line):
 		tokens = line.split()
