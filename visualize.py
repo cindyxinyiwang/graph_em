@@ -22,6 +22,7 @@ class Graph(object):
 	def get_graph(self, out_file, title, plot_count=1, total_count=1, start_figure=False, figure_count=1):
 		#edges = []
 		color_values = []
+		"""
 		for n in self.node_list:
 			self.graph.add_node(n)
 			if self.node_list[n].nonterm == 'N2_1':
@@ -32,6 +33,7 @@ class Graph(object):
 			for c in self.node_list[n].children:
 				#edges.append(n + str(c.label))
 				self.graph.add_edge(n, c.label)
+		"""
 		if start_figure:
 			plt.figure(figure_count)
 
@@ -122,7 +124,13 @@ class Graph(object):
 						for i, n_u in enumerate(edge_group):
 							for n_v in edge_group[i+1:]:
 								n_u.add_child(n_v)
-								n_v.add_child(n_u)						
+								n_v.add_child(n_u)
+
+		for n in self.node_list:
+			self.graph.add_node(n)
+			for c in self.node_list[n].children:
+				#edges.append(n + str(c.label))
+				self.graph.add_edge(n, c.label)						
 
 class Node(object):
 	def __init__(self, label, children):
