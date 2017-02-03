@@ -1,5 +1,7 @@
 import re
 import sys
+sys.path.insert(0, 'script/')
+
 from random import random
 from bisect import bisect
 from collections import deque, OrderedDict

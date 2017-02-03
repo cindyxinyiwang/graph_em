@@ -1,5 +1,7 @@
 import re
 import sys
+sys.path.insert(0, 'script/')
+
 from random import random
 from bisect import bisect
 
@@ -10,6 +12,9 @@ from collections import deque
 
 import visualize
 import net_metrics as nm
+import net_metrics_final as metrics
+import metrics as new_metrics
+import graph_sampler as gs
 
 import matplotlib.pyplot as plt
 
@@ -17,7 +22,7 @@ import matplotlib.pyplot as plt
 
 def plot_nonterm_stats(nonterm_size_dic):
 	nonterm_groups = {}
-	for n in nonterm_ave_size_dic.keys():
+	for n in nonterm_size_dic.keys():
 		base = n.split("_")[0]
 		if not base in nonterm_groups:
 			nonterm_groups[base] = []
@@ -27,7 +32,7 @@ def plot_nonterm_stats(nonterm_size_dic):
 		nonterms = nonterm_groups[base]
 		for n in nonterms:
 			print (n, "mean: ", np.mean(nonterm_size_dic[n]), "std: ", np.std(nonterm_size_dic[n]))
-			print nonterm_size_dic[n]
+			#print nonterm_size_dic[n]
 	"""
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
@@ -157,30 +162,17 @@ def grow_graph(grammar_dict):
 	return g.graph
 
 
-if __name__ == "__main__":
-	G = nx.read_edgelist("prepare_tree_rules/data/enron_con.txt", comments="#")
-
-	cv = new_em.ConvertRule("data/enron_left_derive.txt")
-	#for tree in cv.tree_list:
-	#	tree.print_tree()
-	gram = new_em.Grammar(cv.rule_dict, 2)
-	#gram.printAllRules()
-	
-	#cv.Tree.print_tree()
-	em = new_em.EM(gram, cv.Tree)
-	em.iterations(100)
-
+def sample_stats(grammar):
 	# sample graph size
 	graph_size_counts = []
 	rules = []
 	
-	"""
 	nonterm_ave_size_dic = {}
 	nonterm_size_dic = {}
 	for i in xrange(100):
 		term_count_dict = {}
 		nonterm_count_dict = {}
-		rules, term_count, tree = em.gram.sample()
+		rules, term_count, tree = grammar.sample()
 		tree.get_term_count(term_count_dict, nonterm_count_dict, nonterm_size_dic)
 		for t in term_count_dict:
 			if t not in nonterm_ave_size_dic:
@@ -188,7 +180,7 @@ if __name__ == "__main__":
 			nonterm_ave_size_dic[t].append(term_count_dict[t] / float(nonterm_count_dict[t]))
 		graph_size_counts.append(term_count)
 
-	#plot_nonterm_stats(nonterm_ave_size_dic)
+	plot_nonterm_stats(nonterm_ave_size_dic)
 	#plot_nonterm_stats(nonterm_size_dic)
 
 	graph_size_counts.sort()
@@ -199,16 +191,13 @@ if __name__ == "__main__":
 	ax.set_xlabel('size of tree')
 	ax.set_ylabel('count')
 	ax.hist(graph_size_counts, bins=[i for i in xrange(100)])
+
+
+def get_sample_graphs(grammar):
 	"""
-
-
-	grammar = em.gram.get_valid_rules(cv)
-
-	#grow_nonterminal_graphs(grammar, "out_graphs")
-	#visualize.dir_node_count("out_graphs")
-	#plt.show()
-
-	# get graph statistics
+	input: grammar object
+	output: list of sampled networkx graphs
+	"""
 	grammar_dict = {}
 	for id, rules, prob in grammar:
 		lhs, rhs = rules[0], rules[1]
@@ -220,15 +209,44 @@ if __name__ == "__main__":
 			new_lhs = "N" + str(len(toks[0].split(","))) + "_" + toks[1]
 		if new_lhs not in grammar_dict:
 			grammar_dict[new_lhs] = {}
-		grammar_dict[new_lhs][tuple(rhs)] = prob
-
+		grammar_dict[new_lhs][tuple(rhs)] = prob	
 	Gstar = []
 	Dstar = []
 	Gstargl = []
 	Ggl = []
 	for run in xrange(20):
-		Gstar.append(grow_graph(grammar_dict))
-	print Gstar[0]
-	nm.draw_degree_rank_plot(G, Gstar)
-	nm.draw_network_value(G, Gstar)
-	nm.draw_hop_plot(G, Gstar)
+		nG = grow_graph(grammar_dict)
+		Gstar.append(nG)
+	return Gstar
+
+if __name__ == "__main__":
+	G = nx.read_edgelist("prepare_tree_rules/data/enron_con.txt", comments="#")
+	G.remove_edges_from(G.selfloop_edges())
+
+	cv = new_em.ConvertRule("data/enron_left_derive.txt")
+	#for tree in cv.tree_list:
+	#	tree.print_tree()
+	gram = new_em.Grammar(cv.rule_dict, 4)
+
+	em = new_em.EM(gram, cv.Tree)
+	em.iterations(100)
+
+	grammar = em.gram.get_valid_rules(cv)
+
+	#grow_nonterminal_graphs(grammar, "out_graphs")
+	#visualize.dir_node_count("out_graphs")
+	#plt.show()
+
+	#sample_stats(em.gram)
+	Gstar2 = get_sample_graphs(grammar)
+
+	gram = new_em.Grammar(cv.rule_dict, 1)
+	em = new_em.EM(gram, cv.Tree)
+	em.iterations(100)
+	Gstar1 = get_sample_graphs(em.gram.get_valid_rules(cv))
+
+	new_metrics.network_properties([G], Gstar1, Gstar2)
+
+
+
+

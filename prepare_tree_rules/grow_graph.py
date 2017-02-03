@@ -8,7 +8,7 @@ def prepare_tree_decomp(G, left_derive_file_name):
 	#print p_rules.items[0]
 
 if __name__ == "__main__":
-	G = nx.read_edgelist("data/enron_con.txt", comments="#")
+	G = nx.read_edgelist("data/com-dblp.ungraph.txt", comments="#")
 	nx.draw(G)
 	plt.show()
-	prepare_tree_decomp(G, "enron_left_derive.txt")
+	prepare_tree_decomp(G, "dblp_left_derive.txt")

@@ -1,4 +1,7 @@
 import re
+import sys
+sys.path.insert(0, 'script/')
+
 import networkx as nx
 import matplotlib.pyplot as plt
 from collections import deque
