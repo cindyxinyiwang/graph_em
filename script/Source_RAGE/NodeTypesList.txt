@@ -1,0 +1,10 @@
+1 longname_type_big big
+2 longname_type_med med
+3 longname_type_med med
+4 longname_type_med med
+5 longname_type_med med
+6 tiny_type_small sml
+7 tiny_type_small sml
+8 tiny_type_small sml
+9 tiny_type_small sml
+10 tiny_type_small sml

@@ -181,7 +181,8 @@ def probabilistic_hrg (G, num_samples=1, n=None):
   if DEBUG: print "--------------------"
 
   for k in prod_rules.iterkeys():
-	if DEBUG: print k
+	#if DEBUG: print k
+	print k
 	s = 0
 	for d in prod_rules[k]:
 	  s += prod_rules[k][d]

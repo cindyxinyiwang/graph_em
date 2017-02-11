@@ -200,6 +200,7 @@ class TreeNode(object):
 		count = 0
 		for c in self.children:
 			count += c.get_term_count(term_count_dic, nonterm_count_dict, nonterm_size_dic)
+
 		self.term_count = count
 		self.counted = True
 

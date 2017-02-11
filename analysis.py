@@ -169,7 +169,7 @@ def sample_stats(grammar):
 	
 	nonterm_ave_size_dic = {}
 	nonterm_size_dic = {}
-	for i in xrange(100):
+	for i in xrange(1000):
 		term_count_dict = {}
 		nonterm_count_dict = {}
 		rules, term_count, tree = grammar.sample()
@@ -180,8 +180,8 @@ def sample_stats(grammar):
 			nonterm_ave_size_dic[t].append(term_count_dict[t] / float(nonterm_count_dict[t]))
 		graph_size_counts.append(term_count)
 
-	plot_nonterm_stats(nonterm_ave_size_dic)
-	#plot_nonterm_stats(nonterm_size_dic)
+	#plot_nonterm_stats(nonterm_ave_size_dic)
+	plot_nonterm_stats(nonterm_size_dic)
 
 	graph_size_counts.sort()
 	print "graph size mean: ", np.mean(graph_size_counts), "graph size std: ", np.std(graph_size_counts)
@@ -219,34 +219,43 @@ def get_sample_graphs(grammar):
 		Gstar.append(nG)
 	return Gstar
 
+
 if __name__ == "__main__":
-	G = nx.read_edgelist("prepare_tree_rules/data/enron_con.txt", comments="#")
+	#G = nx.read_edgelist("prepare_tree_rules/data/enron.txt", comments="#")
+	#G.remove_edges_from(G.selfloop_edges())
+	G = nx.karate_club_graph()
 	G.remove_edges_from(G.selfloop_edges())
 
-	cv = new_em.ConvertRule("data/enron_left_derive.txt")
+	cv = new_em.ConvertRule("prepare_tree_rules/karate_left_derive.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
-	gram = new_em.Grammar(cv.rule_dict, 4)
+	gram = new_em.Grammar(cv.rule_dict, 2)
 
 	em = new_em.EM(gram, cv.Tree)
-	em.iterations(100)
+	em.iterations(20)
 
+	
 	grammar = em.gram.get_valid_rules(cv)
-
 	#grow_nonterminal_graphs(grammar, "out_graphs")
 	#visualize.dir_node_count("out_graphs")
 	#plt.show()
+	sample_stats(em.gram)
+	#get_sample_graphs(grammar)
 
-	#sample_stats(em.gram)
 	Gstar2 = get_sample_graphs(grammar)
+
 
 	gram = new_em.Grammar(cv.rule_dict, 1)
 	em = new_em.EM(gram, cv.Tree)
-	em.iterations(100)
+	em.iterations(20)
 	Gstar1 = get_sample_graphs(em.gram.get_valid_rules(cv))
 
-	new_metrics.network_properties([G], Gstar1, Gstar2)
-
+	#Gstar1 = []
+	#new_metrics.network_properties([G], Gstar1, Gstar2)
+	new_metrics.network_properties_plot([G], 
+		[[Gstar1, Gstar1, Gstar1, Gstar1], [Gstar2, Gstar2, Gstar2, Gstar2]], 
+		['Karate', 'Karate', 'Karate', 'Karate'],
+		'degree')
 
 
 
