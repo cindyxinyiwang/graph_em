@@ -249,6 +249,8 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name,n=None):
 
   graph_checks(G)
 
+  k = num_nodes / 300
+  print "number of samples:", k
   if DEBUG: print
   if DEBUG: print "--------------------"
   if DEBUG: print "-Tree Decomposition-"
@@ -256,7 +258,7 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name,n=None):
   prod_rules = {}
   left_deriv_prod_rules = []
   if num_nodes >= 500:
-	for Gprime in gs.rwr_sample(G, 2, 300):
+	for Gprime in gs.rwr_sample(G, k, 300):
 	  T = td.quickbb(Gprime)
 	  root = list(T)[0]
 	  T = td.make_rooted(T, root)

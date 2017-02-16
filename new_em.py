@@ -114,6 +114,7 @@ class Grammar(object):
 			for rhs, prob in self.rule_dict[lhs].items():
 				total += 1
 				hrg = cv.get_orig_cfg(lhs, rhs)
+				
 				if prob > 0:
 					#rules.append(("r" + str(count), lhs, rhs.split(), prob))
 					rules.append(("r" + str(count), hrg, prob))
@@ -556,8 +557,12 @@ class EM(object):
 		for i in xrange(iteration):
 			self.expect()
 			self.maximize()
+			"""
+			for x in self.gram.rule_dict:
+				for r in self.gram.rule_dict[x]:
+					print x, r, self.gram.rule_dict[x][r]
 			print "log likelihood: ", self.loglikelihood
-
+			"""
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:

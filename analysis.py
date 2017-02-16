@@ -180,8 +180,8 @@ def sample_stats(grammar):
 			nonterm_ave_size_dic[t].append(term_count_dict[t] / float(nonterm_count_dict[t]))
 		graph_size_counts.append(term_count)
 
-	#plot_nonterm_stats(nonterm_ave_size_dic)
-	plot_nonterm_stats(nonterm_size_dic)
+	plot_nonterm_stats(nonterm_ave_size_dic)
+	#plot_nonterm_stats(nonterm_size_dic)
 
 	graph_size_counts.sort()
 	print "graph size mean: ", np.mean(graph_size_counts), "graph size std: ", np.std(graph_size_counts)
@@ -226,10 +226,10 @@ if __name__ == "__main__":
 	G = nx.karate_club_graph()
 	G.remove_edges_from(G.selfloop_edges())
 
-	cv = new_em.ConvertRule("prepare_tree_rules/karate_left_derive.txt")
+	cv = new_em.ConvertRule("prepare_tree_rules/routers_left_derive.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
-	gram = new_em.Grammar(cv.rule_dict, 2)
+	gram = new_em.Grammar(cv.rule_dict, 1)
 
 	em = new_em.EM(gram, cv.Tree)
 	em.iterations(20)
@@ -239,8 +239,9 @@ if __name__ == "__main__":
 	#grow_nonterminal_graphs(grammar, "out_graphs")
 	#visualize.dir_node_count("out_graphs")
 	#plt.show()
-	sample_stats(em.gram)
+	#sample_stats(em.gram)
 	#get_sample_graphs(grammar)
+
 
 	Gstar2 = get_sample_graphs(grammar)
 
@@ -250,8 +251,6 @@ if __name__ == "__main__":
 	em.iterations(20)
 	Gstar1 = get_sample_graphs(em.gram.get_valid_rules(cv))
 
-	#Gstar1 = []
-	#new_metrics.network_properties([G], Gstar1, Gstar2)
 	new_metrics.network_properties_plot([G], 
 		[[Gstar1, Gstar1, Gstar1, Gstar1], [Gstar2, Gstar2, Gstar2, Gstar2]], 
 		['Karate', 'Karate', 'Karate', 'Karate'],
