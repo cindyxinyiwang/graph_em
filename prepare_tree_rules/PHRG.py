@@ -257,7 +257,7 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name,n=None):
   if DEBUG: print "--------------------"
   prod_rules = {}
   left_deriv_prod_rules = []
-  if num_nodes >= 500:
+  if num_nodes < 0:
 	for Gprime in gs.rwr_sample(G, k, 300):
 	  T = td.quickbb(Gprime)
 	  root = list(T)[0]
@@ -273,7 +273,7 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name,n=None):
 	T = binarize(T)
 	root = list(T)[0]
 	root, children = T
-	td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+	td.iter_dfs_visit(T, G, prod_rules, left_deriv_prod_rules)
 
   left_derive_file = open(left_deriv_file_name, 'w')
   for r in left_deriv_prod_rules:

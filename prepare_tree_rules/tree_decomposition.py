@@ -1,6 +1,6 @@
 __author__ = ['Salvador Aguinaga', 'Rodrigo Palacios', 'David Chaing', 'Tim Weninger']
 
-from collections import defaultdict
+from collections import defaultdict, deque
 import itertools
 import networkx as nx
 
@@ -162,6 +162,28 @@ def quickbb(graph, fast=True):
     # Build the tree decomposition
     tree = defaultdict(set)
 
+    def build_iter(order):
+        """
+        iterative build tree process
+        """
+        tree[frozenset(order[-1:])] = set()
+        clique_stack = []
+        for i in xrange(len(order) - 1):
+            v = order[i]
+            clique_stack.append(graph[v])
+            eliminate_node(graph, v)
+
+        for i in xrange(len(order)-2, -1, -1):
+            v = order[i]
+            clique = clique_stack[-1]
+            clique_stack.pop()
+            for tv in tree:
+                if clique.issubset(tv):
+                    break
+            bag = frozenset(clique | {v})
+            tree[bag].add(tv)
+            tree[tv].add(bag)
+
     def build(order):
         if len(order) < 2:
             bag = frozenset(order)
@@ -178,8 +200,10 @@ def quickbb(graph, fast=True):
         tree[bag].add(tv)
         tree[tv].add(bag)
 
-    build(best.order)
+    build_iter(best.order)
     return tree
+
+
 
 
 def make_rooted(graph, u, memo=None):
@@ -203,6 +227,50 @@ def new_visit(datree, graph, prod_rules, left_deriv_prod_rules, indent=0, parent
     for subtree in subtrees:
         tv, subsubtrees = subtree
         new_visit(subtree, G, prod_rules, left_deriv_prod_rules, indent=indent+2, parent=node)
+
+def iter_bsf_visit(datree, graph, prod_rules, left_deriv_prod_rules, parent=None):
+    node, subtrees = datree
+    parent_map = {}
+    cur_level = deque([(datree, parent)])
+    next_level = deque()
+    while cur_level:
+        cur = cur_level.popleft()
+        datree, parent = cur 
+        node, subtrees = datree
+
+        itx = parent & node if parent else set()
+        rhs = get_production_rule(graph, node, itx)
+        s = [list(node & child) for child, _ in subtrees]
+        add_to_prod_rules(prod_rules, left_deriv_prod_rules, itx, rhs, s)
+        for subtree in subtrees:
+            next_level.append((subtree, node))
+
+        if not cur_level:
+            cur_level = next_level
+            next_level = deque()
+
+def iter_dfs_visit(datree, graph, prod_rules, left_deriv_prod_rules, parent=None):
+    stack = [(datree, 0)]
+    while stack:
+        cur = stack[-1]
+        stack.pop()
+        if not stack:
+            parent = None
+        else:
+            parent = stack[-1][0][0]
+        datree, child_index = cur # the child index to visit next
+        node, subtrees = datree
+
+        if child_index == 0:    # if hasn't visited any child yet, 
+            itx = parent & node if parent else set()
+            rhs = get_production_rule(graph, node, itx)
+            s = [list(node & child) for child, _ in subtrees]
+            add_to_prod_rules(prod_rules, left_deriv_prod_rules, itx, rhs, s)
+        if child_index < len(subtrees):
+            stack.append((datree, child_index + 1))
+            stack.append((subtrees[child_index], 0))
+
+
 
 
 def get_production_rule(G, child, itx):

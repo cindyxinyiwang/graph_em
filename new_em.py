@@ -217,7 +217,7 @@ class ConvertRule(object):
 	def __init__(self, tree_file):
 		self.treefile = tree_file
 		self.cfg_to_hrg_map = {}
-		self.Tree = None
+		self.Tree = []
 
 		self.nonterm = set(["S"])
 		self.rule_dict = {}
@@ -270,7 +270,8 @@ class ConvertRule(object):
 				#self.cfg_to_hrg_map[] = line
 	
 				if not stack:
-					#self.tree_list.append(tree)
+					self.Tree.append(tree)
+					tree = TreeNode("S")
 					stack = [tree]
 
 				parent = stack.pop()
@@ -289,7 +290,7 @@ class ConvertRule(object):
 					parent.left = rhs_list
 				add_stack.reverse()
 				stack.extend(add_stack)
-		self.Tree = tree
+		self.Tree.append(tree)
 
 	def get_orig_cfg(self, lhs, rhs):
 		if lhs == "S":
@@ -343,6 +344,7 @@ class EM(object):
 	def __init__(self, gram, tree):
 		self.gram = gram
 		self.tree = tree
+		self.loglikelihood = 0
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
@@ -355,7 +357,7 @@ class EM(object):
 		
 		return int(toks[0][1])
 
-	def expect(self):
+	def expect(self, tree):
 		self.f_rules = {}
 		for s in self.gram.rule_dict:
 			self.f_rules[s] = {}
@@ -366,7 +368,7 @@ class EM(object):
 		self.inside = {}
 		self.outside = {}
 
-		level_tree_nodes = get_level_nodes(self.tree)
+		level_tree_nodes = get_level_nodes(tree)
 		level_tree_nodes = OrderedDict(sorted(level_tree_nodes.items(), reverse=True))
 		for level in level_tree_nodes:
 			for n in level_tree_nodes[level]:
@@ -555,8 +557,10 @@ class EM(object):
 
 	def iterations(self, iteration):
 		for i in xrange(iteration):
-			self.expect()
-			self.maximize()
+			for tree in self.tree:
+				self.expect(tree)
+				self.maximize()
+			print "log likelihood: ", self.loglikelihood
 			"""
 			for x in self.gram.rule_dict:
 				for r in self.gram.rule_dict[x]:
@@ -569,10 +573,10 @@ class EM(object):
 				#print self.gram.rule_dict[x][r], np.exp(self.gram.rule_dict[x][r])
 				self.gram.rule_dict[x][r] = np.exp(self.gram.rule_dict[x][r])
 
-		print "tree nodes: ", self.tree.get_num_nodes()
+		print "tree nodes: ", self.tree[0].get_num_nodes()
 		print "grammar size: ", self.gram.get_valid_rule_count()
 		# get BIC = -2 * L + k * ln(N)
-		bic = -2 * self.loglikelihood + self.gram.get_valid_rule_count() * np.log(self.tree.get_num_nodes())
+		bic = -2 * self.loglikelihood + self.gram.get_valid_rule_count() * np.log(self.tree[0].get_num_nodes())
 		print "bic: ", bic
 		aic = -2 * self.loglikelihood + 2 * self.gram.get_valid_rule_count()
 		print "aic: ", aic

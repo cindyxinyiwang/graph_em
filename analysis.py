@@ -221,15 +221,15 @@ def get_sample_graphs(grammar):
 
 
 if __name__ == "__main__":
-	#G = nx.read_edgelist("prepare_tree_rules/data/enron.txt", comments="#")
+	#G = nx.read_edgelist("prepare_tree_rules/data/rounters.txt", comments="#")
 	#G.remove_edges_from(G.selfloop_edges())
 	G = nx.karate_club_graph()
 	G.remove_edges_from(G.selfloop_edges())
 
-	cv = new_em.ConvertRule("prepare_tree_rules/routers_left_derive.txt")
+	cv = new_em.ConvertRule("prepare_tree_rules/karate_left_derive.txt")
 	#for tree in cv.tree_list:
 	#	tree.print_tree()
-	gram = new_em.Grammar(cv.rule_dict, 1)
+	gram = new_em.Grammar(cv.rule_dict, 2)
 
 	em = new_em.EM(gram, cv.Tree)
 	em.iterations(20)
