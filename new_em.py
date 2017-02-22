@@ -358,13 +358,6 @@ class EM(object):
 		return int(toks[0][1])
 
 	def expect(self, tree):
-		self.f_rules = {}
-		for s in self.gram.rule_dict:
-			self.f_rules[s] = {}
-			for r in self.gram.rule_dict[s]:
-				self.f_rules[s][r] = -float("inf")
-
-		self.loglikelihood = 0
 		self.inside = {}
 		self.outside = {}
 
@@ -419,7 +412,6 @@ class EM(object):
 				if p > 0:
 					self.loglikelihood += np.log(p) 
 		"""
-		#print self.inside
 		level_tree_nodes = OrderedDict(sorted(level_tree_nodes.items()))
 		self.outside[level_tree_nodes[0][0]] = {}
 
@@ -427,7 +419,8 @@ class EM(object):
 			self.outside[level_tree_nodes[0][0]][x] = -float("inf")
 		self.outside[level_tree_nodes[0][0]][self.gram.start] = 0.0
 
-		self.loglikelihood = self.inside[level_tree_nodes[0][0]][self.gram.start]
+		root_inside_likelihood = self.inside[level_tree_nodes[0][0]][self.gram.start]
+		self.loglikelihood += root_inside_likelihood
 
 		for level in level_tree_nodes:
 			for n in level_tree_nodes[level]:
@@ -521,6 +514,7 @@ class EM(object):
 								tmp += self.inside[ni][xi]
 							#print x, rhs
 							#print self.gram.rule_dict[x]
+							tmp -= root_inside_likelihood
 							self.f_rules[x][" ".join(rhs)] = np.logaddexp(tmp, self.f_rules[x][" ".join(rhs)])
 						
 						l_children = len(n.right)
@@ -536,6 +530,7 @@ class EM(object):
 								tmp += self.inside[ni][xi]
 							#print x, rhs
 							#print self.gram.rule_dict[x]
+							tmp -= root_inside_likelihood
 							self.f_rules[x][" ".join(rhs)] = np.logaddexp(tmp, self.f_rules[x][" ".join(rhs)])
 
 		#print self.f_rules
@@ -553,13 +548,20 @@ class EM(object):
 
 			for r in r_rules:
 				self.gram.rule_dict[x][r] = r_expects[r] - sum_x
-				#print self.gram.rule_dict[x][r]
 
 	def iterations(self, iteration):
 		for i in xrange(iteration):
+			self.f_rules = {}
+			for s in self.gram.rule_dict:
+				self.f_rules[s] = {}
+				for r in self.gram.rule_dict[s]:
+					self.f_rules[s][r] = -float("inf")
+			self.loglikelihood = 0
+
 			for tree in self.tree:
 				self.expect(tree)
-				self.maximize()
+				#break
+			self.maximize()
 			print "log likelihood: ", self.loglikelihood
 			"""
 			for x in self.gram.rule_dict:
@@ -570,7 +572,7 @@ class EM(object):
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
-				#print self.gram.rule_dict[x][r], np.exp(self.gram.rule_dict[x][r])
+				#print x, r, np.exp(self.gram.rule_dict[x][r])
 				self.gram.rule_dict[x][r] = np.exp(self.gram.rule_dict[x][r])
 
 		print "tree nodes: ", self.tree[0].get_num_nodes()

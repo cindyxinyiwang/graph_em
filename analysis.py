@@ -221,21 +221,22 @@ def get_sample_graphs(grammar):
 
 
 if __name__ == "__main__":
-	#G = nx.read_edgelist("prepare_tree_rules/data/rounters.txt", comments="#")
+	#G = nx.hypercube_graph(9)
+	G = nx.read_edgelist("prepare_tree_rules/data/rounters.txt", comments="#")
 	#G.remove_edges_from(G.selfloop_edges())
-	G = nx.karate_club_graph()
+	#G = nx.karate_club_graph()
 	G.remove_edges_from(G.selfloop_edges())
 
-	cv = new_em.ConvertRule("prepare_tree_rules/karate_left_derive.txt")
-	#for tree in cv.tree_list:
-	#	tree.print_tree()
+	cv = new_em.ConvertRule("prepare_tree_rules/routers_left_derive_big.txt")
+
 	gram = new_em.Grammar(cv.rule_dict, 2)
 
 	em = new_em.EM(gram, cv.Tree)
 	em.iterations(20)
 
-	
 	grammar = em.gram.get_valid_rules(cv)
+	for r in grammar:
+		print r
 	#grow_nonterminal_graphs(grammar, "out_graphs")
 	#visualize.dir_node_count("out_graphs")
 	#plt.show()
