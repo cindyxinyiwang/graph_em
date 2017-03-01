@@ -220,7 +220,72 @@ def get_sample_graphs(grammar):
 	return Gstar
 
 
+def train_test(train_file, test_file, smooth=True, use_converge=True, split=1, train_iterations=20):
+	"""
+	extract and train a grammar on training file, get log likelihood on test file
+	train_file: training tree left derivation
+	test_file: test tree left derivation
+	smooth: whether to add smoothing on grammar
+	split: number of split for the grammar
+	train_iterations: number of training iterations
+	"""
+	cv_train = new_em.ConvertRule(train_file)
+	cv_test = new_em.ConvertRule(test_file)
+
+	gram = new_em.Grammar(cv_train.rule_dict, split)
+
+	em = new_em.EM(gram, cv_train.Tree)
+	em.iterations(use_converge)
+
+	# smooth grammar probabilities
+	epsilon = 0.
+	added_nonterms = set()
+	test_gram_rules = new_em.Grammar(cv_test.rule_dict, split).rule_dict
+	train_gram_rules = em.gram.rule_dict
+
+	if smooth:
+		#find mininum probability and use that to set epsilon
+		min_prob = float("inf")
+		for lhs in train_gram_rules:
+			for rhs, prob in train_gram_rules[lhs].items():
+				if prob < min_prob and prob > 0:
+					min_prob = prob 
+		epsilon = min_prob
+		print epsilon
+		
+		added_gram_count = 0
+		original_gram_count = sum(map(len, train_gram_rules.values()))
+		for lhs in test_gram_rules:
+			if lhs not in train_gram_rules:
+				train_gram_rules[lhs] = {}
+				added_nonterms.add(lhs)
+			for rhs, prob in test_gram_rules[lhs].items():
+				if rhs not in train_gram_rules[lhs]:
+					train_gram_rules[lhs][rhs] = epsilon
+					added_gram_count += 1
+					added_nonterms.add(rhs)
+			# renormalize
+			total_prob = sum(train_gram_rules[lhs].values())
+			for rhs, prob in train_gram_rules[lhs].items():
+				train_gram_rules[lhs][rhs] = prob / total_prob
+		em.gram.rule_dict = train_gram_rules
+		em.gram.alphabet = em.gram.alphabet.union(added_nonterms)
+
+		print "original grammar count: ", original_gram_count
+		print "added grammar count: ", added_gram_count
+	# get test likelihood
+	em_test = new_em.EM(em.gram, cv_test.Tree)
+	em_test.get_loglikelihood()
+	print em_test.loglikelihood, len(em_test.tree)
+	return em_test.loglikelihood / len(em_test.tree)
+
+
 if __name__ == "__main__":
+	test_loglikelihood = train_test("prepare_tree_rules/routers/200_sub/4_sample/routers_train.txt", 
+		"prepare_tree_rules/routers/200_sub/4_sample/routers_hold.txt", smooth=True, use_converge=True, split=1)
+
+	print "test loglikelihood:", test_loglikelihood
+	"""
 	#G = nx.hypercube_graph(9)
 	G = nx.read_edgelist("prepare_tree_rules/data/rounters.txt", comments="#")
 	#G.remove_edges_from(G.selfloop_edges())
@@ -256,6 +321,7 @@ if __name__ == "__main__":
 		[[Gstar1, Gstar1, Gstar1, Gstar1], [Gstar2, Gstar2, Gstar2, Gstar2]], 
 		['Karate', 'Karate', 'Karate', 'Karate'],
 		'degree')
+	"""
 
 
 

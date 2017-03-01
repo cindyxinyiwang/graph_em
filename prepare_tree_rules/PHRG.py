@@ -231,7 +231,7 @@ def probabilistic_hrg (G, num_samples=1, n=None):
 
 # def probabilistic_hrg_deriving_prod_rules(G, num_samples=1, n=None):
 # hrg_baseline.py
-def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name,n=None):
+def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name, num_samples=4, subgraph_size=500, n=None):
   '''
 	Rule extraction procedure
 
@@ -249,8 +249,8 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name,n=None):
 
   graph_checks(G)
 
-  k = num_nodes / 300
-  print "number of samples:", k * 20
+  #k = num_nodes / 300
+  #print "number of samples:", k * 20
   if DEBUG: print
   if DEBUG: print "--------------------"
   if DEBUG: print "-Tree Decomposition-"
@@ -258,7 +258,7 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name,n=None):
   prod_rules = {}
   left_deriv_prod_rules = []
   if num_nodes >= 500:
-	for Gprime in gs.rwr_sample(G, k * 20, 300):
+	for Gprime in gs.rwr_sample(G, num_samples, subgraph_size):
 	  T = td.quickbb(Gprime)
 	  root = list(T)[0]
 	  T = td.make_rooted(T, root)

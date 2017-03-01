@@ -357,6 +357,59 @@ class EM(object):
 		
 		return int(toks[0][1])
 
+	def get_loglikelihood(self):
+		self.loglikelihood = 0
+		for tree in self.tree:
+			self.inside = {}
+			self.outside = {}
+	
+			level_tree_nodes = get_level_nodes(tree)
+			level_tree_nodes = OrderedDict(sorted(level_tree_nodes.items(), reverse=True))
+			for level in level_tree_nodes:
+				for n in level_tree_nodes[level]:
+					if n not in self.inside:
+						self.inside[n] = {}
+						#print n.val
+					node_nonterm = set()
+					if n.val == "S":
+						node_nonterm.add("S")
+					else:
+						for i in xrange(1, self.gram.k+1):
+							node_nonterm.add(n.val + "_" + str(i))
+					for x in self.gram.alphabet:
+						self.inside[n][x] = -float("inf")
+						if x not in node_nonterm:
+							continue
+						
+						for rhs, prob in self.gram.rule_dict[x].items():
+							rhs = rhs.split()
+							l_children = len(n.left)
+							if len(rhs) == l_children:
+								tmp = prob
+								for ni, xi in zip(n.left, rhs):
+									if ni.val == "t":
+										if xi == "t":
+											continue
+										else:
+											tmp = -float("inf")
+											break
+									tmp += self.inside[ni][xi]
+								self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
+							l_children = len(n.right)
+							if len(rhs) == l_children:
+								tmp = prob
+								for ni, xi in zip(n.right, rhs):
+									if ni.val == "t":
+										if xi == "t":
+											continue
+										else:
+											tmp = -float("inf")
+											break
+									tmp += self.inside[ni][xi]
+								self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
+			self.loglikelihood += self.inside[level_tree_nodes[0][0]][self.gram.start]	
+			print self.inside[level_tree_nodes[0][0]][self.gram.start]	
+
 	def expect(self, tree):
 		self.inside = {}
 		self.outside = {}
@@ -549,30 +602,41 @@ class EM(object):
 			for r in r_rules:
 				self.gram.rule_dict[x][r] = r_expects[r] - sum_x
 
-	def iterations(self, iteration):
-		for i in xrange(iteration):
-			self.f_rules = {}
-			for s in self.gram.rule_dict:
-				self.f_rules[s] = {}
-				for r in self.gram.rule_dict[s]:
-					self.f_rules[s][r] = -float("inf")
-			self.loglikelihood = 0
+	def iterations(self, use_converge, iteration=10,  converge=1):
+		if use_converge:
+			prev_loglikelihood = float("-inf")
+			while True:
+				self.f_rules = {}
+				for s in self.gram.rule_dict:
+					self.f_rules[s] = {}
+					for r in self.gram.rule_dict[s]:
+						self.f_rules[s][r] = -float("inf")
+				self.loglikelihood = 0
+	
+				for tree in self.tree:
+					self.expect(tree)
+				self.maximize()
+				print "log likelihood: ", self.loglikelihood / len(self.tree)
+				if self.loglikelihood / len(self.tree) - prev_loglikelihood < use_converge:
+					break
+				prev_loglikelihood = self.loglikelihood / len(self.tree)
+		else:
+			for i in xrange(iteration):
+				self.f_rules = {}
+				for s in self.gram.rule_dict:
+					self.f_rules[s] = {}
+					for r in self.gram.rule_dict[s]:
+						self.f_rules[s][r] = -float("inf")
+				self.loglikelihood = 0
+	
+				for tree in self.tree:
+					self.expect(tree)
+				self.maximize()
+				print "log likelihood: ", self.loglikelihood / len(self.tree)
 
-			for tree in self.tree:
-				self.expect(tree)
-				#break
-			self.maximize()
-			print "log likelihood: ", self.loglikelihood
-			"""
-			for x in self.gram.rule_dict:
-				for r in self.gram.rule_dict[x]:
-					print x, r, self.gram.rule_dict[x][r]
-			print "log likelihood: ", self.loglikelihood
-			"""
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
-				#print x, r, np.exp(self.gram.rule_dict[x][r])
 				self.gram.rule_dict[x][r] = np.exp(self.gram.rule_dict[x][r])
 
 		print "tree nodes: ", self.tree[0].get_num_nodes()
