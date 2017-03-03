@@ -1,0 +1,759 @@
+subgraph size: 100, train sample size: 8
+
+split:  1
+log likelihood:  -472.809930779
+log likelihood:  -234.331068681
+log likelihood:  -234.331068681
+tree nodes:  263
+grammar size:  137
+bic:  4512.68220131
+aic:  4023.2970989
+9.88131291682e-324
+original grammar count:  137
+added grammar count:  35
+test loglikelihood: -11903.7177317
+log likelihood:  -471.119652115
+log likelihood:  -234.331068681
+log likelihood:  -234.331068681
+tree nodes:  263
+grammar size:  137
+bic:  4512.68220131
+aic:  4023.2970989
+9.88131291682e-324
+original grammar count:  137
+added grammar count:  35
+test loglikelihood: -11903.7177317
+log likelihood:  -493.268931296
+log likelihood:  -234.331068681
+log likelihood:  -234.331068681
+tree nodes:  263
+grammar size:  137
+bic:  4512.68220131
+aic:  4023.2970989
+9.88131291682e-324
+original grammar count:  137
+added grammar count:  35
+test loglikelihood: -11903.7177317
+log likelihood:  -435.255996895
+log likelihood:  -234.331068681
+log likelihood:  -234.331068681
+tree nodes:  263
+grammar size:  137
+bic:  4512.68220131
+aic:  4023.2970989
+9.88131291682e-324
+original grammar count:  137
+added grammar count:  35
+test loglikelihood: -11903.7177317
+log likelihood:  -432.948456776
+log likelihood:  -234.331068681
+log likelihood:  -234.331068681
+tree nodes:  263
+grammar size:  137
+bic:  4512.68220131
+aic:  4023.2970989
+9.88131291682e-324
+original grammar count:  137
+added grammar count:  35
+test loglikelihood: -11903.7177317
+
+split:  2
+log likelihood:  -528.291005387
+log likelihood:  -231.169578411
+log likelihood:  -226.101842621
+log likelihood:  -215.904820987
+log likelihood:  -201.300389203
+log likelihood:  -187.790873547
+log likelihood:  -179.917624983
+log likelihood:  -176.7785993
+log likelihood:  -175.117515583
+log likelihood:  -173.807509777
+log likelihood:  -172.661873474
+log likelihood:  -171.763817385
+tree nodes:  263
+grammar size:  729
+bic:  6810.32136762
+aic:  4206.22107817
+9.88131291682e-324
+original grammar count:  729
+added grammar count:  289
+test loglikelihood: -12102.8728983
+log likelihood:  -510.101708661
+log likelihood:  -230.228780586
+log likelihood:  -224.926369618
+log likelihood:  -215.879300882
+log likelihood:  -202.697511038
+log likelihood:  -189.318119171
+log likelihood:  -180.046184085
+log likelihood:  -175.305657401
+log likelihood:  -172.986513262
+log likelihood:  -171.436268225
+log likelihood:  -169.871643645
+log likelihood:  -168.391785646
+log likelihood:  -166.992816814
+log likelihood:  -165.520623071
+log likelihood:  -164.195535582
+log likelihood:  -163.602247501
+tree nodes:  263
+grammar size:  465
+bic:  5208.68758498
+aic:  3547.63596002
+9.88131291682e-324
+original grammar count:  465
+added grammar count:  413
+test loglikelihood: -12777.6407487
+log likelihood:  -527.895181509
+log likelihood:  -227.151598545
+log likelihood:  -218.325576369
+log likelihood:  -207.809993827
+log likelihood:  -195.958335788
+log likelihood:  -182.776099286
+log likelihood:  -171.482618975
+log likelihood:  -166.974522972
+log likelihood:  -166.16064023
+tree nodes:  263
+grammar size:  931
+bic:  7846.24564764
+aic:  4520.57024368
+9.88131291682e-324
+original grammar count:  931
+added grammar count:  234
+test loglikelihood: -12131.1184009
+log likelihood:  -561.06141989
+log likelihood:  -223.895270142
+log likelihood:  -212.109499065
+log likelihood:  -198.674337183
+log likelihood:  -186.013731424
+log likelihood:  -176.643667914
+log likelihood:  -172.130499427
+log likelihood:  -169.592987083
+log likelihood:  -168.563530833
+log likelihood:  -168.031750701
+tree nodes:  263
+grammar size:  863
+bic:  7497.27694098
+aic:  4414.50801121
+9.88131291682e-324
+original grammar count:  863
+added grammar count:  244
+test loglikelihood: -12473.0113929
+log likelihood:  -520.987901919
+log likelihood:  -231.350274375
+log likelihood:  -226.375128131
+log likelihood:  -215.579629566
+log likelihood:  -199.480940611
+log likelihood:  -187.390281047
+log likelihood:  -183.032738853
+log likelihood:  -181.206055203
+log likelihood:  -179.769254666
+log likelihood:  -178.539263613
+log likelihood:  -177.517076772
+log likelihood:  -176.786481727
+tree nodes:  263
+grammar size:  729
+bic:  6890.68399708
+aic:  4286.58370762
+9.88131291682e-324
+original grammar count:  729
+added grammar count:  283
+test loglikelihood: -12900.037519
+
+split:  3
+log likelihood:  -586.662511591
+log likelihood:  -227.3880263
+log likelihood:  -215.680426194
+log likelihood:  -195.938378252
+log likelihood:  -176.832101833
+log likelihood:  -164.404346402
+log likelihood:  -157.27698268
+log likelihood:  -153.139583521
+log likelihood:  -150.379666994
+log likelihood:  -148.256380905
+log likelihood:  -146.60922996
+log likelihood:  -145.44484055
+log likelihood:  -144.524746686
+tree nodes:  263
+grammar size:  1786
+bic:  12264.2630484
+aic:  5884.39594698
+9.88131291682e-324
+original grammar count:  1786
+added grammar count:  1159
+test loglikelihood: -12945.5385856
+log likelihood:  -560.871956751
+log likelihood:  -225.28807943
+log likelihood:  -214.403914638
+log likelihood:  -199.646018727
+log likelihood:  -182.168237962
+log likelihood:  -167.621575897
+log likelihood:  -158.066343725
+log likelihood:  -151.11833212
+log likelihood:  -147.343394507
+log likelihood:  -145.647733906
+log likelihood:  -144.572271523
+log likelihood:  -143.635030049
+tree nodes:  263
+grammar size:  2191
+bic:  14506.7499653
+aic:  6680.16048079
+9.88131291682e-324
+original grammar count:  2191
+added grammar count:  964
+test loglikelihood: -12883.8403361
+log likelihood:  -585.799024216
+log likelihood:  -216.797361613
+log likelihood:  -199.459454947
+log likelihood:  -183.985964119
+log likelihood:  -174.549889242
+log likelihood:  -167.061222542
+log likelihood:  -160.669134527
+log likelihood:  -155.295454612
+log likelihood:  -150.658274116
+log likelihood:  -146.767064499
+log likelihood:  -143.771152323
+log likelihood:  -141.490856937
+log likelihood:  -140.093950088
+log likelihood:  -139.409290507
+tree nodes:  263
+grammar size:  1426
+bic:  10176.440298
+aic:  5082.54864811
+9.88131291682e-324
+original grammar count:  1426
+added grammar count:  1281
+test loglikelihood: -14500.2779651
+log likelihood:  -569.461808353
+log likelihood:  -225.185914499
+log likelihood:  -210.736551818
+log likelihood:  -190.952583954
+log likelihood:  -175.185404897
+log likelihood:  -165.569464493
+log likelihood:  -160.055234417
+log likelihood:  -156.181001954
+log likelihood:  -153.335704358
+log likelihood:  -151.268802838
+log likelihood:  -149.908421424
+log likelihood:  -148.929882874
+tree nodes:  263
+grammar size:  2091
+bic:  14034.2522073
+aic:  6564.87812598
+9.88131291682e-324
+original grammar count:  2091
+added grammar count:  999
+test loglikelihood: -12961.281776
+log likelihood:  -545.255647788
+log likelihood:  -228.371582612
+log likelihood:  -216.397272607
+log likelihood:  -196.095010423
+log likelihood:  -176.753544242
+log likelihood:  -164.671925635
+log likelihood:  -157.890597912
+log likelihood:  -153.686313961
+log likelihood:  -150.944209119
+log likelihood:  -148.878868288
+log likelihood:  -147.078593487
+log likelihood:  -145.413570665
+log likelihood:  -143.786393305
+log likelihood:  -142.416176503
+log likelihood:  -141.456817824
+tree nodes:  263
+grammar size:  1290
+bic:  9451.3877867
+aic:  4843.30908519
+9.88131291682e-324
+original grammar count:  1290
+added grammar count:  1369
+test loglikelihood: -14889.9364213
+
+split:  4
+log likelihood:  -603.912680756
+log likelihood:  -227.730816896
+log likelihood:  -215.269926757
+log likelihood:  -193.333196024
+log likelihood:  -169.715959425
+log likelihood:  -153.749442071
+log likelihood:  -144.250618322
+log likelihood:  -137.912058975
+log likelihood:  -133.655816015
+log likelihood:  -131.316341033
+log likelihood:  -129.757119016
+log likelihood:  -128.415292981
+log likelihood:  -127.233957165
+log likelihood:  -126.252774892
+tree nodes:  263
+grammar size:  2506
+bic:  15983.8624029
+aic:  7032.04439828
+9.88131291682e-324
+original grammar count:  2506
+added grammar count:  3359
+test loglikelihood: -14083.958781
+log likelihood:  -609.194887686
+log likelihood:  -219.84115107
+log likelihood:  -202.397604223
+log likelihood:  -182.654409768
+log likelihood:  -167.541179208
+log likelihood:  -156.581084404
+log likelihood:  -148.814492978
+log likelihood:  -143.342500467
+log likelihood:  -139.540572483
+log likelihood:  -137.046445484
+log likelihood:  -135.262908881
+log likelihood:  -133.832214512
+log likelihood:  -132.477114983
+log likelihood:  -131.102376653
+log likelihood:  -129.837751101
+log likelihood:  -128.792609382
+log likelihood:  -127.818245091
+tree nodes:  263
+grammar size:  1946
+bic:  12888.5036681
+aic:  5937.09192146
+9.88131291682e-324
+original grammar count:  1946
+added grammar count:  3581
+test loglikelihood: -13802.0258882
+log likelihood:  -619.79504522
+log likelihood:  -227.881284731
+log likelihood:  -217.080928797
+log likelihood:  -197.123865841
+log likelihood:  -174.511368426
+log likelihood:  -156.785169947
+log likelihood:  -146.364070351
+log likelihood:  -140.52410398
+log likelihood:  -136.102223451
+log likelihood:  -132.679797884
+log likelihood:  -130.57042006
+log likelihood:  -129.210531779
+log likelihood:  -128.289906881
+tree nodes:  263
+grammar size:  3541
+bic:  21783.635938
+aic:  9134.6385101
+9.88131291682e-324
+original grammar count:  3541
+added grammar count:  2778
+test loglikelihood: -14228.6508871
+log likelihood:  -650.808689706
+log likelihood:  -225.138401677
+log likelihood:  -212.039202371
+log likelihood:  -190.851684374
+log likelihood:  -170.978053642
+log likelihood:  -158.230151918
+log likelihood:  -150.26453332
+log likelihood:  -145.13572943
+log likelihood:  -141.509777363
+log likelihood:  -138.416992196
+log likelihood:  -135.707797255
+log likelihood:  -133.555370922
+log likelihood:  -131.9935032
+log likelihood:  -130.686602953
+log likelihood:  -129.368969279
+log likelihood:  -128.108906768
+log likelihood:  -127.095450132
+log likelihood:  -126.191712083
+tree nodes:  263
+grammar size:  1955
+bic:  12912.6285262
+aic:  5929.06739333
+9.88131291682e-324
+original grammar count:  1955
+added grammar count:  3530
+test loglikelihood: -14890.7322445
+log likelihood:  -668.900528973
+log likelihood:  -228.594988168
+log likelihood:  -218.571817407
+log likelihood:  -199.220263233
+log likelihood:  -174.906060334
+log likelihood:  -157.603393426
+log likelihood:  -149.321521913
+log likelihood:  -144.027952697
+log likelihood:  -139.545899375
+log likelihood:  -135.948310559
+log likelihood:  -133.049677111
+log likelihood:  -130.540965483
+log likelihood:  -128.551552943
+log likelihood:  -127.335880443
+log likelihood:  -126.734678357
+tree nodes:  263
+grammar size:  2304
+bic:  14865.9977438
+aic:  6635.75485371
+9.88131291682e-324
+original grammar count:  2304
+added grammar count:  3447
+test loglikelihood: -14672.7334602
+
+split:  5
+log likelihood:  -627.28000743
+log likelihood:  -229.690359506
+log likelihood:  -222.246217097
+log likelihood:  -208.108247551
+log likelihood:  -187.661176872
+log likelihood:  -165.056510294
+log likelihood:  -147.683949055
+log likelihood:  -138.179208667
+log likelihood:  -133.143896881
+log likelihood:  -130.120197085
+log likelihood:  -127.661851231
+log likelihood:  -125.29749752
+log likelihood:  -123.191843184
+log likelihood:  -121.38706619
+log likelihood:  -119.767576968
+log likelihood:  -118.225016229
+log likelihood:  -116.925254358
+log likelihood:  -115.937751547
+tree nodes:  263
+grammar size:  3608
+bic:  21959.3357728
+aic:  9071.00402475
+9.88131291682e-324
+original grammar count:  3608
+added grammar count:  6953
+test loglikelihood: -15124.9232546
+log likelihood:  -649.479379871
+log likelihood:  -225.473207551
+log likelihood:  -210.664016429
+log likelihood:  -187.687142729
+log likelihood:  -165.614559812
+log likelihood:  -149.774138087
+log likelihood:  -140.387555687
+log likelihood:  -135.259069159
+log likelihood:  -132.070145297
+log likelihood:  -129.850046213
+log likelihood:  -128.223221956
+log likelihood:  -126.940205282
+log likelihood:  -125.854878465
+log likelihood:  -124.925887955
+tree nodes:  263
+grammar size:  4586
+bic:  27552.7125989
+aic:  11170.8142073
+9.88131291682e-324
+original grammar count:  4586
+added grammar count:  6483
+test loglikelihood: -13715.8089919
+log likelihood:  -654.721039772
+log likelihood:  -229.769570706
+log likelihood:  -221.0509539
+log likelihood:  -202.348978481
+log likelihood:  -176.030926077
+log likelihood:  -155.296563851
+log likelihood:  -142.700592049
+log likelihood:  -134.091157607
+log likelihood:  -127.658586728
+log likelihood:  -123.087249833
+log likelihood:  -120.024016195
+log likelihood:  -118.264157295
+log likelihood:  -117.332776774
+tree nodes:  263
+grammar size:  6415
+bic:  37622.6925448
+aic:  14707.3244284
+9.88131291682e-324
+original grammar count:  6415
+added grammar count:  5327
+test loglikelihood: -13316.7942258
+log likelihood:  -645.037757263
+log likelihood:  -230.572375259
+log likelihood:  -224.605702077
+log likelihood:  -213.590941203
+log likelihood:  -197.311340874
+log likelihood:  -177.196964555
+log likelihood:  -157.332059743
+log likelihood:  -143.002251974
+log likelihood:  -134.68414127
+log likelihood:  -130.370516706
+log likelihood:  -127.470349291
+log likelihood:  -124.907388251
+log likelihood:  -122.810721069
+log likelihood:  -121.212148758
+log likelihood:  -120.076314042
+log likelihood:  -119.276197795
+tree nodes:  263
+grammar size:  4098
+bic:  24743.1063886
+aic:  10104.4191647
+9.88131291682e-324
+original grammar count:  4098
+added grammar count:  6693
+test loglikelihood: -15058.5334228
+log likelihood:  -656.367829824
+log likelihood:  -224.276336791
+log likelihood:  -208.364183475
+log likelihood:  -186.619299136
+log likelihood:  -166.057023778
+log likelihood:  -149.843659151
+log likelihood:  -138.274693474
+log likelihood:  -130.916658308
+log likelihood:  -126.199424058
+log likelihood:  -123.294605037
+log likelihood:  -121.38938507
+log likelihood:  -119.812538437
+log likelihood:  -118.430286192
+log likelihood:  -117.208957907
+log likelihood:  -116.176590975
+log likelihood:  -115.383381734
+tree nodes:  263
+grammar size:  4060
+bic:  24469.0794784
+aic:  9966.13410774
+9.88131291682e-324
+original grammar count:  4060
+added grammar count:  6531
+test loglikelihood: -14027.6090614
+
+split:  6
+log likelihood:  -677.339940785
+log likelihood:  -228.118899181
+log likelihood:  -217.558344654
+log likelihood:  -199.203241857
+log likelihood:  -176.343094986
+log likelihood:  -156.519819399
+log likelihood:  -142.524308439
+log likelihood:  -133.409433692
+log likelihood:  -128.023724636
+log likelihood:  -124.258645239
+log likelihood:  -121.233391531
+log likelihood:  -119.175805088
+log likelihood:  -117.704055534
+log likelihood:  -116.304931409
+log likelihood:  -115.043826002
+log likelihood:  -114.021695183
+log likelihood:  -113.050874836
+tree nodes:  263
+grammar size:  5494
+bic:  32422.2282502
+aic:  12796.8139974
+9.88131291682e-324
+original grammar count:  5494
+added grammar count:  11924
+test loglikelihood: -15535.327837
+log likelihood:  -681.498899501
+log likelihood:  -228.702488529
+log likelihood:  -219.114404229
+log likelihood:  -201.320273625
+log likelihood:  -178.40209826
+log likelihood:  -157.89567677
+log likelihood:  -143.030015836
+log likelihood:  -132.980407798
+log likelihood:  -126.124539903
+log likelihood:  -121.237786883
+log likelihood:  -117.353377288
+log likelihood:  -114.440141533
+log likelihood:  -112.308035779
+log likelihood:  -110.809311876
+log likelihood:  -109.887419905
+tree nodes:  263
+grammar size:  8201
+bic:  47455.4339364
+aic:  18160.1987185
+9.88131291682e-324
+original grammar count:  8201
+added grammar count:  10557
+test loglikelihood: -14618.8351992
+log likelihood:  -675.914466877
+log likelihood:  -225.964097536
+log likelihood:  -213.808481263
+log likelihood:  -194.562719876
+log likelihood:  -172.828579206
+log likelihood:  -153.231917608
+log likelihood:  -138.145323572
+log likelihood:  -128.28623723
+log likelihood:  -122.155980234
+log likelihood:  -118.355595077
+log likelihood:  -115.487370485
+log likelihood:  -113.17596764
+log likelihood:  -111.265622234
+log likelihood:  -109.773897847
+log likelihood:  -108.632055751
+log likelihood:  -107.680526705
+tree nodes:  263
+grammar size:  5019
+bic:  29689.5295148
+aic:  11760.8884273
+9.88131291682e-324
+original grammar count:  5019
+added grammar count:  12185
+test loglikelihood: -14817.0011643
+log likelihood:  -664.500420099
+log likelihood:  -227.787568488
+log likelihood:  -218.282665561
+log likelihood:  -201.418392955
+log likelihood:  -179.361653087
+log likelihood:  -160.725024303
+log likelihood:  -149.267459824
+log likelihood:  -141.297662298
+log likelihood:  -134.947024018
+log likelihood:  -130.205882791
+log likelihood:  -126.872687158
+log likelihood:  -124.663224524
+log likelihood:  -122.997118114
+log likelihood:  -121.565554221
+log likelihood:  -120.249572931
+log likelihood:  -119.015566754
+log likelihood:  -117.913659226
+log likelihood:  -117.019888779
+tree nodes:  263
+grammar size:  5341
+bic:  31633.1929063
+aic:  12554.3182205
+9.88131291682e-324
+original grammar count:  5341
+added grammar count:  12060
+test loglikelihood: -15420.7306892
+log likelihood:  -661.744585169
+log likelihood:  -230.610913391
+log likelihood:  -223.082163036
+log likelihood:  -206.357556569
+log likelihood:  -182.581940932
+log likelihood:  -162.46618541
+log likelihood:  -148.467966563
+log likelihood:  -138.237752632
+log likelihood:  -131.446357299
+log likelihood:  -126.595225906
+log likelihood:  -122.873521751
+log likelihood:  -119.822267092
+log likelihood:  -117.76055902
+log likelihood:  -116.59253786
+log likelihood:  -115.759736585
+tree nodes:  263
+grammar size:  6952
+bic:  40589.7706171
+aic:  15756.1557854
+9.88131291682e-324
+original grammar count:  6952
+added grammar count:  11322
+test loglikelihood: -13779.1936418
+
+split:  7
+log likelihood:  -690.893035977
+log likelihood:  -223.803169896
+log likelihood:  -209.921297719
+log likelihood:  -189.975044835
+log likelihood:  -170.124639096
+log likelihood:  -153.398658048
+log likelihood:  -140.859902477
+log likelihood:  -132.017210249
+log likelihood:  -125.491658925
+log likelihood:  -120.319281719
+log likelihood:  -116.047799787
+log likelihood:  -112.653649776
+log likelihood:  -109.831674252
+log likelihood:  -107.370107749
+log likelihood:  -105.332387067
+log likelihood:  -103.687609614
+log likelihood:  -102.373943906
+log likelihood:  -101.292367816
+log likelihood:  -100.416945562
+tree nodes:  263
+grammar size:  5903
+bic:  34499.0963809
+aic:  13412.671129
+9.88131291682e-324
+original grammar count:  5903
+added grammar count:  20469
+test loglikelihood: -16087.2691371
+log likelihood:  -687.46907545
+log likelihood:  -224.671462708
+log likelihood:  -212.199119118
+log likelihood:  -194.096938819
+log likelihood:  -173.836743438
+log likelihood:  -155.751488662
+log likelihood:  -141.952946758
+log likelihood:  -132.159348758
+log likelihood:  -125.498656465
+log likelihood:  -120.344559822
+log likelihood:  -116.446106778
+log likelihood:  -113.714596647
+log likelihood:  -111.775769164
+log likelihood:  -110.27465487
+log likelihood:  -109.048996932
+log likelihood:  -108.136381936
+tree nodes:  263
+grammar size:  10178
+bic:  58443.5658505
+aic:  22086.182111
+9.88131291682e-324
+original grammar count:  10178
+added grammar count:  18326
+test loglikelihood: -14260.225966
+log likelihood:  -695.13923833
+log likelihood:  -227.416637792
+log likelihood:  -215.321565548
+log likelihood:  -194.231937479
+log likelihood:  -171.542317704
+log likelihood:  -153.588505604
+log likelihood:  -140.441119908
+log likelihood:  -131.55512047
+log likelihood:  -125.233708344
+log likelihood:  -120.021084666
+log likelihood:  -115.719179494
+log likelihood:  -112.841376132
+log likelihood:  -110.978004249
+log likelihood:  -109.492478483
+log likelihood:  -108.226335179
+log likelihood:  -107.058414977
+log likelihood:  -105.851664223
+log likelihood:  -104.69472447
+log likelihood:  -103.629200252
+log likelihood:  -102.648261595
+tree nodes:  263
+grammar size:  5771
+bic:  33799.2731052
+aic:  13184.3721855
+9.88131291682e-324
+original grammar count:  5771
+added grammar count:  20398
+test loglikelihood: -16255.864254
+log likelihood:  -700.545276742
+log likelihood:  -226.831034392
+log likelihood:  -215.36426065
+log likelihood:  -194.503801884
+log likelihood:  -170.782141081
+log likelihood:  -153.349352154
+log likelihood:  -140.888277966
+log likelihood:  -131.834651544
+log likelihood:  -125.493739883
+log likelihood:  -120.717103049
+log likelihood:  -116.924769204
+log likelihood:  -113.794710963
+log likelihood:  -111.188255615
+log likelihood:  -108.771162123
+log likelihood:  -106.702398723
+log likelihood:  -105.243060647
+log likelihood:  -104.10872903
+log likelihood:  -103.130182688
+tree nodes:  263
+grammar size:  7311
+bic:  42388.1010523
+aic:  16272.082923
+9.88131291682e-324
+original grammar count:  7311
+added grammar count:  19571
+test loglikelihood: -15807.1966295
+log likelihood:  -692.954801823
+log likelihood:  -230.66618422
+log likelihood:  -223.508949565
+log likelihood:  -206.726255346
+log likelihood:  -181.178693425
+log likelihood:  -157.882421429
+log likelihood:  -141.857359774
+log likelihood:  -130.204555831
+log likelihood:  -122.151612428
+log likelihood:  -117.313733421
+log likelihood:  -114.044119798
+log likelihood:  -111.331472643
+log likelihood:  -109.05276164
+log likelihood:  -107.242133756
+log likelihood:  -105.938086382
+log likelihood:  -104.957617073
+tree nodes:  263
+grammar size:  8271
+bic:  47766.6078733
+aic:  18221.3218732
+9.88131291682e-324
+original grammar count:  8271
+added grammar count:  19109
+test loglikelihood: -15231.0307428

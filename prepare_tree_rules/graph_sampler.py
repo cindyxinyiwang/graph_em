@@ -1,7 +1,24 @@
 __author__ = 'tweninge'
 import networkx as nx
+#import metis
 from random import choice
 from collections import deque, Counter
+
+def partition_sample(G, c, n):
+    (edgecuts, parts) = metis.part_graph(G, c)
+    # list of c node lists
+    part_node_list = [[] for i in xrange(c)]
+    for i, p in enumerate(parts):
+        part_node_list[p].append(i)
+    for i in xrange(c):
+        H = G.subgraph(part_node_list[i])
+        S = choice(H.nodes())
+
+        T = nx.DiGraph()
+        T.add_node(S)
+        T.add_edges_from(bfs_edges(H, S, n))
+        yield nx.subgraph(G, T.nodes())
+
 
 def rwr_sample(G, c, n):
     for i in range(0,c):

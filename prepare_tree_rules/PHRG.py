@@ -229,6 +229,39 @@ def probabilistic_hrg (G, num_samples=1, n=None):
   return Hstars
 
 
+def phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgraph_size):
+  G.remove_edges_from(G.selfloop_edges()) 
+  giant_nodes = max(nx.connected_component_subgraphs(G), key=len)
+  G = nx.subgraph(G, giant_nodes)
+
+  num_nodes = G.number_of_nodes()
+  graph_checks(G)
+
+  total_sample = sum(sample_size_list)
+  file_list = []
+  for name in file_name_list:
+    file_list.append(open(name, "a+"))
+  cur_sample_count = 0
+  f_idx = 0	# index of current file to write
+  for Gprime in gs.partition_sample(G, total_sample, subgraph_size):
+    prod_rules = {}
+    left_deriv_prod_rules = []
+    T = td.quickbb(Gprime)
+    root = list(T)[0]
+    T = td.make_rooted(T, root)
+    T = binarize(T)
+    root = list(T)[0]
+    root, children = T
+    td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+    cur_sample_count += 1
+    if sum(sample_size_list[:f_idx+1]) < cur_sample_count:
+    	f_idx += 1
+    for r in left_deriv_prod_rules:
+      file_list[f_idx].write(r)
+      file_list[f_idx].write('\n')
+  for file in file_list:
+  	file.close()
+
 # def probabilistic_hrg_deriving_prod_rules(G, num_samples=1, n=None):
 # hrg_baseline.py
 def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name, num_samples=4, subgraph_size=500, n=None):

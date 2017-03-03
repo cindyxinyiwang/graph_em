@@ -1,173 +1,108 @@
-routers:
-500 node, 4 train graph, 4 test graph
+routers[set epsilon = 9.88131291682e-324; converge = 1; not partitioned]:
+100 node, 4 train graph, 4 test graph, max likelihood after 5 tries
 1 split
-log likelihood:  -1460.23477164
-log likelihood:  -656.400129778
-log likelihood:  -655.231050648
-log likelihood:  -654.415633281
-tree nodes:  1346
-grammar size:  440
-bic:  9714.3090373
-aic:  7424.15633281
-2.58855649793e-46
-original grammar count:  591
-added grammar count:  209
-test loglikelihood: -561.933126186
+log likelihood:  -211.28623398
+original grammar count:  129
+added grammar count:  51
+test loglikelihood: -19308.8333599
 
 2 split
-log likelihood:  -1669.22539393
-log likelihood:  -632.424067495
-log likelihood:  -602.493168613
-log likelihood:  -564.567510445
-log likelihood:  -535.319637447
-tree nodes:  1346
-grammar size:  3156
-bic:  28091.8371367
-aic:  11665.1963745
-1.094895471e-64
-original grammar count:  4292
-added grammar count:  1608
-test loglikelihood: -450.211857648
+log likelihood:  -140.602219916
+original grammar count:  732
+added grammar count:  391
+test loglikelihood: -19316.5207529
 
-log likelihood:  -1630.12368956
-log likelihood:  -628.467971561
-log likelihood:  -595.85424391
-log likelihood:  -557.062378156
-log likelihood:  -527.911434751
-log likelihood:  -511.754827154
-log likelihood:  -502.726985788
-log likelihood:  -497.595143288
-log likelihood:  -494.445920887
-log likelihood:  -492.321246179
-log likelihood:  -490.745999909
-log likelihood:  -489.603992158
-log likelihood:  -488.719407579
-tree nodes:  1346
-grammar size:  1784
-bic:  17740.722314
-aic:  8455.19407579
-4.94065645841e-324
-original grammar count:  4292
-added grammar count:  1608
-test loglikelihood: -10779.106405
+8 split
+log likelihood:  -74.0220528159
+original grammar count:  9862
+added grammar count:  30802
+test loglikelihood: -19622.4660387
 
+100 node, 8 train graph, 4 test graph, max likelihood after 5 tries
+
+100 node, 12 train graph, 4 test graph, max likelihood after 5 tries
+1 split
+log likelihood:  -238.662029548
+original grammar count:  185
+added grammar count:  26
+test loglikelihood: -5796.80101241
+
+2 split
+log likelihood:  -174.157688398
+original grammar count:  1255
+added grammar count:  188
+test loglikelihood: -5763.29668549
 
 3 split
-log likelihood:  -1775.84262784
-log likelihood:  -630.470133704
-log likelihood:  -596.125014675
-log likelihood:  -549.169284396
-log likelihood:  -507.872010221
-log likelihood:  -477.215803176
-log likelihood:  -455.225974445
-log likelihood:  -440.341963074
-log likelihood:  -429.499108174
-log likelihood:  -421.557971666
-tree nodes:  1346
-grammar size:  8852
-bic:  67993.288217
-aic:  21919.5797167
-4.94065645841e-324
-original grammar count:  14037
-added grammar count:  5355
-test loglikelihood: -506.106210767
+log likelihood:  -142.3539042
+original grammar count:  2721
+added grammar count:  872
+test loglikelihood: -5962.80415996
 
 4 split
-log likelihood:  -1922.38470812
-log likelihood:  -632.331611131
-log likelihood:  -608.391632527
-log likelihood:  -570.658795793
-log likelihood:  -518.062668625
-log likelihood:  -467.721737355
-log likelihood:  -433.87886737
-log likelihood:  -411.436582945
-log likelihood:  -395.531746664
-log likelihood:  -383.598509366
-log likelihood:  -374.302293208
-log likelihood:  -367.071865295
-log likelihood:  -361.69090586
-log likelihood:  -357.363724445
-log likelihood:  -354.708561008
-log likelihood:  -353.248241441
-log likelihood:  -352.334739093
-log likelihood:  -351.555420584
-log likelihood:  -350.92721968
-log likelihood:  -350.517459364
-tree nodes:  1346
-grammar size:  7008
-bic:  53997.0613052
-aic:  17521.1745936
-1.48219693752e-323
-original grammar count:  32760
-added grammar count:  12608
-test loglikelihood: -502.60729286
+log likelihood:  -126.052136089
+original grammar count:  3599
+added grammar count:  2825
+test loglikelihood: -6072.0074352
 
 5 split
-log likelihood:  -1944.3541285
-log likelihood:  -641.11504736
-log likelihood:  -618.421569938
-log likelihood:  -573.502077693
-log likelihood:  -517.125406715
-log likelihood:  -466.561746374
-log likelihood:  -428.082962458
-log likelihood:  -399.771246229
-log likelihood:  -379.22627887
-log likelihood:  -364.937903618
-log likelihood:  -355.625976789
-log likelihood:  -349.66577655
-log likelihood:  -345.561285165
-log likelihood:  -342.344751985
-log likelihood:  -339.378560643
-log likelihood:  -336.48424806
-log likelihood:  -333.849725288
-log likelihood:  -331.828805677
-log likelihood:  -330.51616228
-log likelihood:  -329.602274513
-log likelihood:  -328.800630535
-log likelihood:  -328.054320299
-log likelihood:  -327.423222627
-log likelihood:  -326.934920567
-log likelihood:  -326.529115192
-tree nodes:  1346
-grammar size:  10380
-bic:  78052.0754078
-aic:  24025.2911519
-4.94065645841e-324
-original grammar count:  63395
-added grammar count:  24525
-test loglikelihood: -469.702771101
+log likelihood:  -128.073719978
+original grammar count:  8487
+added grammar count:  4886
+test loglikelihood: -6506.78665211
 
 6 split
-log likelihood:  -2062.10877182
-log likelihood:  -632.222718651
-log likelihood:  -602.715294899
-log likelihood:  -555.278453143
-log likelihood:  -503.124111283
-log likelihood:  -457.036263686
-log likelihood:  -419.413009709
-log likelihood:  -388.994488269
-log likelihood:  -365.26008151
-log likelihood:  -347.737329373
-log likelihood:  -335.312158638
-log likelihood:  -326.802030144
-log likelihood:  -320.37492491
-log likelihood:  -315.027443372
-log likelihood:  -310.544174807
-log likelihood:  -306.961006676
-log likelihood:  -304.335293342
-log likelihood:  -302.636020485
-log likelihood:  -301.164906162
-log likelihood:  -299.700309224
-log likelihood:  -298.466200339
-log likelihood:  -297.496205938
-tree nodes:  1346
-grammar size:  17680
-bic:  130357.46164
-aic:  38334.9620594
-4.94065645841e-324
-original grammar count:  108876
-added grammar count:  42264
-test loglikelihood: -510.672543642
+log likelihood:  -112.646128004
+original grammar count:  13865
+added grammar count:  8361
+test loglikelihood: -6297.75844847
 
-routers:
-200 node, 4 train graph, 4 test graph
+7 split
+log likelihood:  -109.690328005
+original grammar count:  20878
+added grammar count:  13590
+test loglikelihood: -6197.75119233
+
+100 node, 16 train graph, 4 test graph, max likelihood after 5 tries
+split:  1
+log likelihood:  -210.818484682
+original grammar count:  188
+added grammar count:  35
+test loglikelihood: -13751.5776291
+
+split:  2
+log likelihood:  -151.048558907
+original grammar count:  1253
+added grammar count:  253
+test loglikelihood: -13709.0150059
+
+split:  3
+log likelihood:  -132.287030488
+original grammar count:  3139
+added grammar count:  919
+test loglikelihood: -13777.9172427
+
+split:  4
+log likelihood:  -123.357675579
+original grammar count:  5514
+added grammar count:  2346
+test loglikelihood: -13748.5697904
+
+split:  5
+log likelihood:  -109.125841953
+tree nodes:  266
+original grammar count:  9143
+added grammar count:  4842
+test loglikelihood: -14184.1562505
+
+split:  6
+log likelihood:  -105.57563569
+original grammar count:  15482
+added grammar count:  8369
+test loglikelihood: -13957.0824724
+
+split:  7
+log likelihood:  -99.1746100412
+original grammar count:  20071
+added grammar count:  14712
+test loglikelihood: -14030.4608088
