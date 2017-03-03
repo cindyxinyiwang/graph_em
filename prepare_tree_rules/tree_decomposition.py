@@ -347,7 +347,7 @@ def add_to_prod_rules(production_rules, left_deriv_prod_rules, lhs, rhs, s):
 
     rhs_str=""
     for n in rhs_term_dict:
-        rhs_str = rhs_str + "("+n[0]+":"+n[1]+")"
+        rhs_str = rhs_str + "(" + str(n[0]) + ":" + str(n[1]) + ")"
         nodes.add(n[0])
     if rhs_str=="":
         rhs_str = "()"

@@ -1,17 +1,25 @@
 __author__ = 'tweninge'
 import networkx as nx
-#import metis
+import metis
 from random import choice
 from collections import deque, Counter
+
+import matplotlib.pyplot as plt
 
 def partition_sample(G, c, n):
     (edgecuts, parts) = metis.part_graph(G, c)
     # list of c node lists
     part_node_list = [[] for i in xrange(c)]
     for i, p in enumerate(parts):
-        part_node_list[p].append(i)
+        part_node_list[p].append(str(i))
+
     for i in xrange(c):
         H = G.subgraph(part_node_list[i])
+        giant_nodes = max(nx.connected_component_subgraphs(H), key=len)
+        H = nx.subgraph(H, giant_nodes)
+        nx.draw(H)
+        plt.show()
+
         S = choice(H.nodes())
 
         T = nx.DiGraph()
