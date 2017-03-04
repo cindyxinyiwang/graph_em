@@ -283,7 +283,7 @@ def train_test(train_file, test_file, smooth=True, use_converge=True, converge=1
 
 if __name__ == "__main__":
 	subgraph_size_list = [100]
-	train_sample_size_list = [8]
+	train_sample_size_list = [4]
 	for subgraph_size in subgraph_size_list:
 		for train_sample_size in train_sample_size_list:
 			train_file = "prepare_tree_rules/routers/%d_sub/nonpartition/%d_sample/routers_train.txt" % (subgraph_size, train_sample_size)

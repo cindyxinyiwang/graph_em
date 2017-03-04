@@ -1,16 +1,48 @@
 routers[set epsilon = 9.88131291682e-324; converge = 1; not partitioned]:
+
+
 100 node, 4 train graph, 4 test graph, max likelihood after 5 tries
-1 split
+split:  1
 log likelihood:  -211.28623398
 original grammar count:  129
 added grammar count:  51
 test loglikelihood: -19308.8333599
 
-2 split
-log likelihood:  -140.602219916
-original grammar count:  732
-added grammar count:  391
-test loglikelihood: -19316.5207529
+split:  2
+log likelihood:  -143.665522761
+original grammar count:  542
+added grammar count:  429
+test loglikelihood: -19250.2909092
+
+split:  3
+log likelihood:  -118.895926027
+original grammar count:  1156
+added grammar count:  1522
+test loglikelihood: -19494.1016492
+
+split:  4
+log likelihood:  -98.4314996725
+original grammar count:  1637
+added grammar count:  3867
+test loglikelihood: -19314.7840047
+
+split:  5
+log likelihood:  -89.9834628155
+original grammar count:  2855
+added grammar count:  7498
+test loglikelihood: -19560.7408994
+
+split:  6
+log likelihood:  -79.9590273345
+original grammar count:  5230
+added grammar count:  12884
+test loglikelihood: -19963.8429425
+
+split:  7
+log likelihood:  -77.0112973866
+original grammar count:  7438
+added grammar count:  20788
+test loglikelihood: -19657.9503816
 
 8 split
 log likelihood:  -74.0220528159
@@ -18,7 +50,51 @@ original grammar count:  9862
 added grammar count:  30802
 test loglikelihood: -19622.4660387
 
+
 100 node, 8 train graph, 4 test graph, max likelihood after 5 tries
+1 split
+log likelihood:  -234.331068681
+original grammar count:  137
+added grammar count:  35
+test loglikelihood: -11903.7177317
+
+2 split
+log likelihood:  -167.385067485
+original grammar count:  871
+added grammar count:  249
+test loglikelihood: -11929.5011963
+
+3 split
+log likelihood:  -147.099917359
+original grammar count:  2420
+added grammar count:  876
+test loglikelihood: -12119.5387285
+
+4 split
+log likelihood:  -126.421090467
+original grammar count:  3057
+added grammar count:  3121
+test loglikelihood: -13585.5120287
+
+5 split
+log likelihood:  -117.332776774
+original grammar count:  6415
+added grammar count:  5327
+test loglikelihood: -13316.7942258
+
+6 split
+log likelihood:  -115.759736585
+original grammar count:  6952
+added grammar count:  11322
+test loglikelihood: -13779.1936418
+
+7 split
+log likelihood:  -108.136381936
+original grammar count:  10178
+added grammar count:  18326
+test loglikelihood: -14260.225966
+
+
 
 100 node, 12 train graph, 4 test graph, max likelihood after 5 tries
 1 split
