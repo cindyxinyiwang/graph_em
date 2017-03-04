@@ -243,7 +243,7 @@ def phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgra
     file_list.append(open(name, "a+"))
   cur_sample_count = 0
   f_idx = 0	# index of current file to write
-  for Gprime in gs.partition_sample(G, total_sample, subgraph_size):
+  for Gprime in gs.disjoint_sample(G, sample_size_list, subgraph_size):
     prod_rules = {}
     left_deriv_prod_rules = []
     T = td.quickbb(Gprime)
@@ -254,8 +254,10 @@ def phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgra
     root, children = T
     td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
     cur_sample_count += 1
+    
     if sum(sample_size_list[:f_idx+1]) < cur_sample_count:
     	f_idx += 1
+    print cur_sample_count, file_name_list[f_idx]
     for r in left_deriv_prod_rules:
       file_list[f_idx].write(r)
       file_list[f_idx].write('\n')

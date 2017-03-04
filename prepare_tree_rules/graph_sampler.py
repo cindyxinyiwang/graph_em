@@ -7,6 +7,10 @@ from collections import deque, Counter
 import matplotlib.pyplot as plt
 
 def partition_sample(G, c, n):
+    """
+    Partition the graph into disjoint parts then sample
+    Problem: cannot make sure subgraphs are connected
+    """
     (edgecuts, parts) = metis.part_graph(G, c)
     # list of c node lists
     part_node_list = [[] for i in xrange(c)]
@@ -27,6 +31,48 @@ def partition_sample(G, c, n):
         T.add_edges_from(bfs_edges(H, S, n))
         yield nx.subgraph(G, T.nodes())
 
+def bfs_edges_disjoint(G, source, n, chosen):
+    neighbors = G.neighbors_iter
+    visited = set([source])
+    queue = deque([(source, neighbors(source))])
+    i=0
+    while queue and i<n:
+        parent, children = queue[0]
+        try:
+            child = next(children)
+            if child not in visited:
+                i += 1
+                yield parent, child
+                chosen.add(child)
+                visited.add(child)
+                queue.append((child, neighbors(child)))
+        except StopIteration:
+            queue.popleft()
+
+def disjoint_sample(G, sample_size_list, n):
+    """
+    Sample c subgraphs of size n, make sure the subgraphs are disjoint
+    """
+    chosen = set()
+    not_chosen = set(G.nodes())
+    c = sum(sample_size_list)
+    sample_idx = 0
+    for i in xrange(c):
+        if sum(sample_size_list[:sample_idx+1]) < i:
+            not_chosen = not_chosen.difference(chosen)
+            sample_idx += 1
+        print i, len(not_chosen)
+        S = choice(list(not_chosen))
+        chosen.add(S)
+        
+        T = nx.DiGraph()
+        T.add_node(S)
+        T.add_edges_from(bfs_edges_disjoint(G, S, n, chosen))
+        if len(T.nodes()) < n:
+            i -= 1
+        else:
+            Gprime = nx.subgraph(G, T.nodes())
+            yield Gprime
 
 def rwr_sample(G, c, n):
     for i in range(0,c):
