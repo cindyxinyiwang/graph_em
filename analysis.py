@@ -220,7 +220,7 @@ def get_sample_graphs(grammar):
 	return Gstar
 
 
-def train_test(train_file, test_file, smooth=True, use_converge=True, converge=1, split=1, train_iterations=20):
+def train_test(train_file, test_file, cur_str_result, smooth=True, use_converge=True, converge=1, split=1, train_iterations=20):
 	"""
 	extract and train a grammar on training file, get log likelihood on test file
 	train_file: training tree left derivation
@@ -234,7 +234,7 @@ def train_test(train_file, test_file, smooth=True, use_converge=True, converge=1
 
 	gram = new_em.Grammar(cv_train.rule_dict, split)
 
-	em = new_em.EM(gram, cv_train.Tree)
+	em = new_em.EM(gram, cv_train.Tree, cur_str_result)
 	em.iterations(use_converge, converge=converge)
 
 	# smooth grammar probabilities
@@ -249,10 +249,12 @@ def train_test(train_file, test_file, smooth=True, use_converge=True, converge=1
 		#for lhs in train_gram_rules:
 		#	for rhs, prob in train_gram_rules[lhs].items():
 		#		if prob < min_prob and prob > 0:
-		#			min_prob = prob 
-		#if min_prob < epsilon:
-		#	epsilon = min_prob
-		print epsilon
+		#			min_prob = prob
+		# use min_prob / 10, or min float value if min_prob / 10 is less than 0 
+		#epsilon_temp = min_prob / 10
+		#if epsilon_temp > 0:
+		#	epsilon = epsilon_temp
+		cur_str_result.append(str(epsilon))
 		
 		added_gram_count = 0
 		original_gram_count = sum(map(len, train_gram_rules.values()))
@@ -272,10 +274,10 @@ def train_test(train_file, test_file, smooth=True, use_converge=True, converge=1
 		em.gram.rule_dict = train_gram_rules
 		em.gram.alphabet = em.gram.alphabet.union(added_nonterms)
 
-		print "original grammar count: ", original_gram_count
-		print "added grammar count: ", added_gram_count
+		cur_str_result.append( "original grammar count: " + str(original_gram_count))
+		cur_str_result.append( "added grammar count: " + str(added_gram_count))
 	# get test likelihood
-	em_test = new_em.EM(em.gram, cv_test.Tree)
+	em_test = new_em.EM(em.gram, cv_test.Tree, cur_str_result)
 	em_test.get_loglikelihood()
 
 	return em_test.loglikelihood / len(em_test.tree)
@@ -283,19 +285,27 @@ def train_test(train_file, test_file, smooth=True, use_converge=True, converge=1
 
 if __name__ == "__main__":
 	subgraph_size_list = [100]
-	train_sample_size_list = [4]
+	train_sample_size_list = [4, 8, 12, 16]
 	for subgraph_size in subgraph_size_list:
 		for train_sample_size in train_sample_size_list:
-			train_file = "prepare_tree_rules/routers/%d_sub/nonpartition/%d_sample/routers_train.txt" % (subgraph_size, train_sample_size)
-			test_file = "prepare_tree_rules/routers/%d_sub/nonpartition/%d_sample/routers_hold.txt" % (subgraph_size, 4)
+			train_file = "prepare_tree_rules/ca-HepTh/%d_sub/nonpartition/%d_sample/routers_train.txt" % (subgraph_size, train_sample_size)
+			test_file = "prepare_tree_rules/ca-HepPh/%d_sub/nonpartition/%d_sample/routers_hold.txt" % (subgraph_size, 4)
 			print "subgraph size: %d, train sample size: %d" % (subgraph_size, train_sample_size)
-			for split in xrange(1, 8, 1):
+			for split in xrange(1, 5, 1):
 				print
 				print "split: ", split
+				max_likelihood, result_str = float("-inf"), ""
 				for i in xrange(5):
-					test_loglikelihood = train_test(train_file, test_file, 
+					cur_str_result = []
+					test_loglikelihood = train_test(train_file, test_file, cur_str_result,
 						smooth=True, use_converge=True, converge=1, split=split)
-					print "test loglikelihood:", test_loglikelihood
+					#print "test loglikelihood:", test_loglikelihood
+					cur_str_result.append("test loglikelihood:" + str(test_loglikelihood))
+					if test_loglikelihood > max_likelihood:
+						max_likelihood = test_loglikelihood
+						result_str = "\n".join(cur_str_result)
+				print result_str
+					
 	"""
 	#G = nx.hypercube_graph(9)
 	G = nx.read_edgelist("prepare_tree_rules/data/rounters.txt", comments="#")

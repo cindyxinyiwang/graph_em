@@ -316,10 +316,11 @@ def get_level_nodes(tree):
 	return level_tree_nodes
 
 class EM(object):
-	def __init__(self, gram, tree):
+	def __init__(self, gram, tree, cur_str_result):
 		self.gram = gram
 		self.tree = tree
 		self.loglikelihood = 0
+		self.cur_str_result = cur_str_result	# record the print strings in a list
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
@@ -518,7 +519,7 @@ class EM(object):
 				for tree in self.tree:
 					self.expect(tree)
 				self.maximize()
-				print "log likelihood: ", self.loglikelihood / len(self.tree)
+				self.cur_str_result.append( "log likelihood: " + str(self.loglikelihood / len(self.tree)))
 
 				if self.loglikelihood / len(self.tree) - prev_loglikelihood < converge:
 					break
@@ -535,7 +536,7 @@ class EM(object):
 				for tree in self.tree:
 					self.expect(tree)
 				self.maximize()
-				print "log likelihood: ", self.loglikelihood / len(self.tree)
+				self.cur_str_result.append( "log likelihood: "+ str(self.loglikelihood / len(self.tree)))
 
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
@@ -547,13 +548,13 @@ class EM(object):
 					delete_rules.add(r)
 			for r in delete_rules:
 				del self.gram.rule_dict[x][r]
-		print "tree nodes: ", self.tree[0].get_num_nodes()
-		print "grammar size: ", self.gram.get_valid_rule_count()
+		#print "tree nodes: ", self.tree[0].get_num_nodes()
+		#print "grammar size: ", self.gram.get_valid_rule_count()
 		# get BIC = -2 * L + k * ln(N)
-		bic = -2 * self.loglikelihood + self.gram.get_valid_rule_count() * np.log(self.tree[0].get_num_nodes())
-		print "bic: ", bic
-		aic = -2 * self.loglikelihood + 2 * self.gram.get_valid_rule_count()
-		print "aic: ", aic
+		#bic = -2 * self.loglikelihood + self.gram.get_valid_rule_count() * np.log(self.tree[0].get_num_nodes())
+		#print "bic: ", bic
+		#aic = -2 * self.loglikelihood + 2 * self.gram.get_valid_rule_count()
+		#print "aic: ", aic
 
 def plot_nonterm_stats(nonterm_size_dic):
 	nonterm_groups = {}
