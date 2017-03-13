@@ -364,13 +364,13 @@ class EM(object):
 
 	def get_loglikelihood(self, added_rules):
 		# set added_rule probability to extremely small
+		smooth_prob = -10000000
 		for r in added_rules:
 			parts = r.split("->")
 			lhs, rhs = parts[0], parts[1]
-			self.gram.rule_dict[lhs][rhs] = -1000000
-
+			self.gram.rule_dict[lhs][rhs] = smooth_prob
 		self.loglikelihood = 0
-		use_added_rules = 0
+		#use_added_rules = 0
 		for tree in self.tree:
 			self.inside = {}
 			self.outside = {}
@@ -408,20 +408,20 @@ class EM(object):
 									tmp += self.inside[ni][xi]
 								# count added rules
 								# only smooth when necessary
-								if rule in added_rules and tmp > -float("inf") and self.inside[n][x] == -float("inf"):
-									use_added_rules += 1
+								#if rule in added_rules and tmp > -float("inf") and self.inside[n][x] == -float("inf"):
+								#	use_added_rules += 1
 									#node_children = [i.val for i in n.children]
 									#print n.val, node_children
 									#print x, rhs, prob
 									#print self.inside[n][x], tmp, np.logaddexp(tmp, self.inside[n][x])
 								# this smooth rule should not be used
-								if rule in added_rules and tmp > -float("inf") and self.inside[n][x] > -float("inf"):
-									continue
+								#if rule in added_rules and tmp > -float("inf") and self.inside[n][x] > -float("inf"):
+								#	continue
 								self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
 			self.loglikelihood += self.inside[level_tree_nodes[0][0]][self.gram.start]	
 			#print "tree test:", self.inside[level_tree_nodes[0][0]][self.gram.start]	
-			self.cur_str_result.append("tree test: %f" % self.inside[level_tree_nodes[0][0]][self.gram.start])
-		return use_added_rules
+			#self.cur_str_result.append("tree test: %f" % self.inside[level_tree_nodes[0][0]][self.gram.start])
+		return int(self.loglikelihood / smooth_prob)
 
 	def expect(self, tree):
 		self.inside = {}

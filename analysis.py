@@ -256,7 +256,7 @@ def train_test(train_file, test_file, cur_str_result, smooth=True,
 		#epsilon_temp = min_prob / 10
 		#if epsilon_temp > 0:
 		#	epsilon = epsilon_temp
-		cur_str_result.append(str(epsilon))
+		#cur_str_result.append(str(epsilon))
 		
 		added_gram_count = 0
 		original_gram_count = sum(map(len, train_gram_rules.values()))
@@ -349,8 +349,8 @@ def train_test(train_file, test_file, cur_str_result, smooth=True,
 	em_test = new_em.EM(em.gram, cv_test.Tree, cur_str_result)
 	use_added_rules = em_test.get_loglikelihood(added_rules)
 	cur_str_result.append(str(use_added_rules))
-	#return (em_test.loglikelihood - use_added_rules * np.log(epsilon)) / len(em_test.tree)
-	return em_test.loglikelihood 
+	return (em_test.loglikelihood - use_added_rules * (-10000000)) / len(em_test.tree)
+	#return em_test.loglikelihood 
 
 def notrain_test(train_file, test_file, cur_str_result, smooth=True, use_converge=True, converge=1, split=1, train_iterations=20):
 	"""
@@ -428,7 +428,7 @@ if __name__ == "__main__":
 				print
 				print "split: ", split
 				max_likelihood, result_str = float("-inf"), ""
-				for i in xrange(1):
+				for i in xrange(5):
 					cur_str_result = []
 					test_loglikelihood = train_test(train_file, test_file, cur_str_result,
 						smooth=True, use_converge=True, converge=1, split=split)
