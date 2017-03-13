@@ -9,18 +9,41 @@ import numpy as np
 import david as da
 import networkx as nx
 
-import visualize
-import net_metrics as nm
+#import visualize
+#import net_metrics as nm
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 class Grammar(object):
-	def __init__(self, rule_dict, k):
+	def __init__(self, rule_dict, k, no_random_init=False):
 		self.alphabet = set(["t"])
 		self.start = "S"
 		self.rule_dict = rule_dict
 		self.k = k
-		self.getAllRules()
+
+		if not no_random_init:
+			self.getAllRules()
+		else:
+			new_rule_dict = {}
+			for lhs, dic in self.rule_dict.items():
+				rules = self.rule_dict[lhs]
+				total = sum(rules.values())
+
+				if lhs != 'S':
+					lhs = lhs + '_1'
+				self.alphabet.add(lhs)
+				new_rule_dict[lhs] = {}
+				for rhs in dic:
+					r_tok = rhs.split()
+					rhs_list = []
+					for r in r_tok:
+						if r != 't':
+							self.alphabet.add(r + "_1")
+							rhs_list.append(r + "_1")
+						else:
+							rhs_list.append(r)
+					new_rule_dict[lhs][" ".join(rhs_list)] = rules[rhs] / float(total)
+			self.rule_dict = new_rule_dict
 
 	def getAllRules(self):
 		"""
@@ -192,7 +215,7 @@ class TreeNode(object):
 		return count
 
 class ConvertRule(object):
-	def __init__(self, tree_file):
+	def __init__(self, tree_file, tree_count=-1):
 		self.treefile = tree_file
 		self.cfg_to_hrg_map = {}
 		self.Tree = []
@@ -200,7 +223,7 @@ class ConvertRule(object):
 		self.nonterm = set(["S"])
 		self.rule_dict = {}
 
-		self.build_rules()
+		self.build_rules(tree_count)
 		#self.Tree.print_tree()
 		#print self.nonterm
 		#print self.level_tree_nodes
@@ -226,10 +249,10 @@ class ConvertRule(object):
 		#print lhs, rhs
 		return lhs, rhs.strip()
 
-	def build_rules(self):
+	def build_rules(self, tree_count):
 		tree = TreeNode("S")
 		stack = [tree]
-		i = 0
+
 		with open(self.treefile) as myfile:
 			for line in myfile:
 				rules = line.split()
@@ -239,16 +262,12 @@ class ConvertRule(object):
 				hrg = (lhs[0], rhs)
 				#print lhs, rhs
 				lhs, rhs = self.hrg_to_cfg(lhs[0], rhs)
-				# add to grammar
-				if lhs not in self.rule_dict:
-					self.rule_dict[lhs] = {}
-				self.rule_dict[lhs][rhs] = 1
 
-				self.cfg_to_hrg_map[lhs + "->" + rhs] = hrg
-				#self.cfg_to_hrg_map[] = line
-	
 				if not stack:
 					self.Tree.append(tree)
+					tree_count -= 1
+					if tree_count == 0:
+						break
 					tree = TreeNode("S")
 					stack = [tree]
 
@@ -265,6 +284,16 @@ class ConvertRule(object):
 
 				add_stack.reverse()
 				stack.extend(add_stack)
+
+				# add to grammar
+				if lhs not in self.rule_dict:
+					self.rule_dict[lhs] = {}
+				self.rule_dict[lhs][rhs] = self.rule_dict[lhs].get(rhs, 0) + 1
+
+				self.cfg_to_hrg_map[lhs + "->" + rhs] = hrg
+				#self.cfg_to_hrg_map[] = line
+		if tree_count == 0:
+			return
 		self.Tree.append(tree)
 
 	def get_orig_cfg(self, lhs, rhs):
@@ -333,8 +362,15 @@ class EM(object):
 		
 		return int(toks[0][1])
 
-	def get_loglikelihood(self):
+	def get_loglikelihood(self, added_rules):
+		# set added_rule probability to extremely small
+		for r in added_rules:
+			parts = r.split("->")
+			lhs, rhs = parts[0], parts[1]
+			self.gram.rule_dict[lhs][rhs] = -1000000
+
 		self.loglikelihood = 0
+		use_added_rules = 0
 		for tree in self.tree:
 			self.inside = {}
 			self.outside = {}
@@ -356,8 +392,8 @@ class EM(object):
 						self.inside[n][x] = -float("inf")
 						if x not in node_nonterm:
 							continue
-						
 						for rhs, prob in self.gram.rule_dict[x].items():
+							rule = x + "->" + rhs
 							rhs = rhs.split()
 							l_children = len(n.children)
 							if len(rhs) == l_children:
@@ -370,10 +406,22 @@ class EM(object):
 											tmp = -float("inf")
 											break
 									tmp += self.inside[ni][xi]
+								# count added rules
+								# only smooth when necessary
+								if rule in added_rules and tmp > -float("inf") and self.inside[n][x] == -float("inf"):
+									use_added_rules += 1
+									#node_children = [i.val for i in n.children]
+									#print n.val, node_children
+									#print x, rhs, prob
+									#print self.inside[n][x], tmp, np.logaddexp(tmp, self.inside[n][x])
+								# this smooth rule should not be used
+								if rule in added_rules and tmp > -float("inf") and self.inside[n][x] > -float("inf"):
+									continue
 								self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
-
 			self.loglikelihood += self.inside[level_tree_nodes[0][0]][self.gram.start]	
-			#print self.inside[level_tree_nodes[0][0]][self.gram.start]	
+			#print "tree test:", self.inside[level_tree_nodes[0][0]][self.gram.start]	
+			self.cur_str_result.append("tree test: %f" % self.inside[level_tree_nodes[0][0]][self.gram.start])
+		return use_added_rules
 
 	def expect(self, tree):
 		self.inside = {}

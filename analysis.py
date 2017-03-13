@@ -220,7 +220,8 @@ def get_sample_graphs(grammar):
 	return Gstar
 
 
-def train_test(train_file, test_file, cur_str_result, smooth=True, use_converge=True, converge=1, split=1, train_iterations=20):
+def train_test(train_file, test_file, cur_str_result, smooth=True, 
+	use_converge=True, converge=1, split=1, train_iterations=20):
 	"""
 	extract and train a grammar on training file, get log likelihood on test file
 	train_file: training tree left derivation
@@ -230,7 +231,7 @@ def train_test(train_file, test_file, cur_str_result, smooth=True, use_converge=
 	train_iterations: number of training iterations
 	"""
 	cv_train = new_em.ConvertRule(train_file)
-	cv_test = new_em.ConvertRule(test_file)
+	cv_test = new_em.ConvertRule(test_file, tree_count=4)
 
 	gram = new_em.Grammar(cv_train.rule_dict, split)
 
@@ -239,10 +240,11 @@ def train_test(train_file, test_file, cur_str_result, smooth=True, use_converge=
 
 	# smooth grammar probabilities
 	epsilon = float("1e-323")
+
 	added_nonterms = set()
 	test_gram_rules = new_em.Grammar(cv_test.rule_dict, split).rule_dict
 	train_gram_rules = em.gram.rule_dict
-
+	added_rules = set()
 	if smooth:
 		#find mininum probability and use that to set epsilon
 		#min_prob = float("inf")
@@ -266,36 +268,167 @@ def train_test(train_file, test_file, cur_str_result, smooth=True, use_converge=
 				if rhs not in train_gram_rules[lhs]:
 					train_gram_rules[lhs][rhs] = epsilon
 					added_gram_count += 1
-					added_nonterms.add(rhs)
+					#print lhs, rhs
+					added_nonterms.union(rhs.split())
+					added_rules.add(lhs + "->" + rhs)
 			# renormalize
-			total_prob = sum(train_gram_rules[lhs].values())
-			for rhs, prob in train_gram_rules[lhs].items():
-				train_gram_rules[lhs][rhs] = prob / total_prob
+			#total_prob = sum(train_gram_rules[add_lhs].values())
+			#for rhs, prob in train_gram_rules[add_lhs].items():
+			#	train_gram_rules[add_lhs][rhs] = prob / total_prob
 		em.gram.rule_dict = train_gram_rules
 		em.gram.alphabet = em.gram.alphabet.union(added_nonterms)
 
 		cur_str_result.append( "original grammar count: " + str(original_gram_count))
 		cur_str_result.append( "added grammar count: " + str(added_gram_count))
+	# only add _1 version of unused rules
+	"""
+	added_nonterms = set()
+	test_gram_rules = cv_test.rule_dict
+	train_gram_rules = em.gram.rule_dict
+
+	base_train_gram = {}
+	for lhs in train_gram_rules:
+		base_lhs = lhs.split("_")[0]
+		if base_lhs not in base_train_gram:
+			base_train_gram[base_lhs] = {}
+		for rhs, prob in train_gram_rules[lhs].items():
+			train_gram_rules[lhs][rhs] = prob
+			base_rhs = " ".join(i.split("_")[0] for i in rhs.split())
+			base_train_gram[base_lhs][base_rhs] = prob
+
+	added_rules = set()
+	if smooth:
+		#find mininum probability and use that to set epsilon
+		#min_prob = float("inf")
+		#for lhs in train_gram_rules:
+		#	for rhs, prob in train_gram_rules[lhs].items():
+		#		if prob < min_prob and prob > 0:
+		#			min_prob = prob
+		# use min_prob / 10, or min float value if min_prob / 10 is less than 0 
+		#epsilon_temp = min_prob / 10
+		#if epsilon_temp > 0:
+		#	epsilon = epsilon_temp
+		cur_str_result.append(str(epsilon))
+		
+		added_gram_count = 0
+		original_gram_count = sum(map(len, train_gram_rules.values()))
+		for lhs in test_gram_rules:
+			if lhs == 'S':
+				add_lhs = 'S'
+			else:
+				add_lhs = lhs + "_1"
+			if add_lhs not in train_gram_rules:
+				train_gram_rules[add_lhs] = {}
+				added_nonterms.add(add_lhs)
+			for rhs, prob in test_gram_rules[lhs].items():
+				if rhs not in base_train_gram[lhs]:
+					add_rhs = []
+					for i in rhs.split():
+						if i != 't':
+							add_rhs.append(i + "_1")
+						else:
+							add_rhs.append(i)
+					add_rhs = " ".join(add_rhs)
+					train_gram_rules[add_lhs][add_rhs] = epsilon
+					added_gram_count += 1
+					#print lhs, rhs
+					added_nonterms.union(add_rhs.split())
+					added_rules.add(add_lhs + "->" + add_rhs)
+			# renormalize
+			#total_prob = sum(train_gram_rules[add_lhs].values())
+			#for rhs, prob in train_gram_rules[add_lhs].items():
+			#	train_gram_rules[add_lhs][rhs] = prob / total_prob
+		em.gram.rule_dict = train_gram_rules
+		em.gram.alphabet = em.gram.alphabet.union(added_nonterms)
+
+		cur_str_result.append( "original grammar count: " + str(original_gram_count))
+		cur_str_result.append( "added grammar count: " + str(added_gram_count))
+	"""
+
 	# get test likelihood
 	em_test = new_em.EM(em.gram, cv_test.Tree, cur_str_result)
+	use_added_rules = em_test.get_loglikelihood(added_rules)
+	cur_str_result.append(str(use_added_rules))
+	#return (em_test.loglikelihood - use_added_rules * np.log(epsilon)) / len(em_test.tree)
+	return em_test.loglikelihood 
+
+def notrain_test(train_file, test_file, cur_str_result, smooth=True, use_converge=True, converge=1, split=1, train_iterations=20):
+	"""
+	extract grammar from training file, do not train on em get log likelihood on test file
+	train_file: training tree left derivation
+	test_file: test tree left derivation
+	smooth: whether to add smoothing on grammar
+	split: number of split for the grammar
+	train_iterations: number of training iterations
+	"""
+	cv_train = new_em.ConvertRule(train_file)
+	cv_test = new_em.ConvertRule(test_file)
+
+	gram = new_em.Grammar(cv_train.rule_dict, split, True)
+	em = new_em.EM(gram, cv_train.Tree, cur_str_result)
+	# smooth grammar probabilities
+	epsilon = float("1e-323")
+	added_nonterms = set()
+	test_gram_rules = new_em.Grammar(cv_test.rule_dict, 1).rule_dict
+	train_gram_rules = em.gram.rule_dict
+
+	if smooth:
+		#find mininum probability and use that to set epsilon
+		#min_prob = float("inf")
+		#for lhs in train_gram_rules:
+		#	for rhs, prob in train_gram_rules[lhs].items():
+		#		if prob < min_prob and prob > 0:
+		#			min_prob = prob
+		# use min_prob / 10, or min float value if min_prob / 10 is less than 0 
+		#epsilon_temp = min_prob / 10
+		#if epsilon_temp > 0:
+		#	epsilon = epsilon_temp
+		#cur_str_result.append(str(epsilon))
+		added_gram_count = 0
+		original_gram_count = sum(map(len, train_gram_rules.values()))
+		print test_gram_rules
+		for lhs in test_gram_rules:
+			if lhs not in train_gram_rules:
+				train_gram_rules[lhs] = {}
+				added_nonterms.add(lhs)
+			for rhs, prob in test_gram_rules[lhs].items():
+				if rhs not in train_gram_rules[lhs]:
+
+
+					train_gram_rules[lhs][rhs] = epsilon
+					added_gram_count += 1
+					added_nonterms.union(rhs.split())
+					added_rules.add(lhs + "->" + rhs)
+			# renormalize
+			total_prob = sum(train_gram_rules[lhs].values())
+			for rhs, prob in train_gram_rules[lhs].items():
+				train_gram_rules[lhs][rhs] = prob / total_prob
+
+		em.gram.rule_dict = train_gram_rules
+		em.gram.alphabet = em.gram.alphabet.union(added_nonterms)
+
+		cur_str_result.append( "original grammar count: " + str(original_gram_count))
+		cur_str_result.append( "added grammar count: " + str(added_gram_count))
+
+	# get test likelihood
+	em_test = new_em.EM(em.gram, cv_test.Tree[0], cur_str_result)
 	em_test.get_loglikelihood()
 
 	return em_test.loglikelihood / len(em_test.tree)
-
 
 if __name__ == "__main__":
 	subgraph_size_list = [100]
 	train_sample_size_list = [4, 8, 12, 16]
 	for subgraph_size in subgraph_size_list:
 		for train_sample_size in train_sample_size_list:
-			train_file = "prepare_tree_rules/ca-HepTh/%d_sub/nonpartition/%d_sample/routers_train.txt" % (subgraph_size, train_sample_size)
-			test_file = "prepare_tree_rules/ca-HepPh/%d_sub/nonpartition/%d_sample/routers_hold.txt" % (subgraph_size, 4)
+			train_file = "prepare_tree_rules/ca-HepPh/%d_sub/nonpartition/%d_sample/ca-HepPh_train.txt" % (subgraph_size, train_sample_size)
+			test_file = "prepare_tree_rules/ca-HepTh/%d_sub/nonpartition/%d_sample/ca-HepTh_hold.txt" % (subgraph_size, 4)
 			print "subgraph size: %d, train sample size: %d" % (subgraph_size, train_sample_size)
-			for split in xrange(1, 5, 1):
+			for split in xrange(1, 4, 1):
 				print
 				print "split: ", split
 				max_likelihood, result_str = float("-inf"), ""
-				for i in xrange(5):
+				for i in xrange(1):
 					cur_str_result = []
 					test_loglikelihood = train_test(train_file, test_file, cur_str_result,
 						smooth=True, use_converge=True, converge=1, split=split)
