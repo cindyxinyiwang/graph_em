@@ -364,7 +364,8 @@ class EM(object):
 
 	def get_loglikelihood(self, added_rules):
 		# set added_rule probability to extremely small
-		smooth_prob = -10000000
+		smooth_prob = -1000000000000
+		use_smooth_count = 0
 		for r in added_rules:
 			parts = r.split("->")
 			lhs, rhs = parts[0], parts[1]
@@ -393,11 +394,13 @@ class EM(object):
 						if x not in node_nonterm:
 							continue
 						for rhs, prob in self.gram.rule_dict[x].items():
+							tmp_contribs = []
 							rule = x + "->" + rhs
 							rhs = rhs.split()
 							l_children = len(n.children)
 							if len(rhs) == l_children:
 								tmp = prob
+								tmp_contribs.append(prob)
 								for ni, xi in zip(n.children, rhs):
 									if ni.val == "t":
 										if xi == "t":
@@ -406,6 +409,7 @@ class EM(object):
 											tmp = -float("inf")
 											break
 									tmp += self.inside[ni][xi]
+									tmp_contribs.append(self.inside[ni][xi])
 								# count added rules
 								# only smooth when necessary
 								#if rule in added_rules and tmp > -float("inf") and self.inside[n][x] == -float("inf"):
@@ -418,10 +422,16 @@ class EM(object):
 								#if rule in added_rules and tmp > -float("inf") and self.inside[n][x] > -float("inf"):
 								#	continue
 								self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
-			self.loglikelihood += self.inside[level_tree_nodes[0][0]][self.gram.start]	
+								#print self.inside[n][x], tmp, np.logaddexp(tmp, self.inside[n][x]), tmp_contribs
+					#for x in node_nonterm:
+					#	print x, n.val, self.inside[n][x]
+			#print self.inside[level_tree_nodes[0][0]][self.gram.start]
+			cur_smooth_count = int(self.inside[level_tree_nodes[0][0]][self.gram.start] / smooth_prob)
+			use_smooth_count += cur_smooth_count
+			self.loglikelihood += (self.inside[level_tree_nodes[0][0]][self.gram.start]	- cur_smooth_count * smooth_prob)
 			#print "tree test:", self.inside[level_tree_nodes[0][0]][self.gram.start]	
 			#self.cur_str_result.append("tree test: %f" % self.inside[level_tree_nodes[0][0]][self.gram.start])
-		return int(self.loglikelihood / smooth_prob)
+		return use_smooth_count
 
 	def expect(self, tree):
 		self.inside = {}
