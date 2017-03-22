@@ -503,7 +503,7 @@ class EM(object):
 					use_smooth_count = np.logaddexp(use_smooth_count, self.f_rules[lhs][rhs])
 		use_smooth_count = np.exp(use_smooth_count)
 		use_total_count = np.exp(use_total_count)
-		print self.loglikelihood, use_smooth_count, use_total_count, use_smooth_count / use_total_count
+		print self.loglikelihood, self.loglikelihood-use_smooth_count * smooth_prob, use_smooth_count, use_total_count, use_smooth_count / use_total_count
 		self.loglikelihood -= use_smooth_count * smooth_prob
 		#print self.loglikelihood
 		return use_smooth_count
