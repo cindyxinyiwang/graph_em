@@ -364,18 +364,25 @@ class EM(object):
 
 	def get_loglikelihood(self, added_rules):
 		# set added_rule probability to extremely small
-		smooth_prob = -1000000000000
-		use_smooth_count = 0
+		smooth_prob = -10000
+
 		for r in added_rules:
 			parts = r.split("->")
 			lhs, rhs = parts[0], parts[1]
 			self.gram.rule_dict[lhs][rhs] = smooth_prob
 		self.loglikelihood = 0
+		
+		self.f_rules = {}
+		for s in self.gram.rule_dict:
+			self.f_rules[s] = {}
+			for r in self.gram.rule_dict[s]:
+				self.f_rules[s][r] = -float("inf")
 		#use_added_rules = 0
+		use_smooth_count = -float("inf")
 		for tree in self.tree:
 			self.inside = {}
 			self.outside = {}
-	
+
 			level_tree_nodes = get_level_nodes(tree)
 			level_tree_nodes = OrderedDict(sorted(level_tree_nodes.items(), reverse=True))
 			for level in level_tree_nodes:
@@ -410,27 +417,95 @@ class EM(object):
 											break
 									tmp += self.inside[ni][xi]
 									tmp_contribs.append(self.inside[ni][xi])
-								# count added rules
-								# only smooth when necessary
-								#if rule in added_rules and tmp > -float("inf") and self.inside[n][x] == -float("inf"):
-								#	use_added_rules += 1
-									#node_children = [i.val for i in n.children]
-									#print n.val, node_children
-									#print x, rhs, prob
-									#print self.inside[n][x], tmp, np.logaddexp(tmp, self.inside[n][x])
-								# this smooth rule should not be used
-								#if rule in added_rules and tmp > -float("inf") and self.inside[n][x] > -float("inf"):
-								#	continue
 								self.inside[n][x] = np.logaddexp(tmp, self.inside[n][x])
 								#print self.inside[n][x], tmp, np.logaddexp(tmp, self.inside[n][x]), tmp_contribs
-					#for x in node_nonterm:
-					#	print x, n.val, self.inside[n][x]
-			#print self.inside[level_tree_nodes[0][0]][self.gram.start]
-			cur_smooth_count = int(self.inside[level_tree_nodes[0][0]][self.gram.start] / smooth_prob)
-			use_smooth_count += cur_smooth_count
-			self.loglikelihood += (self.inside[level_tree_nodes[0][0]][self.gram.start]	- cur_smooth_count * smooth_prob)
-			#print "tree test:", self.inside[level_tree_nodes[0][0]][self.gram.start]	
-			#self.cur_str_result.append("tree test: %f" % self.inside[level_tree_nodes[0][0]][self.gram.start])
+			level_tree_nodes = OrderedDict(sorted(level_tree_nodes.items()))
+			self.outside[level_tree_nodes[0][0]] = {}
+	
+			for x in self.gram.alphabet:
+				self.outside[level_tree_nodes[0][0]][x] = -float("inf")
+			self.outside[level_tree_nodes[0][0]][self.gram.start] = 0.0
+	
+			root_inside_likelihood = self.inside[level_tree_nodes[0][0]][self.gram.start]
+			self.loglikelihood += root_inside_likelihood
+
+			for level in level_tree_nodes:
+				for n in level_tree_nodes[level]:
+					node_nonterm = set()
+					if n.val == "S":
+						node_nonterm.add("S")
+					else:
+						for i in xrange(1, self.gram.k+1):
+							node_nonterm.add(n.val + "_" + str(i))
+					for x in self.gram.alphabet:
+						if x not in node_nonterm:
+							continue
+						for rhs, prob in self.gram.rule_dict[x].items():
+							rhs = rhs.split()
+							#print product
+							l_children = len(n.children)
+							if len(rhs) == l_children:
+								for ni, xi in zip(n.children, rhs):
+									if ni not in self.outside:
+										self.outside[ni] = {}
+										for x_p in self.gram.alphabet:
+											self.outside[ni][x_p] = - float("inf")
+									#print self.inside[ni][xi], product, prob
+									product = self.outside[n][x] + prob
+									#print [c.val for c in n.children]
+									for ni_p, xi_p in zip(n.children, rhs):
+										if ni_p.val == "t":
+											if xi_p == "t":
+												continue
+											else:
+												product = - float("inf")
+												break
+										if ni != ni_p:
+											product += self.inside[ni_p][xi_p]
+									#self.outside[ni][xi] += self.outside[n][x] * prob * product / self.inside[ni][xi]
+									#t = self.outside[n][x] + prob + product
+									self.outside[ni][xi] = np.logaddexp(product, self.outside[ni][xi])
+	
+			# get expected counts
+			for level in level_tree_nodes:
+				for n in level_tree_nodes[level]:
+					node_nonterm = set()
+					if n.val == "S":
+						node_nonterm.add("S")
+					else:
+						for i in xrange(1, self.gram.k+1):
+							node_nonterm.add(n.val + "_" + str(i))
+					for x in self.gram.alphabet:
+						if x not in node_nonterm:
+							continue
+						for rhs, prob in self.gram.rule_dict[x].items():
+							rhs = rhs.split()
+	
+							l_children = len(n.children)
+							if len(rhs) == l_children:
+								tmp = prob + self.outside[n][x]
+								for ni, xi in zip(n.children, rhs):
+									if ni.val == "t":
+										if xi == "t":
+											continue
+										else:
+											tmp = -float("inf")
+											break
+									tmp += self.inside[ni][xi]
+								tmp -= root_inside_likelihood
+
+								self.f_rules[x][" ".join(rhs)] = np.logaddexp(tmp, self.f_rules[x][" ".join(rhs)])
+		use_total_count = -float("inf")
+		for lhs in self.f_rules:
+			for rhs in self.f_rules[lhs]:
+				use_total_count = np.logaddexp(use_total_count, self.f_rules[lhs][rhs])
+				if lhs + "->" + rhs in added_rules:
+					use_smooth_count = np.logaddexp(use_smooth_count, self.f_rules[lhs][rhs])
+		use_smooth_count = np.exp(use_smooth_count)
+		use_total_count = np.exp(use_total_count)
+		print self.loglikelihood, use_smooth_count, use_total_count, use_smooth_count / use_total_count
+		self.loglikelihood -= use_smooth_count * smooth_prob
+		#print self.loglikelihood
 		return use_smooth_count
 
 	def expect(self, tree):

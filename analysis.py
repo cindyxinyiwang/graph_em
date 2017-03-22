@@ -234,7 +234,7 @@ def train_test(train_file, test_file, train_sample_size_list, subgraph_size, smo
 		print "subgraph size: %d, train sample size: %d" % (subgraph_size, train_sample_size)
 		cv_train = new_em.ConvertRule(train_file, tree_count=train_sample_size)
 		cv_test = new_em.ConvertRule(test_file, tree_count=4)
-		for split in xrange(1, 5, 1):
+		for split in xrange(5, 8, 1):
 			print "split: ", split
 			max_likelihood, result_str = float("-inf"), ""
 			for i in xrange(20):
@@ -350,7 +350,7 @@ def train_test(train_file, test_file, train_sample_size_list, subgraph_size, smo
 						cur_str_result.append( "added grammar count: " + str(added_gram_count))
 					"""
 				# get test likelihood
-				em_test = new_em.EM(em.gram, cv_test.Tree, cur_str_result)
+				em_test = new_em.EM(em.gram, [cv_test.Tree[0]], cur_str_result)
 				use_added_rules = em_test.get_loglikelihood(added_rules)
 				cur_str_result.append(str(use_added_rules))
 				#test_loglikelihood = (em_test.loglikelihood - use_added_rules * (-10000000000)) / len(em_test.tree)
@@ -421,14 +421,14 @@ def notrain_test(train_file, test_file, cur_str_result, smooth=True, use_converg
 		cur_str_result.append( "added grammar count: " + str(added_gram_count))
 
 	# get test likelihood
-	em_test = new_em.EM(em.gram, cv_test.Tree[0], cur_str_result)
+	em_test = new_em.EM(em.gram, cv_test.Tree, cur_str_result)
 	em_test.get_loglikelihood()
 
 	return em_test.loglikelihood / len(em_test.tree)
 
 if __name__ == "__main__":
 	subgraph_size_list = [100]
-	train_sample_size_list = [1, 2, 4, 8, 12, 16]
+	train_sample_size_list = [12, 16]
 	for subgraph_size in subgraph_size_list:
 		train_file = "prepare_tree_rules/ca-HepTh/%d_sub/nonpartition/%d_sample/ca-HepTh_train.txt" % (subgraph_size, 16)
 		test_file = "prepare_tree_rules/ca-HepPh/%d_sub/nonpartition/%d_sample/ca-HepPh_hold.txt" % (subgraph_size, 4)
