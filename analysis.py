@@ -235,10 +235,10 @@ def train_test(train_file, test_file, train_sample_size_list, subgraph_size, smo
 		cv_train = new_em.ConvertRule(train_file, tree_count=train_sample_size)
 		cv_test = new_em.ConvertRule(test_file, tree_count=4)
 		base_smooth_count = -1
-		for split in xrange(1, 5, 1):
+		for split in xrange(2, 5, 1):
 			print "split: ", split
 			max_likelihood, result_str = float("-inf"), ""
-			for i in xrange(1):
+			for i in xrange(50):
 				gram = new_em.Grammar(cv_train.rule_dict, split)
 				cur_str_result = []
 				em = new_em.EM(gram, cv_train.Tree, cur_str_result)
@@ -350,11 +350,13 @@ def notrain_test(train_file, test_file, cur_str_result, smooth=True, use_converg
 
 if __name__ == "__main__":
 	
-	subgraph_size_list = [100]
-	train_sample_size_list = [4, 8, 12, 16]
+	subgraph_size_list = [25]
+	train_sample_size_list = [4]
 	for subgraph_size in subgraph_size_list:
-		train_file = "prepare_tree_rules/ca-HepTh/%d_sub/nonpartition/%d_sample/ca-HepTh_train.txt" % (subgraph_size, 16)
-		test_file = "prepare_tree_rules/ca-HepPh/%d_sub/nonpartition/%d_sample/ca-HepPh_hold.txt" % (subgraph_size, 4)
+		train_file = "prepare_tree_rules/cit-HepTh/%d_sub/nonpartition/%d_sample/cit-HepTh_train.txt" % (subgraph_size, 16)
+		test_file = "prepare_tree_rules/cit-HepPh/%d_sub/nonpartition/%d_sample/cit-HepPh_hold.txt" % (subgraph_size, 4)
+		#train_file =  "prepare_tree_rules/routers/300_sub/partition/4_train/routers_train.txt"
+		#test_file = "prepare_tree_rules/routers/300_sub/partition/4_train/routers_hold.txt"
 		test_loglikelihood = train_test(train_file, test_file, train_sample_size_list, subgraph_size,
 			smooth=True, use_converge=True, converge=1)
 	"""
