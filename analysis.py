@@ -220,7 +220,7 @@ def get_sample_graphs(grammar):
 	return Gstar
 
 
-def train_test(train_file, test_file, train_sample_size_list, subgraph_size, smooth=True, 
+def train_test(train_file, test_file, split_list, train_sample_size_list, subgraph_size, smooth=True, 
 	use_converge=True, converge=1, train_iterations=20):
 	"""
 	extract and train a grammar on training file, get log likelihood on test file
@@ -235,15 +235,18 @@ def train_test(train_file, test_file, train_sample_size_list, subgraph_size, smo
 		cv_train = new_em.ConvertRule(train_file, tree_count=train_sample_size)
 		cv_test = new_em.ConvertRule(test_file, tree_count=4)
 		base_smooth_count = -1
-		for split in xrange(2, 5, 1):
+		for split in split_list:
 			print "split: ", split
 			max_likelihood, result_str = float("-inf"), ""
-			for i in xrange(50):
+			for i in xrange(5):
 				gram = new_em.Grammar(cv_train.rule_dict, split)
 				cur_str_result = []
 				em = new_em.EM(gram, cv_train.Tree, cur_str_result)
 				em.iterations(use_converge, converge=converge)
-
+				train_loglikelihood = em.loglikelihood
+				# smooth grammar probabilities
+				epsilon = float("1e-323")
+			
 				added_nonterms = set()
 				test_gram_rules = new_em.Grammar(cv_test.rule_dict, split).rule_dict
 				train_gram_rules = em.gram.rule_dict
@@ -257,7 +260,7 @@ def train_test(train_file, test_file, train_sample_size_list, subgraph_size, smo
 							added_nonterms.add(lhs)
 						for rhs, prob in test_gram_rules[lhs].items():
 							if rhs not in train_gram_rules[lhs]:
-								#train_gram_rules[lhs][rhs] = epsilon
+								train_gram_rules[lhs][rhs] = epsilon
 								added_gram_count += 1
 								#print lhs, rhs
 								added_nonterms.union(rhs.split())
@@ -268,20 +271,18 @@ def train_test(train_file, test_file, train_sample_size_list, subgraph_size, smo
 					cur_str_result.append( "original grammar count: " + str(original_gram_count))
 					cur_str_result.append( "added grammar count: " + str(added_gram_count))
 				# get test likelihood
-				em_test = new_em.EM(em.gram, [cv_test.Tree[0]], cur_str_result)
+				em_test = new_em.EM(em.gram, cv_test.Tree, cur_str_result)
 				use_added_rules = em_test.get_loglikelihood(added_rules)
 				if base_smooth_count < 0:
 					base_smooth_count = round(use_added_rules)
 				cur_str_result.append("smooth count:" + str(use_added_rules))
 				test_loglikelihood = em_test.loglikelihood
-
+				cur_str_result.append("train loglikelihood:" + str(train_loglikelihood))
 				cur_str_result.append("test loglikelihood:" + str(test_loglikelihood))
-
-				#if test_loglikelihood > max_likelihood and base_smooth_count == round(use_added_rules):
-				if test_loglikelihood > max_likelihood:
-					max_likelihood = test_loglikelihood
+				print "train loglikelihood:" + str(train_loglikelihood), "test loglikelihood:" + str(test_loglikelihood) 
+				if train_loglikelihood > max_likelihood and base_smooth_count == round(use_added_rules):
+					max_likelihood = train_loglikelihood
 					result_str = "\n".join(cur_str_result)
-				#print test_loglikelihood
 			print result_str
 
 def notrain_test(train_file, test_file, cur_str_result, smooth=True, use_converge=True, converge=1, split=1, train_iterations=20):
@@ -349,24 +350,16 @@ def notrain_test(train_file, test_file, cur_str_result, smooth=True, use_converg
 	return em_test.loglikelihood / len(em_test.tree)
 
 if __name__ == "__main__":
-	
-	subgraph_size_list = [25]
-	train_sample_size_list = [4]
+	subgraph_size_list = [int(sys.argv[1])]
+	train_sample_size_list = [int(sys.argv[2])]
+	split = [int(sys.argv[3])]
+	num_test_sample = 20
 	for subgraph_size in subgraph_size_list:
-		train_file = "prepare_tree_rules/cit-HepTh/%d_sub/nonpartition/%d_sample/cit-HepTh_train.txt" % (subgraph_size, 16)
-		test_file = "prepare_tree_rules/cit-HepPh/%d_sub/nonpartition/%d_sample/cit-HepPh_hold.txt" % (subgraph_size, 4)
-		#train_file =  "prepare_tree_rules/routers/300_sub/partition/4_train/routers_train.txt"
-		#test_file = "prepare_tree_rules/routers/300_sub/partition/4_train/routers_hold.txt"
-		test_loglikelihood = train_test(train_file, test_file, train_sample_size_list, subgraph_size,
-			smooth=True, use_converge=True, converge=1)
-	"""
-	subgraph_size_list = [25]
-	train_sample_size_list = [1]
-	train_file = "train.txt"
-	test_file = "test.txt"
-	test_loglikelihood = train_test(train_file, test_file, train_sample_size_list, 25,
-			smooth=True, use_converge=True, converge=1)
-
-	"""
-
+		for i in xrange(num_test_sample):
+			train_file = "prepare_tree_rules/cit-HepTh/%d_sub/nonpartition/%d_sample/cit-HepTh_train.txt" % (subgraph_size, 500)
+			test_file = "prepare_tree_rules/cit-HepPh/%d_sub/nonpartition/%d_sample/cit-HepPh_%d.txt" % (subgraph_size, 4, i)
+			#result_file = "results/cit/train%d_test%d_split%d.txt" % (subgraph_size, i, split[0])
+			test_loglikelihood = train_test(train_file, test_file, split,  train_sample_size_list, subgraph_size,
+				smooth=True, use_converge=True, converge=1)
+					
 	
