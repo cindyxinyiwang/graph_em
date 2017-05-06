@@ -32,6 +32,39 @@ class Rule(object):
         symb = list(t_symb) + n_symb
         return symb
 
+class RuleSplit(object):
+    """
+    Rule with nonterminal split
+    """
+    def __init__(self, id, lhs, rhs, prob, translate=True):
+        self.id = id
+        self.lhs = lhs
+        if translate:
+            self.rhs = rhs 
+            self.cfg_rhs = self.hrg_to_cfg(lhs, rhs)
+        else:
+            self.cfg_rhs = rhs 
+        self.prob = prob 
+        if len(self.cfg_rhs) == 0:
+            print "T"
+
+    def hrg_to_cfg(self, lhs, rhs):
+        t_symb = set()
+        n_symb = []
+        for r in rhs:
+            if not r.endswith(":T"):
+                split = r.split("_")[1]
+                size = [chr(ord('a') + x) for x in range(0, r.count(",") + 1)]
+                str = ",".join(size)+"_"+split
+                n_symb.append(str)
+            else:
+                for x in r.split(":")[0].split(","):
+                    if x.isdigit(): t_symb.add(x)
+        self.terminal = t_symb
+        symb = list(t_symb) + n_symb
+        return symb       
+
+
 
 class Grammar(object):
     def __init__(self, start):

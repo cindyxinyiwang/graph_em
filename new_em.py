@@ -311,12 +311,11 @@ class ConvertRule(object):
 			else:
 				base_rhs.append("t")
 		orig_hrg = self.cfg_to_hrg_map[base_lhs + "->" + " ".join(base_rhs)]
-		#print (orig_hrg, lhs, rhs)
 		orig_hrg_lhs, orig_hrg_rhs = orig_hrg[0], orig_hrg[1]
 		if c_lhs >= 0:
-			hrg_lhs = "(" + orig_hrg_lhs + ")_" + c_lhs
+			hrg_lhs = orig_hrg_lhs + "_" + c_lhs
 		else:
-			hrg_lhs = "(" + orig_hrg_lhs + ")"
+			hrg_lhs =  orig_hrg_lhs 
 		hrg_rhs = []
 		i = 0
 		for t in orig_hrg_rhs:
