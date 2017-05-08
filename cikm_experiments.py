@@ -2,8 +2,11 @@ __version__="0.1.0"
 import argparse
 import os, sys
 import networkx as nx
+import pandas as pd
+import numpy as np
 import treedecomps.load_edgelist_from_dataframe as ledf
 import treedecomps.graph_utils as gutil
+import treedecomps.experiments as exps # graph stats
 import traceback
 from collections import defaultdict
 import prepare_tree_rules.PHRG as phrg #import phrg_derive_prod_rules_partition
@@ -11,7 +14,7 @@ import prepare_tree_rules.graph_sampler as gs
 import prepare_tree_rules.tree_decomposition as td
 
 
-
+DGB = False
 DEBUG = False
 # //////////////////////////////////////////////////////////////////////////////
 def get_parser ():
@@ -50,7 +53,7 @@ def get_25node_subgraphs_inrage(graph,start_size, end_size, step):
 def main():
   sgb_d = [get_25node_subgraphs_inrage(G, 50,500,step=50)]
 
-def sample_refrence_graph(G, ofname, K_ls, n):
+def sample_refrence_graph(G, ofname, scate, K_lst, n):
     if G is None: return
 
     G.remove_edges_from(G.selfloop_edges())
@@ -64,7 +67,6 @@ def sample_refrence_graph(G, ofname, K_ls, n):
 
     gutil.graph_checks(G)
 
-    subgraph_objs_lst = []
     if DEBUG: print
     if DEBUG: print "--------------------"
     if DEBUG: print "-Tree Decomposition-"
@@ -73,28 +75,82 @@ def sample_refrence_graph(G, ofname, K_ls, n):
     left_deriv_prod_rules = []
 
     cntr = 1
-    for K in K_ls:
-      left_deriv_file_name = "ProdRules/subg_{}of{}_{}_rules.txt".format(cntr,K,ofname)
-      print left_deriv_file_name
-      cntr += 1
+    subgraph_objs_dict = defaultdict(list)
 
-      for Gprime in gs.rwr_sample(G, K, n):
-        subgraph_objs_lst.append( Gprime )
-        T = td.quickbb(Gprime)
-        root = list(T)[0]
-        T = td.make_rooted(T, root)
-        T = phrg.binarize(T)
-        root = list(T)[0]
-        root, children = T
-        td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+    for K in K_lst:
+        # print "  ", K
+        # subgraphs 50 to
+        left_deriv_file_name = "ProdRules/{}_subgraph_objs_{}_{}.txt".format(K,scate,ofname)
+        print "  ", left_deriv_file_name
+        cntr += 1
+        gprime_group =[]
+        for Gprime in gs.rwr_sample(G, K, n):
+            gprime_group.append(Gprime)
+        #     T = td.quickbb(Gprime)
+        #     root = list(T)[0]
+        #     T = td.make_rooted(T, root)
+        #     T = phrg.binarize(T)
+        #     root = list(T)[0]
+        #     root, children = T
+        #     td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+        subgraph_objs_dict[(scate,K)].append(gprime_group)
 
-    left_derive_file = open(left_deriv_file_name, 'w')
-    for r in left_deriv_prod_rules:
-    	left_derive_file.write(r)
-    	left_derive_file.write('\n')
-    left_derive_file.close()
+        # left_derive_file = open(left_deriv_file_name, 'w')
+        # for r in left_deriv_prod_rules:
+        # 	left_derive_file.write(r)
+        # 	left_derive_file.write('\n')
+        # left_derive_file.close()
 
-    return subgraph_objs_lst
+
+    return subgraph_objs_dict
+
+
+
+def cikm17_graph_stats(gObjs_A, gObjs_B, glists_info_str):
+    '''
+    gObjs_A = list of graphs (ie. test set)
+    gObjs_A = list of graphs (ie. synth set)
+    glists_info_str = list info for each list
+    '''
+    results = exps.SNDegree_CDF_ks_2samp(gObjs_A, gObjs_B, glists_info_str)
+    # print np.shape(results)
+    df = pd.DataFrame(results, columns = ["D","p"])
+    print df.head()
+    print "Done"
+
+def main3 (origG):
+    subgraph_categories = ["train","test","hold"]
+    moa_results_dict = {}
+    for scat in subgraph_categories:
+      print ">", scat
+      subgraphs_grp_dict =sample_refrence_graph(origG, g_name, scat, range(4,9,4),25)
+      cntr = 0
+      for k,v in subgraphs_grp_dict.iteritems():
+        # print k, [g.number_of_nodes() for g in v[0]]
+        key= "{}_{}".format(k[0],k[1])
+        moa_results_dict[key] = exps.SNDegree_CDF_ks_2samp(v[0], origG, 'xpHRG')
+    # end for
+    mdf = pd.DataFrame()
+    for k,v in moa_results_dict.items():
+      cols= ["{}_D".format(k), "{}_p".format(k)]
+      df = pd.DataFrame(v, columns=cols)
+      mdf = pd.concat([df, mdf], axis=1)
+    print mdf.head()
+
+def sample_input_graph_into_sets(origG):
+    subgraph_categories = ["train","test","hold"]
+    cate_subgraph_groups =  {}
+    for scat in subgraph_categories:
+      print ">", scat
+      scat_results_d = sample_refrence_graph(origG, origG.name, scat, range(50,100,50),25)
+      for k,v in scat_results_d.iteritems():
+        ky= "{}_{}".format(k[0],k[1])
+        cate_subgraph_groups[ky] = v[0]
+    # print cate_subgraph_groups.keys()
+    print 
+    cikm17_graph_stats(cate_subgraph_groups['train_50'],
+                       cate_subgraph_groups['test_50'],
+                       glists_info_str=['train_50', 'test_50'])
 
 if __name__ == '__main__':
   '''
@@ -114,17 +170,13 @@ if __name__ == '__main__':
   g_name = os.path.basename(orig_file).split('.')[-1]
   LogInfo(g_name)
   if df.shape[1] >=3:
-    G = nx.from_pandas_dataframe(df, 'src', 'trg', ['ts'])  # whole graph
+    origG = nx.from_pandas_dataframe(df, 'src', 'trg', ['ts'])  # whole graph
   else:
-    G = nx.from_pandas_dataframe(df, 'src', 'trg')
-  G.name = g_name
+    origG = nx.from_pandas_dataframe(df, 'src', 'trg')
+  origG.name = g_name
   LogInfo("Graph Loaded")
   try:
-    # sub_graphs_lst  = [get_25node_subgraphs_inrage(G, 50,500,step=50)]
-    subgraphs_lst = sample_refrence_graph(G,g_name,range(4,8,4), 25)
-    #print (rules_fname)
-    #print [x.number_of_nodes() for x in subgraphs_lst]
-
+      sample_input_graph_into_sets(origG)
   except  Exception, e:
     print str(e)
     traceback.print_exc()
