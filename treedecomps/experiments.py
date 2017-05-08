@@ -17,7 +17,7 @@ import pandas as pd
 # import data.graphs as graphs
 # import exact_phrg as xphrg
 # import kron_sal as kron
-# import net_metrics
+import net_metrics
 # from derive_prules_givenagraph import derive_prules_from
 
 def get_parser():
@@ -100,21 +100,25 @@ def get_parser():
 #
 #
 print ('# '*40)
-def gcd(glist, label):
+def gcd(glistA, glistB, label):
     print
     print 'GCD', label
-    df_g = net_metrics.external_rage(origG,origG.name) # original graph
-    # print nx.info(origG)
-    results = []
-    for i,c in enumerate(glist):
-        gcd_network = net_metrics.external_rage(c,'hstar'+str(i))
-        # rgfd =  tijana_eval_rgfd(df_g, gcd_network)  ## what is this?
+    gcd_mother_results = {}
+    for i,c in enumerate(glistA):
+        df_g  = net_metrics.external_rage(c,c.name+"_glstA") # original graph
         gcm_g = net_metrics.tijana_eval_compute_gcm(df_g)
-        gcm_h = net_metrics.tijana_eval_compute_gcm(gcd_network)
-        gcd = net_metrics.tijana_eval_compute_gcd(gcm_g, gcm_h)
-        if DBG: print '  ', gcd
-        results.append(gcd)
 
+        results = []
+        for i,c in enumerate(glist):
+            gcd_network = net_metrics.external_rage(c,'hstar'+str(i))
+            # rgfd =  tijana_eval_rgfd(df_g, gcd_network)  ## what is this?
+            gcm_h = net_metrics.tijana_eval_compute_gcm(gcd_network)
+            gcd = net_metrics.tijana_eval_compute_gcd(gcm_g, gcm_h)
+            if DBG: print '  ', gcd
+            results.append(gcd)
+        gcd_mother_results[c.name+"_glstA_%d"%i] = results
+    print len(gcd_mother_results.keys())
+    exit()
     return results
 
 

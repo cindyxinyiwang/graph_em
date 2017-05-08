@@ -112,18 +112,21 @@ def cikm17_graph_stats(gObjs_A, gObjs_B, glists_info_str):
     gObjs_A = list of graphs (ie. synth set)
     glists_info_str = list info for each list
     '''
-    results = exps.SNDegree_CDF_ks_2samp(gObjs_A, gObjs_B, glists_info_str)
-    # print np.shape(results)
-    df = pd.DataFrame(results, columns = ["D","p"])
-    print df.to_string()
-    df.to_csv('Results/degree_ks_tst_{}_{}'.format(glists_info_str[0], glists_info_str[1]),
-              index=False)
-    if os.path.exists('Results/degree_ks_tst_{}_{}'.format(glists_info_str[0], glists_info_str[1])):
-        print 'Saved to disk', 'Results/degree_ks_tst_{}_{}'.format(glists_info_str[0], glists_info_str[1])
+    # results = exps.SNDegree_CDF_ks_2samp(gObjs_A, gObjs_B, glists_info_str)
+    # cols = ["{}_D".format("_".join(glists_info_str)),
+    #         "{}_p".format("_".join(glists_info_str))]
+    # df = pd.DataFrame(results, columns = cols)
+    # print df.to_string()
+    # outfname = 'Results/degree_ks_tst_{}_{}.csv'.format(glists_info_str[0], glists_info_str[1])
+    # df.to_csv(outfname, index=False)
+    # if os.path.exists(outfname):
+    #     print 'Saved to disk', outfname
+    print
+    results = exps.gcd(gObjs_A, gObjs_B, glists_info_str)
     print "Done"
 
 def main3 (origG):
-    subgraph_categories = ["train","test","hold"]
+    subgraph_categories = ["trn","tst","hld"]
     moa_results_dict = {}
     for scat in subgraph_categories:
       print ">", scat
