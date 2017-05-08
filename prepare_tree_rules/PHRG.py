@@ -158,7 +158,7 @@ def probabilistic_hrg (G, num_samples=1, n=None):
 
   prod_rules = {}
   if num_nodes >= 500:
-	for Gprime in gs.rwr_sample(G, 2, 300):
+	for Gprime in gs.rwr_sample(G, num_samples, n):
 	  T = td.quickbb(Gprime)
 	  root = list(T)[0]
 	  T = td.make_rooted(T, root)
@@ -200,8 +200,9 @@ def probabilistic_hrg (G, num_samples=1, n=None):
 	  print ("r%d.%d" % (id, sid), "%s" % re.findall("[^()]+", k)[0], rhs, prod_rules[k][x])
 	  sid += 1
 	id += 1
-  # print rules
-  exit()
+  # # print rules
+  # exit()
+  return  rules
 
   g = pcfg.Grammar('S')
   for (id, lhs, rhs, prob) in rules:
@@ -230,7 +231,7 @@ def probabilistic_hrg (G, num_samples=1, n=None):
 
 
 def phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgraph_size):
-  G.remove_edges_from(G.selfloop_edges()) 
+  G.remove_edges_from(G.selfloop_edges())
   giant_nodes = max(nx.connected_component_subgraphs(G), key=len)
   G = nx.subgraph(G, giant_nodes)
 
@@ -254,7 +255,7 @@ def phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgra
     root, children = T
     td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
     cur_sample_count += 1
-    
+
     if sum(sample_size_list[:f_idx+1]) < cur_sample_count:
     	f_idx += 1
     print cur_sample_count, file_name_list[f_idx]
@@ -316,7 +317,7 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name, num_samples=
   	left_derive_file.write('\n')
   left_derive_file.close()
 	#exit()
-  
+
   if DEBUG: print
   if DEBUG: print "--------------------"
   if DEBUG: print "- Production Rules -"
