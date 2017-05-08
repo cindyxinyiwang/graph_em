@@ -115,7 +115,11 @@ def cikm17_graph_stats(gObjs_A, gObjs_B, glists_info_str):
     results = exps.SNDegree_CDF_ks_2samp(gObjs_A, gObjs_B, glists_info_str)
     # print np.shape(results)
     df = pd.DataFrame(results, columns = ["D","p"])
-    print df.head()
+    print df.to_string()
+    df.to_csv('Results/degree_ks_tst_{}_{}'.format(glists_info_str[0], glists_info_str[1]),
+              index=False)
+    if os.path.exists('Results/degree_ks_tst_{}_{}'.format(glists_info_str[0], glists_info_str[1])):
+        print 'Saved to disk', 'Results/degree_ks_tst_{}_{}'.format(glists_info_str[0], glists_info_str[1])
     print "Done"
 
 def main3 (origG):
@@ -147,7 +151,7 @@ def sample_input_graph_into_sets(origG):
         ky= "{}_{}".format(k[0],k[1])
         cate_subgraph_groups[ky] = v[0]
     # print cate_subgraph_groups.keys()
-    print 
+    print
     cikm17_graph_stats(cate_subgraph_groups['train_50'],
                        cate_subgraph_groups['test_50'],
                        glists_info_str=['train_50', 'test_50'])
