@@ -22,12 +22,13 @@ def non_partition_sample(graph_name):
 	"""
 	Sample tree decomposition from the same graph without graph partition
 	"""
-	samples = [4, 8, 12, 16]
-	subgraph_size = [100, 200, 300, 400, 500]
-	file_name = ["train", "test", "hold"]
+	samples = [4]
+	subgraph_size = [25]
+	#file_name = ["train", "test", "hold"]
+	file_name = [str(i) for i in xrange(500)]
 	for size in subgraph_size:
 		for s in samples:
-			dir_name = "%s/%d_sub/%d_sample/" % (graph_name, size, s)
+			dir_name = "%s/%d_sub/nonpartition/%d_sample/" % (graph_name, size, s)
 			ensure_dir(dir_name)
 			for f in file_name:
 				name = "%s%s_%s.txt" % (dir_name, graph_name, f)
@@ -53,8 +54,8 @@ def partition_sample(graph_name):
 			phrg.phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgraph_size)
 
 if __name__ == "__main__":
-	#G = nx.hypercube_graph(9)
-	G = nx.read_edgelist("data/authorship/dblp-author/out.dblp-author", comments="%")
+	#G = nx.barabasi_albert_graph(30000, 15)
+	G = nx.read_edgelist("data/ba-30000-3.txt", comments="#")
 	#G = nx.karate_club_graph()
 	G.remove_edges_from(G.selfloop_edges())
 	#orig_size = len(G)
@@ -67,5 +68,4 @@ if __name__ == "__main__":
 	#nx.draw(G)
 	#plt.show()
 
-	non_partition_sample("dblp-author")
-
+	non_partition_sample("ba-test")

@@ -74,7 +74,7 @@ if __name__ == "__main__":
 	#	print lhs
 	#	print [(r.lhs, r.cfg_rhs) for r in g.by_lhs[lhs]]
 	
-	g.set_max_size(10)
+	g.set_max_size(50)
 	graph_rules = g.sample(10)
 	
 	for rid in graph_rules:

@@ -1,10 +1,10 @@
 __author__ = 'tweninge'
 import networkx as nx
-import metis
+#import metis
 from random import choice
 from collections import deque, Counter
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 def partition_sample(G, c, n):
     """
