@@ -19,9 +19,10 @@ DEBUG = False
 # //////////////////////////////////////////////////////////////////////////////
 def get_parser ():
     parser = argparse.ArgumentParser(description='Experiemnts Workflow for CIKM')
-    parser.add_argument('--orig', required=True, nargs=1, help='Filename edgelist graph')
-    #parser.add_argument('-tw', action='store_true', default=False, \
-    #     required=False, help="print xphrg (mcs) tw")
+    parser.add_argument('--orig', required=True, nargs=1,
+        help='Filename edgelist graph')
+    parser.add_argument('-w', action='store_true',default=False,required=False,
+        help="Gen whole graph")
     parser.add_argument('--version', action='version', version=__version__)
     return parser
 
@@ -156,23 +157,63 @@ def cikm17_graph_stats(gObjs_A, gObjs_B, glists_info_str, gname):
 #       df = pd.DataFrame(v, columns=cols)
 #       mdf = pd.concat([df, mdf], axis=1)
 #     print mdf.head()
+def cikm17_samp_subgs_derive_rules_gen_graph(origG,hstar_V, sbcate, nbr_sg_lst):
+    '''
+    Args:
+    origG   reference graph as nx graph object
+    hstar_V nbr of nodes --generate a synth graph of target hstar_V
+    '''
+    for nbr_sg in nbr_sg_lst:
+        print '  Sampling',nbr_sg,'subgraphs'
+        outfname = "ProdRules/{}_{}_{}_prodrule.txt".format(sbcate,origG.name,nbr_sg)
+        set_prod_rules = phrg.probabilistic_hrg_deriving_prod_rules(origG,
+                                left_deriv_file_name=outfname,
+                                num_samples=nbr_sg, subgraph_size=25)
+        if 0: print "  ",len(set_prod_rules)
+        if os.path.exists(outfname): print "  Saved to disk:", outfname
 
-def sample_input_graph_into_sets(origG):
+
+def sample_input_graph_into_sets(origG, args):
     subgraph_categories = ["trn","tst","hld"]
     cate_subgraph_groups =  {}
     for scat in subgraph_categories:
-      print ">", scat
-      scat_results_d = sample_refrence_graph(origG, origG.name, scat, range(10,21,10),25)
-      for k,v in scat_results_d.iteritems():
-        ky= "{}_{}".format(k[0],k[1])
-        cate_subgraph_groups[ky] = v[0]
-    # print cate_subgraph_groups.keys()
-    print
-    # choosing to compare two groups of graphObjs
-    cikm17_graph_stats(cate_subgraph_groups['trn_10'],
-                       cate_subgraph_groups['tst_10'],
-                       glists_info_str=['trn_10', 'tst_10'],
-                       gname=origG.name)
+      if args['w']:
+          print ">", scat,'-w'
+          cikm17_samp_subgs_derive_rules_gen_graph(
+              origG,
+              origG.number_of_nodes(),
+              scat,
+              range(50,51,50)
+              )
+      else:
+          print ">", scat
+          scat_results_d = sample_refrence_graph(origG, origG.name, scat, range(10,21,10),25)
+          for k,v in scat_results_d.iteritems():
+            ky= "{}_{}".format(k[0],k[1])
+            cate_subgraph_groups[ky] = v[0]
+          print '... Graphs sampled:', cate_subgraph_groups.keys()
+          # choosing to compare two groups of graphObjs
+          cikm17_graph_stats(cate_subgraph_groups['trn_10'],
+                           cate_subgraph_groups['tst_10'],
+                           glists_info_str=['trn_10', 'tst_10'],
+                           gname=origG.name)
+
+def load_reference_graph(args):
+    orig_file = args['orig'][0]
+
+    datframes = ledf.Pandas_DataFrame_From_Edgelist(args['orig'])
+    df = datframes[0]
+    g_name = os.path.basename(orig_file).split('.')[-1]
+    LogInfo(g_name)
+    if df.shape[1] ==3:
+      origG = nx.from_pandas_dataframe(df, 'src', 'trg', ['ts'])  # whole graph
+    elif df.shape[1]==4:
+        origG = nx.from_pandas_dataframe(df, 'src', 'trg', 'wt', ['ts'])
+    else:
+      origG = nx.from_pandas_dataframe(df, 'src', 'trg')
+    origG.name = g_name
+    LogInfo("Graph Loaded")
+    return origG
 
 if __name__ == '__main__':
   '''
@@ -184,21 +225,9 @@ if __name__ == '__main__':
 
   parser = get_parser()
   args = vars(parser.parse_args())
-
-  orig_file = args['orig'][0]
-
-  datframes = ledf.Pandas_DataFrame_From_Edgelist(args['orig'])
-  df = datframes[0]
-  g_name = os.path.basename(orig_file).split('.')[-1]
-  LogInfo(g_name)
-  if df.shape[1] >=3:
-    origG = nx.from_pandas_dataframe(df, 'src', 'trg', ['ts'])  # whole graph
-  else:
-    origG = nx.from_pandas_dataframe(df, 'src', 'trg')
-  origG.name = g_name
-  LogInfo("Graph Loaded")
+  origG = load_reference_graph(args)
   try:
-      sample_input_graph_into_sets(origG)
+      sample_input_graph_into_sets(origG, args)
   except  Exception, e:
     print str(e)
     traceback.print_exc()

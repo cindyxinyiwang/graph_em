@@ -12,9 +12,9 @@ def rule_to_graph(graph_rules, gram):
 	nonterm_stack = []
 	next_node_id = 0
 	for rid in graph_rules:
-		lhs, rhs_list = gram.by_id[rid][0].lhs, gram.by_id[rid][0].rhs 
+		lhs, rhs_list = gram.by_id[rid][0].lhs, gram.by_id[rid][0].rhs
 		lhs_map = {}
-		
+
 		if "_" in lhs:
 			lhs = lhs.split("_")
 			lhs_letters, split = lhs[0].split(","), lhs[1]
@@ -22,7 +22,7 @@ def rule_to_graph(graph_rules, gram):
 			nonterm_stack.pop()
 			assert len(lhs_letters) == len(lhs_nids)
 			for letter, id in zip(lhs_letters, lhs_nids):
-				lhs_map[letter] = id 
+				lhs_map[letter] = id
 		rhs_list.reverse() # left-most derivation
 		add_node_set = set()
 		for rhs in rhs_list:
@@ -52,37 +52,41 @@ if __name__ == "__main__":
 	subgraph_size = 25
 	subgraph_num = 500
 	split = 2
-	
-	train_file = "prepare_tree_rules/cit-HepTh/%d_sub/nonpartition/%d_sample/cit-HepTh_train.txt" % (subgraph_size, subgraph_num)
-	
+
+	if len(sys.argv)<2:
+		train_file = "prepare_tree_rules/cit-HepTh/%d_sub/nonpartition/%d_sample/cit-HepTh_train.txt" % (subgraph_size, subgraph_num)
+		print "Using the following set of prod rules:",train_file
+	else:
+		train_file = sys.argv[1]
+	print "~"*80
+	print "Using the following set of prod rules:",train_file
+
 	cv_train = new_em.ConvertRule(train_file, tree_count=subgraph_num)
 	gram = new_em.Grammar(cv_train.rule_dict, split)
 	cur_str_result = []
 	em = new_em.EM(gram, cv_train.Tree, cur_str_result)
 	em.iterations(use_converge=True)
-	
+
 	train_loglikelihood = em.loglikelihood
 	rules = em.gram.get_valid_rules(cv_train)
-	
+
 	g = da.Grammar('S')
 	for (id, hrg, prob) in rules:
 		lhs, rhs = hrg
 		#print lhs, rhs
 		g.add_rule(da.RuleSplit(id, lhs, rhs, prob, True))
-	
+
 	#for lhs in g.by_lhs:
 	#	print lhs
 	#	print [(r.lhs, r.cfg_rhs) for r in g.by_lhs[lhs]]
-	
+
 	g.set_max_size(50)
 	graph_rules = g.sample(10)
-	
+
 	for rid in graph_rules:
 		print g.by_id[rid][0].lhs, g.by_id[rid][0].rhs
-	
-	
+
+
 	nxg = rule_to_graph(graph_rules, g)
 	nx.draw(nxg)
 	plt.show()
-	
-	

@@ -5,7 +5,7 @@ import pprint as pp
 import re
 
 import networkx as nx
-
+import pickle #as pickle
 import david as pcfg
 import graph_sampler as gs
 import tree_decomposition as td
@@ -293,15 +293,17 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name, num_samples=
   if DEBUG: print "--------------------"
   prod_rules = {}
   left_deriv_prod_rules = []
+  subgraph_samples = []
   if num_nodes >= 500:
-	for Gprime in gs.rwr_sample(G, num_samples, subgraph_size):
-	  T = td.quickbb(Gprime)
-	  root = list(T)[0]
-	  T = td.make_rooted(T, root)
-	  T = binarize(T)
-	  root = list(T)[0]
-	  root, children = T
-	  td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+    for Gprime in gs.rwr_sample(G, num_samples, subgraph_size):
+        subgraph_samples.append(Gprime)
+        T = td.quickbb(Gprime)
+        root = list(T)[0]
+        T = td.make_rooted(T, root)
+        T = binarize(T)
+        root = list(T)[0]
+        root, children = T
+        td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
   else:
 	T = td.quickbb(G)
 	root = list(T)[0]
@@ -311,6 +313,11 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name, num_samples=
 	root, children = T
 	td.iter_dfs_visit(T, G, prod_rules, left_deriv_prod_rules)
 
+  pOutFname = "{}subgraph_objs.p".format(left_deriv_file_name.rstrip("prodrule.txt"))
+  with open(pOutFname, 'wb') as outf:
+      pickle.dump(subgraph_samples, outf, protocol=pickle.HIGHEST_PROTOCOL)
+  print '  Saved subgraph objects to disk:',pOutFname
+  #
   left_derive_file = open(left_deriv_file_name, 'w')
   for r in left_deriv_prod_rules:
   	left_derive_file.write(r)
