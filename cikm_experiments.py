@@ -183,7 +183,7 @@ def sample_input_graph_into_sets(origG, args):
               origG,
               origG.number_of_nodes(),
               scat,
-              range(50,51,50)
+              range(500,501,50)
               )
       else:
           print ">", scat

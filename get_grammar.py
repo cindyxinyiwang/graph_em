@@ -1,3 +1,7 @@
+__version__="0.1.0"
+import argparse
+import os
+import traceback
 import sys
 sys.path.insert(0, 'script/')
 
@@ -6,6 +10,16 @@ import numpy as np
 import david as da
 import networkx as nx
 import matplotlib.pyplot as plt
+from treedecomps.load_edgelist_from_dataframe import Pandas_DataFrame_From_Edgelist
+# //////////////////////////////////////////////////////////////////////////////
+def get_parser ():
+    parser = argparse.ArgumentParser(description='Get Grammar')
+    parser.add_argument('--orig', required=True, nargs=1,
+        help='Reference graph filename')
+    parser.add_argument('--pr', required=False, nargs=1,
+		help="Prod rules file-path")
+    parser.add_argument('--version', action='version', version=__version__)
+    return parser
 
 def rule_to_graph(graph_rules, gram):
 	nxg = nx.Graph()	# networkx graph
@@ -48,18 +62,41 @@ def rule_to_graph(graph_rules, gram):
 		next_node_id += len(add_node_set)
 	return nxg
 
+def load_reference_graph(args):
+    orig_file = args['orig'][0]
+
+    datframes = Pandas_DataFrame_From_Edgelist(args['orig'])
+    df = datframes[0]
+    g_name = os.path.basename(orig_file).split('.')[-1]
+    if df.shape[1] ==3:
+      origG = nx.from_pandas_dataframe(df, 'src', 'trg', ['ts'])  # whole graph
+    elif df.shape[1]==4:
+        origG = nx.from_pandas_dataframe(df, 'src', 'trg', 'wt', ['ts'])
+    else:
+      origG = nx.from_pandas_dataframe(df, 'src', 'trg')
+    origG.name = g_name
+    print("  Graph Loaded")
+    return origG
+
 if __name__ == "__main__":
+	parser = get_parser()
+	args = vars(parser.parse_args())
+
 	subgraph_size = 25
 	subgraph_num = 500
 	split = 2
 
-	if len(sys.argv)<2:
+	if args['pr'] is None:
+		print parser.print_help()
 		train_file = "prepare_tree_rules/cit-HepTh/%d_sub/nonpartition/%d_sample/cit-HepTh_train.txt" % (subgraph_size, subgraph_num)
-		print "Using the following set of prod rules:",train_file
 	else:
-		train_file = sys.argv[1]
+		train_file = args['pr'][0]
 	print "~"*80
-	print "Using the following set of prod rules:",train_file
+	print "  Using the following set of prod rules:",train_file
+	# print args['orig']
+	G = load_reference_graph(args)
+	target_nbr_of_nodes = G.number_of_nodes()
+
 
 	cv_train = new_em.ConvertRule(train_file, tree_count=subgraph_num)
 	gram = new_em.Grammar(cv_train.rule_dict, split)
@@ -69,6 +106,7 @@ if __name__ == "__main__":
 
 	train_loglikelihood = em.loglikelihood
 	rules = em.gram.get_valid_rules(cv_train)
+	print "len(rules)", len(rules)
 
 	g = da.Grammar('S')
 	for (id, hrg, prob) in rules:
@@ -80,13 +118,15 @@ if __name__ == "__main__":
 	#	print lhs
 	#	print [(r.lhs, r.cfg_rhs) for r in g.by_lhs[lhs]]
 
-	g.set_max_size(50)
-	graph_rules = g.sample(10)
+	g.set_max_size(target_nbr_of_nodes)
+	graph_rules = g.sample(target_nbr_of_nodes)
 
-	for rid in graph_rules:
-		print g.by_id[rid][0].lhs, g.by_id[rid][0].rhs
+	# for rid in graph_rules:
+	# 	print g.by_id[rid][0].lhs, g.by_id[rid][0].rhs
 
 
 	nxg = rule_to_graph(graph_rules, g)
-	nx.draw(nxg)
-	plt.show()
+	print nx.info(nxg)
+
+	# nx.draw(nxg)
+	# plt.show()

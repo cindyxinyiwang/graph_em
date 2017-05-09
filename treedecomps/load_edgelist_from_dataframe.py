@@ -1,6 +1,3 @@
-__version__="0.10"
-__author__="saguinag (@) nd.edu"
-
 import pandas as pd
 import numpy as np
 
