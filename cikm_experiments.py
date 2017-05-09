@@ -186,14 +186,14 @@ def sample_input_graph_into_sets(origG, args):
               range(50,51,50)
               )
       else:
-          print ">", scat
-          scat_results_d = sample_refrence_graph(origG, origG.name, scat, range(10,21,10),25)
+          print ">>", scat
+          scat_results_d= sample_refrence_graph(origG, origG.name, scat,range(10,21,10),25)
           for k,v in scat_results_d.iteritems():
             ky= "{}_{}".format(k[0],k[1])
             cate_subgraph_groups[ky] = v[0]
-          print '... Graphs sampled:', cate_subgraph_groups.keys()
-          # choosing to compare two groups of graphObjs
-          cikm17_graph_stats(cate_subgraph_groups['trn_10'],
+    print '.. Graphs sampled:', cate_subgraph_groups.keys()
+    # choosing to compare two groups of graphObjs
+    cikm17_graph_stats(cate_subgraph_groups['trn_10'],
                            cate_subgraph_groups['tst_10'],
                            glists_info_str=['trn_10', 'tst_10'],
                            gname=origG.name)
