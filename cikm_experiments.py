@@ -50,8 +50,7 @@ def get_25node_subgraphs_inrage(graph,start_size, end_size, step):
   return g_obj_d
 
 
-def main():
-  sgb_d = [get_25node_subgraphs_inrage(G, 50,500,step=50)]
+
 
 def sample_refrence_graph(G, ofname, scate, K_lst, n):
     if G is None: return
@@ -106,58 +105,74 @@ def sample_refrence_graph(G, ofname, scate, K_lst, n):
 
 
 
-def cikm17_graph_stats(gObjs_A, gObjs_B, glists_info_str):
+def cikm17_graph_stats(gObjs_A, gObjs_B, glists_info_str, gname):
     '''
     gObjs_A = list of graphs (ie. test set)
     gObjs_A = list of graphs (ie. synth set)
     glists_info_str = list info for each list
     '''
-    # results = exps.SNDegree_CDF_ks_2samp(gObjs_A, gObjs_B, glists_info_str)
-    # cols = ["{}_D".format("_".join(glists_info_str)),
-    #         "{}_p".format("_".join(glists_info_str))]
-    # df = pd.DataFrame(results, columns = cols)
+    print '... Degree sample KS Test'
+    results = exps.SNDegree_CDF_ks_2samp(gObjs_A, gObjs_B, glists_info_str)
+    cols = ["{}_D".format("_".join(glists_info_str)),
+            "{}_p".format("_".join(glists_info_str))]
+    df = pd.DataFrame(results, columns = cols)
     # print df.to_string()
-    # outfname = 'Results/degree_ks_tst_{}_{}.csv'.format(glists_info_str[0], glists_info_str[1])
-    # df.to_csv(outfname, index=False)
-    # if os.path.exists(outfname):
-    #     print 'Saved to disk', outfname
-    print
+    outfname = 'Results/degree_ks_{}_{}_{}.csv'.format(gname,glists_info_str[0], glists_info_str[1])
+    df.to_csv(outfname, index=False)
+    if os.path.exists(outfname):
+        print 'Saved to disk', outfname
+
+    print '... GCD Test-I'
     results = exps.gcd(gObjs_A, gObjs_B, glists_info_str)
+    outfname = 'Results/gcd_{}_{}_{}.csv'.format(gname,glists_info_str[0], glists_info_str[1])
+    results.to_csv(outfname, index=False)
+    if os.path.exists(outfname):
+        print 'Saved to disk', outfname
+
+    print '... Hop-plot Test-I'
+    results = exps.hops_CDF_test(gObjs_A, gObjs_B, glists_info_str)
+    outfname = 'Results/hopplot_{}_{}_{}.csv'.format(gname,glists_info_str[0], glists_info_str[1])
+    results.to_csv(outfname, index=False)
+    if os.path.exists(outfname):
+        print 'Saved to disk', outfname
+
     print "Done"
 
-def main3 (origG):
-    subgraph_categories = ["trn","tst","hld"]
-    moa_results_dict = {}
-    for scat in subgraph_categories:
-      print ">", scat
-      subgraphs_grp_dict =sample_refrence_graph(origG, g_name, scat, range(4,9,4),25)
-      cntr = 0
-      for k,v in subgraphs_grp_dict.iteritems():
-        # print k, [g.number_of_nodes() for g in v[0]]
-        key= "{}_{}".format(k[0],k[1])
-        moa_results_dict[key] = exps.SNDegree_CDF_ks_2samp(v[0], origG, 'xpHRG')
-    # end for
-    mdf = pd.DataFrame()
-    for k,v in moa_results_dict.items():
-      cols= ["{}_D".format(k), "{}_p".format(k)]
-      df = pd.DataFrame(v, columns=cols)
-      mdf = pd.concat([df, mdf], axis=1)
-    print mdf.head()
+# def main3 (origG):
+#     subgraph_categories = ["trn","tst","hld"]
+#     moa_results_dict = {}
+#     for scat in subgraph_categories:
+#       print ">", scat
+#       subgraphs_grp_dict =sample_refrence_graph(origG, g_name, scat, range(4,9,4),25)
+#       cntr = 0
+#       for k,v in subgraphs_grp_dict.iteritems():
+#         # print k, [g.number_of_nodes() for g in v[0]]
+#         key= "{}_{}".format(k[0],k[1])
+#         moa_results_dict[key] = exps.SNDegree_CDF_ks_2samp(v[0], origG, 'xpHRG')
+#     # end for
+#     mdf = pd.DataFrame()
+#     for k,v in moa_results_dict.items():
+#       cols= ["{}_D".format(k), "{}_p".format(k)]
+#       df = pd.DataFrame(v, columns=cols)
+#       mdf = pd.concat([df, mdf], axis=1)
+#     print mdf.head()
 
 def sample_input_graph_into_sets(origG):
-    subgraph_categories = ["train","test","hold"]
+    subgraph_categories = ["trn","tst","hld"]
     cate_subgraph_groups =  {}
     for scat in subgraph_categories:
       print ">", scat
-      scat_results_d = sample_refrence_graph(origG, origG.name, scat, range(50,100,50),25)
+      scat_results_d = sample_refrence_graph(origG, origG.name, scat, range(10,21,10),25)
       for k,v in scat_results_d.iteritems():
         ky= "{}_{}".format(k[0],k[1])
         cate_subgraph_groups[ky] = v[0]
     # print cate_subgraph_groups.keys()
     print
-    cikm17_graph_stats(cate_subgraph_groups['train_50'],
-                       cate_subgraph_groups['test_50'],
-                       glists_info_str=['train_50', 'test_50'])
+    # choosing to compare two groups of graphObjs
+    cikm17_graph_stats(cate_subgraph_groups['trn_10'],
+                       cate_subgraph_groups['tst_10'],
+                       glists_info_str=['trn_10', 'tst_10'],
+                       gname=origG.name)
 
 if __name__ == '__main__':
   '''

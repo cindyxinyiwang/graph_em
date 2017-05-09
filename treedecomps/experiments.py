@@ -13,6 +13,7 @@ from itertools import combinations
 import networkx as nx
 import numpy as np
 import pandas as pd
+from scipy import stats
 
 # import data.graphs as graphs
 # import exact_phrg as xphrg
@@ -101,26 +102,63 @@ def get_parser():
 #
 print ('# '*40)
 def gcd(glistA, glistB, label):
+    DBG = False
     print
     print 'GCD', label
+    gcd_mother_results = {}
+    print len(glistA), len(glistB)
+
+    for i,c in enumerate(glistA):
+        # print "  ", c.name+"_glstA%d" % i
+        print "  .",
+        # df_g  = net_metrics.external_rage(c,c.name+"_glstA") # original graph
+        df_g  = net_metrics.external_rage(c,"_".join(label)+"_glstA") # original graph
+
+        gcm_g = net_metrics.tijana_eval_compute_gcm(df_g)
+
+        results = []
+        for j,c in enumerate(glistB):
+            print '-',
+            gcd_network = net_metrics.external_rage(c,'hstar'+str(j))
+            # rgfd =  tijana_eval_rgfd(df_g, gcd_network)  ## what is this?
+            gcm_h = net_metrics.tijana_eval_compute_gcm(gcd_network)
+            gcd = net_metrics.tijana_eval_compute_gcd(gcm_g, gcm_h)
+            # print '  ', gcd
+            results.append(gcd)
+        print
+        gcd_mother_results["_".join(label)+"_glstA_%d"%i] = results
+        # print gcd_mother_results.keys()
+        # print gcd_mother_results.values()
+
+    # for k in gcd_mother_results.keys():
+    #     print gcd_mother_results[k]
+    #     break
+    # print np.transpose(gcd_mother_results.values()),gcd_mother_results.keys()
+    df = pd.DataFrame(np.transpose(gcd_mother_results.values()),
+                      columns= gcd_mother_results.keys())
+    # print df.to_string()
+    return df
+
+def gcd_one2one(glistA, glistB, label):
+    print 'GCD 1 to 1', label
     gcd_mother_results = {}
     for i,c in enumerate(glistA):
         df_g  = net_metrics.external_rage(c,c.name+"_glstA") # original graph
         gcm_g = net_metrics.tijana_eval_compute_gcm(df_g)
 
         results = []
-        for i,c in enumerate(glist):
-            gcd_network = net_metrics.external_rage(c,'hstar'+str(i))
-            # rgfd =  tijana_eval_rgfd(df_g, gcd_network)  ## what is this?
-            gcm_h = net_metrics.tijana_eval_compute_gcm(gcd_network)
-            gcd = net_metrics.tijana_eval_compute_gcd(gcm_g, gcm_h)
-            if DBG: print '  ', gcd
-            results.append(gcd)
-        gcd_mother_results[c.name+"_glstA_%d"%i] = results
-    print len(gcd_mother_results.keys())
-    exit()
-    return results
 
+        gcd_network = net_metrics.external_rage(np.random.choice(glistB),'hstar'+str(i))
+            # rgfd =  tijana_eval_rgfd(df_g, gcd_network)  ## what is this?
+        gcm_h = net_metrics.tijana_eval_compute_gcm(gcd_network)
+        gcd = net_metrics.tijana_eval_compute_gcd(gcm_g, gcm_h)
+        results.append(gcd)
+        gcd_mother_results[c.name+"_glstA_%d"%i] = results
+
+    print np.transpose(gcd_mother_results.values()),gcd_mother_results.keys()
+    # print df[1].apply(lambda x: (np.mean(x), stats.sem(x)))
+
+    return results
 
 def scale_norm_dist(gb):
     # print gb
@@ -319,38 +357,55 @@ def eig_CDF_test(glist, label):
 
 
 
-def hops_CDF_test(glist, label):
+def hops_CDF_test(glistA, glistB, label):
+    DBG = False
     print
     print 'Hops CDF Test', label
-    dist = net_metrics.get_graph_hops(origG, 100).values()
-    s = float(np.sum(dist))
-    cnt = float(len(dist))
-    cdf = 0
-    orig_p = []
-    for x in dist:
-        wgt = x/s
-        cdf += wgt
-        orig_p.append(cdf)
 
-    results =[]
-    for c in glist:
-        dist = net_metrics.get_graph_hops(origG, 100).values()
+    mother_of_all_results = {}
+    for j,g in enumerate(glistA):
+        print '  .',
+        dist = net_metrics.get_graph_hops(g, 100).values()
         s = float(np.sum(dist))
+        cnt = float(len(dist))
         cdf = 0
-        g_cdf = []
+        orig_p = []
         for x in dist:
-            wgt = x / s
+            wgt = x/s
             cdf += wgt
-            g_cdf.append(cdf)
+            orig_p.append(cdf)
 
-        dist = 0
-        for i in range(0, min(len(g_cdf), len(orig_p))):
-            dist += math.pow(g_cdf[i] - orig_p[i], 2)
+        # next set
+        results =[]
+        for c in glistB:
+            print '~',
+            dist = net_metrics.get_graph_hops(c, 100).values()
+            s = float(np.sum(dist))
+            cdf = 0
+            g_cdf = []
+            for x in dist:
+                wgt = x / s
+                cdf += wgt
+                g_cdf.append(cdf)
 
-        if DBG: print '  ', math.sqrt(dist)
-        results.append(math.sqrt(dist))
+            dist = 0
+            for i in range(0, min(len(g_cdf), len(orig_p))):
+                dist += math.pow(g_cdf[i] - orig_p[i], 2)
 
-    return results
+            if DBG: print '  ', math.sqrt(dist)
+            results.append(math.sqrt(dist))
+        print
+        mother_of_all_results["glistA_%d"%j]=results
+    # print type(mother_of_all_results), np.shape(mother_of_all_results)
+    # for k in mother_of_all_results.keys():
+    #     print mother_of_all_results[k]
+    #     break
+    df = pd.DataFrame(mother_of_all_results.values(), columns=mother_of_all_results.keys())
+
+    # df = pd.DataFrame.from_dict(mother_of_all_results.items())
+    # print df.head()
+
+    return df
 
 
 

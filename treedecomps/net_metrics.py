@@ -1039,7 +1039,7 @@ def external_rage(G,netname):
     if platform.system() == "Linux":
       args = ("./bin/linux/RAGE",  tmp_file)
     elif platform.system() == "Darwin":
-      args = ("./bin/mac/RAGE",  tmp_file)
+      args = ("./bin/macos/RAGE",  tmp_file)
     else:
       args = ("../RAGE.exe",  tmp_file)
 
