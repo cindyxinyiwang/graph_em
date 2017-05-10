@@ -1,12 +1,16 @@
 __version__="0.1.0"
 import argparse
 import os, sys
+from os import listdir
+from os.path import isfile, join
+import csv
 import networkx as nx
 import pandas as pd
 import numpy as np
 import treedecomps.load_edgelist_from_dataframe as ledf
 import treedecomps.graph_utils as gutil
 import treedecomps.experiments as exps # graph stats
+from prepare_tree_rules.xphrg_graph_gen import xphrg_graph_gen
 import traceback
 from collections import defaultdict
 import prepare_tree_rules.PHRG as phrg #import phrg_derive_prod_rules_partition
@@ -80,19 +84,19 @@ def sample_refrence_graph(G, ofname, scate, K_lst, n):
     for K in K_lst:
         # print "  ", K
         # subgraphs 50 to
-        left_deriv_file_name = "ProdRules/{}_subgraph_objs_{}_{}.txt".format(K,scate,ofname)
+        left_deriv_file_name = "ProdRules/{}_{}_{}_prodrules.txt".format(K,scate,ofname)
         print "  ", left_deriv_file_name
         cntr += 1
         gprime_group =[]
         for Gprime in gs.rwr_sample(G, K, n):
             gprime_group.append(Gprime)
-        #     T = td.quickbb(Gprime)
-        #     root = list(T)[0]
-        #     T = td.make_rooted(T, root)
-        #     T = phrg.binarize(T)
-        #     root = list(T)[0]
-        #     root, children = T
-        #     td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+            T = td.quickbb(Gprime)
+            root = list(T)[0]
+            T = td.make_rooted(T, root)
+            T = phrg.binarize(T)
+            root = list(T)[0]
+            root, children = T
+            td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
         subgraph_objs_dict[(scate,K)].append(gprime_group)
 
         # left_derive_file = open(left_deriv_file_name, 'w')
@@ -176,6 +180,7 @@ def cikm17_samp_subgs_derive_rules_gen_graph(origG,hstar_V, sbcate, nbr_sg_lst):
 def sample_input_graph_into_sets(origG, args):
     subgraph_categories = ["trn","tst","hld"]
     cate_subgraph_groups =  {}
+    subgraph_nbr_lst = range(10,11,10)
     for scat in subgraph_categories:
       if args['w']:
           print ">", scat,'-w'
@@ -183,19 +188,38 @@ def sample_input_graph_into_sets(origG, args):
               origG,
               origG.number_of_nodes(),
               scat,
-              range(500,501,50)
+              subgraph_nbr_lst
               )
       else:
           print ">>", scat
-          scat_results_d= sample_refrence_graph(origG, origG.name, scat,range(10,21,10),25)
+          scat_results_d= sample_refrence_graph(origG, origG.name, scat,subgraph_nbr_lst,25)
+          for sg_nbr in subgraph_nbr_lst:
+              prodrules= phrg.probabilistic_hrg(origG, sg_nbr, 25)
+              outfname = "ProdRules/{}_{}_{}_{}_prodrules.tsv".format(scat, sg_nbr, 25, origG.name)
+              with open(outfname, 'wb') as f:
+                  writer = csv.writer(f,delimiter="\t")
+                  writer.writerows(prodrules)
+              if os.path.exists(outfname): print '   Saved to disk:', outfname
           for k,v in scat_results_d.iteritems():
             ky= "{}_{}".format(k[0],k[1])
             cate_subgraph_groups[ky] = v[0]
-    print '.. Graphs sampled:', cate_subgraph_groups.keys()
-    # choosing to compare two groups of graphObjs
-    cikm17_graph_stats(cate_subgraph_groups['trn_10'],
-                           cate_subgraph_groups['tst_10'],
-                           glists_info_str=['trn_10', 'tst_10'],
+    if 1:
+        # print '.. Graphs sampled:', cate_subgraph_groups.keys()
+        # print '.. files:', [f for f in listdir("./ProdRules") if isfile(join("./ProdRules", f))]
+        # Using these prod rules, generate the same number of synth graphs and compare with the tst set
+        trn_files = [f for f in listdir("./ProdRules") if isfile(join("./ProdRules", f)) and ("trn_10" in f)]
+        trn_graphs = cate_subgraph_groups['trn_10']
+        syn_graphs = xphrg_graph_gen(trn_files, subgraph_nbr_lst[-1], 25)
+
+    if 0:
+        # choosing to compare two groups of graphObjs
+        # print subgraph_nbr_lst[-1]
+        trn_set = [x for x in cate_subgraph_groups.keys() if 'trn' in x][0]
+        tst_set = [x for x in cate_subgraph_groups.keys() if 'tst' in x][0]
+        print trn_set, tst_set
+        cikm17_graph_stats(cate_subgraph_groups[trn_set],
+                           cate_subgraph_groups[tst_set],
+                           glists_info_str=[trn_set, tst_set],
                            gname=origG.name)
 
 def load_reference_graph(args):

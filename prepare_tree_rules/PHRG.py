@@ -156,16 +156,18 @@ def probabilistic_hrg (G, num_samples=1, n=None):
   if DEBUG: print "-Tree Decomposition-"
   if DEBUG: print "--------------------"
 
+  left_deriv_prod_rules = [] ## Cindy only
   prod_rules = {}
   if num_nodes >= 500:
 	for Gprime in gs.rwr_sample(G, num_samples, n):
-	  T = td.quickbb(Gprime)
-	  root = list(T)[0]
-	  T = td.make_rooted(T, root)
-	  T = binarize(T)
-	  root = list(T)[0]
-	  root, children = T
-	  td.new_visit(T, G, prod_rules, TD)
+		T = td.quickbb(Gprime)
+		root = list(T)[0]
+		T = td.make_rooted(T, root)
+		T = binarize(T)
+		root = list(T)[0]
+		root, children = T
+		 #   td.new_visit(T, G, prod_rules, TD)
+		td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
   else:
 	T = td.quickbb(G)
 	root = list(T)[0]
@@ -173,7 +175,8 @@ def probabilistic_hrg (G, num_samples=1, n=None):
 	T = binarize(T)
 	root = list(T)[0]
 	root, children = T
-	td.new_visit(T, G, prod_rules, TD)
+	# td.new_visit(T, G, prod_rules, TD)
+	td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
 
   if DEBUG: print
   if DEBUG: print "--------------------"
@@ -181,8 +184,6 @@ def probabilistic_hrg (G, num_samples=1, n=None):
   if DEBUG: print "--------------------"
 
   for k in prod_rules.iterkeys():
-	#if DEBUG: print k
-	print k
 	s = 0
 	for d in prod_rules[k]:
 	  s += prod_rules[k][d]
@@ -197,7 +198,7 @@ def probabilistic_hrg (G, num_samples=1, n=None):
 	for x in prod_rules[k]:
 	  rhs = re.findall("[^()]+", x)
 	  rules.append(("r%d.%d" % (id, sid), "%s" % re.findall("[^()]+", k)[0], rhs, prod_rules[k][x]))
-	  print ("r%d.%d" % (id, sid), "%s" % re.findall("[^()]+", k)[0], rhs, prod_rules[k][x])
+	  if 0: print ("r%d.%d" % (id, sid), "%s" % re.findall("[^()]+", k)[0], rhs, prod_rules[k][x])
 	  sid += 1
 	id += 1
   # # print rules
@@ -241,27 +242,27 @@ def phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgra
   total_sample = sum(sample_size_list)
   file_list = []
   for name in file_name_list:
-    file_list.append(open(name, "a+"))
+	file_list.append(open(name, "a+"))
   cur_sample_count = 0
   f_idx = 0	# index of current file to write
   for Gprime in gs.disjoint_sample(G, sample_size_list, subgraph_size):
-    prod_rules = {}
-    left_deriv_prod_rules = []
-    T = td.quickbb(Gprime)
-    root = list(T)[0]
-    T = td.make_rooted(T, root)
-    T = binarize(T)
-    root = list(T)[0]
-    root, children = T
-    td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
-    cur_sample_count += 1
+	prod_rules = {}
+	left_deriv_prod_rules = []
+	T = td.quickbb(Gprime)
+	root = list(T)[0]
+	T = td.make_rooted(T, root)
+	T = binarize(T)
+	root = list(T)[0]
+	root, children = T
+	td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+	cur_sample_count += 1
 
-    if sum(sample_size_list[:f_idx+1]) < cur_sample_count:
-    	f_idx += 1
-    print cur_sample_count, file_name_list[f_idx]
-    for r in left_deriv_prod_rules:
-      file_list[f_idx].write(r)
-      file_list[f_idx].write('\n')
+	if sum(sample_size_list[:f_idx+1]) < cur_sample_count:
+		f_idx += 1
+	print cur_sample_count, file_name_list[f_idx]
+	for r in left_deriv_prod_rules:
+	  file_list[f_idx].write(r)
+	  file_list[f_idx].write('\n')
   for file in file_list:
   	file.close()
 
@@ -295,15 +296,15 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name, num_samples=
   left_deriv_prod_rules = []
   subgraph_samples = []
   if num_nodes >= 500:
-    for Gprime in gs.rwr_sample(G, num_samples, subgraph_size):
-        subgraph_samples.append(Gprime)
-        T = td.quickbb(Gprime)
-        root = list(T)[0]
-        T = td.make_rooted(T, root)
-        T = binarize(T)
-        root = list(T)[0]
-        root, children = T
-        td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+	for Gprime in gs.rwr_sample(G, num_samples, subgraph_size):
+		subgraph_samples.append(Gprime)
+		T = td.quickbb(Gprime)
+		root = list(T)[0]
+		T = td.make_rooted(T, root)
+		T = binarize(T)
+		root = list(T)[0]
+		root, children = T
+		td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
   else:
 	T = td.quickbb(G)
 	root = list(T)[0]
@@ -315,7 +316,7 @@ def probabilistic_hrg_deriving_prod_rules (G, left_deriv_file_name, num_samples=
 
   pOutFname = "{}subgraph_objs.p".format(left_deriv_file_name.rstrip("prodrule.txt"))
   with open(pOutFname, 'wb') as outf:
-      pickle.dump(subgraph_samples, outf, protocol=pickle.HIGHEST_PROTOCOL)
+	  pickle.dump(subgraph_samples, outf, protocol=pickle.HIGHEST_PROTOCOL)
   print '  Saved subgraph objects to disk:',pOutFname
   #
   left_derive_file = open(left_deriv_file_name, 'w')
