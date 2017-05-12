@@ -1,0 +1,2480 @@
+subgraph size: 25, train sample size: 500
+split:  1
+-143.862646192 -143.862646192 0.0 155.0 0.0
+zero smooth test num:  0
+train loglikelihood:-38.7732955676 test loglikelihood:-143.862646192
+-143.862646192 -143.862646192 0.0 155.0 0.0
+zero smooth test num:  0
+train loglikelihood:-38.7732955676 test loglikelihood:-143.862646192
+-143.862646192 -143.862646192 0.0 155.0 0.0
+zero smooth test num:  0
+train loglikelihood:-38.7732955676 test loglikelihood:-143.862646192
+-143.862646192 -143.862646192 0.0 155.0 0.0
+zero smooth test num:  0
+train loglikelihood:-38.7732955676 test loglikelihood:-143.862646192
+-143.862646192 -143.862646192 0.0 155.0 0.0
+zero smooth test num:  0
+train loglikelihood:-38.7732955676 test loglikelihood:-143.862646192
+log likelihood: -98.3110685366
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-143.862646192
+subgraph size: 25, train sample size: 500
+split:  1
+-122.33410551 -122.33410551 0.0 168.0 0.0
+zero smooth test num:  1
+train loglikelihood:-38.7732955676 test loglikelihood:-122.33410551
+-122.33410551 -122.33410551 0.0 168.0 0.0
+zero smooth test num:  1
+train loglikelihood:-38.7732955676 test loglikelihood:-122.33410551
+-122.33410551 -122.33410551 0.0 168.0 0.0
+zero smooth test num:  1
+train loglikelihood:-38.7732955676 test loglikelihood:-122.33410551
+-122.33410551 -122.33410551 0.0 168.0 0.0
+zero smooth test num:  1
+train loglikelihood:-38.7732955676 test loglikelihood:-122.33410551
+-122.33410551 -122.33410551 0.0 168.0 0.0
+zero smooth test num:  1
+train loglikelihood:-38.7732955676 test loglikelihood:-122.33410551
+log likelihood: -94.3076747133
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-122.33410551
+subgraph size: 25, train sample size: 500
+split:  1
+-167.958674637 -167.958674637 0.0 150.0 0.0
+zero smooth test num:  2
+train loglikelihood:-38.7732955676 test loglikelihood:-167.958674637
+-167.958674637 -167.958674637 0.0 150.0 0.0
+zero smooth test num:  2
+train loglikelihood:-38.7732955676 test loglikelihood:-167.958674637
+-167.958674637 -167.958674637 0.0 150.0 0.0
+zero smooth test num:  2
+train loglikelihood:-38.7732955676 test loglikelihood:-167.958674637
+-167.958674637 -167.958674637 0.0 150.0 0.0
+zero smooth test num:  2
+train loglikelihood:-38.7732955676 test loglikelihood:-167.958674637
+-167.958674637 -167.958674637 0.0 150.0 0.0
+zero smooth test num:  2
+train loglikelihood:-38.7732955676 test loglikelihood:-167.958674637
+log likelihood: -95.3703071515
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-167.958674637
+subgraph size: 25, train sample size: 500
+split:  1
+-161.048294883 -161.048294883 0.0 138.0 0.0
+zero smooth test num:  3
+train loglikelihood:-38.7732955676 test loglikelihood:-161.048294883
+-161.048294883 -161.048294883 0.0 138.0 0.0
+zero smooth test num:  3
+train loglikelihood:-38.7732955676 test loglikelihood:-161.048294883
+-161.048294883 -161.048294883 0.0 138.0 0.0
+zero smooth test num:  3
+train loglikelihood:-38.7732955676 test loglikelihood:-161.048294883
+-161.048294883 -161.048294883 0.0 138.0 0.0
+zero smooth test num:  3
+train loglikelihood:-38.7732955676 test loglikelihood:-161.048294883
+-161.048294883 -161.048294883 0.0 138.0 0.0
+zero smooth test num:  3
+train loglikelihood:-38.7732955676 test loglikelihood:-161.048294883
+log likelihood: -115.67441325
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-161.048294883
+subgraph size: 25, train sample size: 500
+split:  1
+-168.587065013 -168.587065013 0.0 150.0 0.0
+zero smooth test num:  4
+train loglikelihood:-38.7732955676 test loglikelihood:-168.587065013
+-168.587065013 -168.587065013 0.0 150.0 0.0
+zero smooth test num:  4
+train loglikelihood:-38.7732955676 test loglikelihood:-168.587065013
+-168.587065013 -168.587065013 0.0 150.0 0.0
+zero smooth test num:  4
+train loglikelihood:-38.7732955676 test loglikelihood:-168.587065013
+-168.587065013 -168.587065013 0.0 150.0 0.0
+zero smooth test num:  4
+train loglikelihood:-38.7732955676 test loglikelihood:-168.587065013
+-168.587065013 -168.587065013 0.0 150.0 0.0
+zero smooth test num:  4
+train loglikelihood:-38.7732955676 test loglikelihood:-168.587065013
+log likelihood: -97.625516595
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-168.587065013
+subgraph size: 25, train sample size: 500
+split:  1
+-149.654233385 -149.654233385 0.0 161.0 0.0
+zero smooth test num:  5
+train loglikelihood:-38.7732955676 test loglikelihood:-149.654233385
+-149.654233385 -149.654233385 0.0 161.0 0.0
+zero smooth test num:  5
+train loglikelihood:-38.7732955676 test loglikelihood:-149.654233385
+-149.654233385 -149.654233385 0.0 161.0 0.0
+zero smooth test num:  5
+train loglikelihood:-38.7732955676 test loglikelihood:-149.654233385
+-149.654233385 -149.654233385 0.0 161.0 0.0
+zero smooth test num:  5
+train loglikelihood:-38.7732955676 test loglikelihood:-149.654233385
+-149.654233385 -149.654233385 0.0 161.0 0.0
+zero smooth test num:  5
+train loglikelihood:-38.7732955676 test loglikelihood:-149.654233385
+log likelihood: -97.1771134426
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-149.654233385
+subgraph size: 25, train sample size: 500
+split:  1
+-157.804423301 -157.804423301 0.0 146.0 0.0
+zero smooth test num:  6
+train loglikelihood:-38.7732955676 test loglikelihood:-157.804423301
+-157.804423301 -157.804423301 0.0 146.0 0.0
+zero smooth test num:  6
+train loglikelihood:-38.7732955676 test loglikelihood:-157.804423301
+-157.804423301 -157.804423301 0.0 146.0 0.0
+zero smooth test num:  6
+train loglikelihood:-38.7732955676 test loglikelihood:-157.804423301
+-157.804423301 -157.804423301 0.0 146.0 0.0
+zero smooth test num:  6
+train loglikelihood:-38.7732955676 test loglikelihood:-157.804423301
+-157.804423301 -157.804423301 0.0 146.0 0.0
+zero smooth test num:  6
+train loglikelihood:-38.7732955676 test loglikelihood:-157.804423301
+log likelihood: -103.066314052
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-157.804423301
+subgraph size: 25, train sample size: 500
+split:  1
+-155.555770918 -155.555770918 0.0 134.0 0.0
+zero smooth test num:  7
+train loglikelihood:-38.7732955676 test loglikelihood:-155.555770918
+-155.555770918 -155.555770918 0.0 134.0 0.0
+zero smooth test num:  7
+train loglikelihood:-38.7732955676 test loglikelihood:-155.555770918
+-155.555770918 -155.555770918 0.0 134.0 0.0
+zero smooth test num:  7
+train loglikelihood:-38.7732955676 test loglikelihood:-155.555770918
+-155.555770918 -155.555770918 0.0 134.0 0.0
+zero smooth test num:  7
+train loglikelihood:-38.7732955676 test loglikelihood:-155.555770918
+-155.555770918 -155.555770918 0.0 134.0 0.0
+zero smooth test num:  7
+train loglikelihood:-38.7732955676 test loglikelihood:-155.555770918
+log likelihood: -108.976408122
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-155.555770918
+subgraph size: 25, train sample size: 500
+split:  1
+-177.127066947 -177.127066947 0.0 144.0 0.0
+zero smooth test num:  8
+train loglikelihood:-38.7732955676 test loglikelihood:-177.127066947
+-177.127066947 -177.127066947 0.0 144.0 0.0
+zero smooth test num:  8
+train loglikelihood:-38.7732955676 test loglikelihood:-177.127066947
+-177.127066947 -177.127066947 0.0 144.0 0.0
+zero smooth test num:  8
+train loglikelihood:-38.7732955676 test loglikelihood:-177.127066947
+-177.127066947 -177.127066947 0.0 144.0 0.0
+zero smooth test num:  8
+train loglikelihood:-38.7732955676 test loglikelihood:-177.127066947
+-177.127066947 -177.127066947 0.0 144.0 0.0
+zero smooth test num:  8
+train loglikelihood:-38.7732955676 test loglikelihood:-177.127066947
+log likelihood: -120.665543551
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-177.127066947
+subgraph size: 25, train sample size: 500
+split:  1
+-155.393664681 -155.393664681 0.0 143.0 0.0
+zero smooth test num:  9
+train loglikelihood:-38.7732955676 test loglikelihood:-155.393664681
+-155.393664681 -155.393664681 0.0 143.0 0.0
+zero smooth test num:  9
+train loglikelihood:-38.7732955676 test loglikelihood:-155.393664681
+-155.393664681 -155.393664681 0.0 143.0 0.0
+zero smooth test num:  9
+train loglikelihood:-38.7732955676 test loglikelihood:-155.393664681
+-155.393664681 -155.393664681 0.0 143.0 0.0
+zero smooth test num:  9
+train loglikelihood:-38.7732955676 test loglikelihood:-155.393664681
+-155.393664681 -155.393664681 0.0 143.0 0.0
+zero smooth test num:  9
+train loglikelihood:-38.7732955676 test loglikelihood:-155.393664681
+log likelihood: -122.081170848
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-155.393664681
+subgraph size: 25, train sample size: 500
+split:  1
+-166.268964933 -166.268964933 0.0 156.0 0.0
+zero smooth test num:  10
+train loglikelihood:-38.7732955676 test loglikelihood:-166.268964933
+-166.268964933 -166.268964933 0.0 156.0 0.0
+zero smooth test num:  10
+train loglikelihood:-38.7732955676 test loglikelihood:-166.268964933
+-166.268964933 -166.268964933 0.0 156.0 0.0
+zero smooth test num:  10
+train loglikelihood:-38.7732955676 test loglikelihood:-166.268964933
+-166.268964933 -166.268964933 0.0 156.0 0.0
+zero smooth test num:  10
+train loglikelihood:-38.7732955676 test loglikelihood:-166.268964933
+-166.268964933 -166.268964933 0.0 156.0 0.0
+zero smooth test num:  10
+train loglikelihood:-38.7732955676 test loglikelihood:-166.268964933
+log likelihood: -135.078987204
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-166.268964933
+subgraph size: 25, train sample size: 500
+split:  1
+-142.230231901 -142.230231901 0.0 152.0 0.0
+zero smooth test num:  11
+train loglikelihood:-38.7732955676 test loglikelihood:-142.230231901
+-142.230231901 -142.230231901 0.0 152.0 0.0
+zero smooth test num:  11
+train loglikelihood:-38.7732955676 test loglikelihood:-142.230231901
+-142.230231901 -142.230231901 0.0 152.0 0.0
+zero smooth test num:  11
+train loglikelihood:-38.7732955676 test loglikelihood:-142.230231901
+-142.230231901 -142.230231901 0.0 152.0 0.0
+zero smooth test num:  11
+train loglikelihood:-38.7732955676 test loglikelihood:-142.230231901
+-142.230231901 -142.230231901 0.0 152.0 0.0
+zero smooth test num:  11
+train loglikelihood:-38.7732955676 test loglikelihood:-142.230231901
+log likelihood: -100.911674688
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-142.230231901
+subgraph size: 25, train sample size: 500
+split:  1
+-140.890256651 -140.890256651 0.0 150.0 0.0
+zero smooth test num:  12
+train loglikelihood:-38.7732955676 test loglikelihood:-140.890256651
+-140.890256651 -140.890256651 0.0 150.0 0.0
+zero smooth test num:  12
+train loglikelihood:-38.7732955676 test loglikelihood:-140.890256651
+-140.890256651 -140.890256651 0.0 150.0 0.0
+zero smooth test num:  12
+train loglikelihood:-38.7732955676 test loglikelihood:-140.890256651
+-140.890256651 -140.890256651 0.0 150.0 0.0
+zero smooth test num:  12
+train loglikelihood:-38.7732955676 test loglikelihood:-140.890256651
+-140.890256651 -140.890256651 0.0 150.0 0.0
+zero smooth test num:  12
+train loglikelihood:-38.7732955676 test loglikelihood:-140.890256651
+log likelihood: -97.9354587455
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-140.890256651
+subgraph size: 25, train sample size: 500
+split:  1
+-155.018096577 -155.018096577 0.0 153.0 0.0
+zero smooth test num:  13
+train loglikelihood:-38.7732955676 test loglikelihood:-155.018096577
+-155.018096577 -155.018096577 0.0 153.0 0.0
+zero smooth test num:  13
+train loglikelihood:-38.7732955676 test loglikelihood:-155.018096577
+-155.018096577 -155.018096577 0.0 153.0 0.0
+zero smooth test num:  13
+train loglikelihood:-38.7732955676 test loglikelihood:-155.018096577
+-155.018096577 -155.018096577 0.0 153.0 0.0
+zero smooth test num:  13
+train loglikelihood:-38.7732955676 test loglikelihood:-155.018096577
+-155.018096577 -155.018096577 0.0 153.0 0.0
+zero smooth test num:  13
+train loglikelihood:-38.7732955676 test loglikelihood:-155.018096577
+log likelihood: -120.556045812
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-155.018096577
+subgraph size: 25, train sample size: 500
+split:  1
+-135.508233835 -135.508233835 0.0 159.0 0.0
+zero smooth test num:  14
+train loglikelihood:-38.7732955676 test loglikelihood:-135.508233835
+-135.508233835 -135.508233835 0.0 159.0 0.0
+zero smooth test num:  14
+train loglikelihood:-38.7732955676 test loglikelihood:-135.508233835
+-135.508233835 -135.508233835 0.0 159.0 0.0
+zero smooth test num:  14
+train loglikelihood:-38.7732955676 test loglikelihood:-135.508233835
+-135.508233835 -135.508233835 0.0 159.0 0.0
+zero smooth test num:  14
+train loglikelihood:-38.7732955676 test loglikelihood:-135.508233835
+-135.508233835 -135.508233835 0.0 159.0 0.0
+zero smooth test num:  14
+train loglikelihood:-38.7732955676 test loglikelihood:-135.508233835
+log likelihood: -101.160289098
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-135.508233835
+subgraph size: 25, train sample size: 500
+split:  1
+-145.393209611 -145.393209611 0.0 149.0 0.0
+zero smooth test num:  15
+train loglikelihood:-38.7732955676 test loglikelihood:-145.393209611
+-145.393209611 -145.393209611 0.0 149.0 0.0
+zero smooth test num:  15
+train loglikelihood:-38.7732955676 test loglikelihood:-145.393209611
+-145.393209611 -145.393209611 0.0 149.0 0.0
+zero smooth test num:  15
+train loglikelihood:-38.7732955676 test loglikelihood:-145.393209611
+-145.393209611 -145.393209611 0.0 149.0 0.0
+zero smooth test num:  15
+train loglikelihood:-38.7732955676 test loglikelihood:-145.393209611
+-145.393209611 -145.393209611 0.0 149.0 0.0
+zero smooth test num:  15
+train loglikelihood:-38.7732955676 test loglikelihood:-145.393209611
+log likelihood: -109.577543657
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-145.393209611
+subgraph size: 25, train sample size: 500
+split:  1
+-163.532708295 -163.532708295 0.0 155.0 0.0
+zero smooth test num:  16
+train loglikelihood:-38.7732955676 test loglikelihood:-163.532708295
+-163.532708295 -163.532708295 0.0 155.0 0.0
+zero smooth test num:  16
+train loglikelihood:-38.7732955676 test loglikelihood:-163.532708295
+-163.532708295 -163.532708295 0.0 155.0 0.0
+zero smooth test num:  16
+train loglikelihood:-38.7732955676 test loglikelihood:-163.532708295
+-163.532708295 -163.532708295 0.0 155.0 0.0
+zero smooth test num:  16
+train loglikelihood:-38.7732955676 test loglikelihood:-163.532708295
+-163.532708295 -163.532708295 0.0 155.0 0.0
+zero smooth test num:  16
+train loglikelihood:-38.7732955676 test loglikelihood:-163.532708295
+log likelihood: -118.302740151
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-163.532708295
+subgraph size: 25, train sample size: 500
+split:  1
+-10158.512472 -158.51247197 1.0 157.0 0.00636942675159
+train loglikelihood:-38.7732955676 test loglikelihood:-158.51247197
+-10158.512472 -158.51247197 1.0 157.0 0.00636942675159
+train loglikelihood:-38.7732955676 test loglikelihood:-158.51247197
+-10158.512472 -158.51247197 1.0 157.0 0.00636942675159
+train loglikelihood:-38.7732955676 test loglikelihood:-158.51247197
+-10158.512472 -158.51247197 1.0 157.0 0.00636942675159
+train loglikelihood:-38.7732955676 test loglikelihood:-158.51247197
+-10158.512472 -158.51247197 1.0 157.0 0.00636942675159
+train loglikelihood:-38.7732955676 test loglikelihood:-158.51247197
+log likelihood: -94.7923154302
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 1
+smooth count:1.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-158.51247197
+subgraph size: 25, train sample size: 500
+split:  1
+-158.669005167 -158.669005167 0.0 150.0 0.0
+zero smooth test num:  18
+train loglikelihood:-38.7732955676 test loglikelihood:-158.669005167
+-158.669005167 -158.669005167 0.0 150.0 0.0
+zero smooth test num:  18
+train loglikelihood:-38.7732955676 test loglikelihood:-158.669005167
+-158.669005167 -158.669005167 0.0 150.0 0.0
+zero smooth test num:  18
+train loglikelihood:-38.7732955676 test loglikelihood:-158.669005167
+-158.669005167 -158.669005167 0.0 150.0 0.0
+zero smooth test num:  18
+train loglikelihood:-38.7732955676 test loglikelihood:-158.669005167
+-158.669005167 -158.669005167 0.0 150.0 0.0
+zero smooth test num:  18
+train loglikelihood:-38.7732955676 test loglikelihood:-158.669005167
+log likelihood: -103.239300709
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-158.669005167
+subgraph size: 25, train sample size: 500
+split:  1
+-161.312321611 -161.312321611 0.0 145.0 0.0
+zero smooth test num:  19
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312321611
+-161.312321611 -161.312321611 0.0 145.0 0.0
+zero smooth test num:  19
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312321611
+-161.312321611 -161.312321611 0.0 145.0 0.0
+zero smooth test num:  19
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312321611
+-161.312321611 -161.312321611 0.0 145.0 0.0
+zero smooth test num:  19
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312321611
+-161.312321611 -161.312321611 0.0 145.0 0.0
+zero smooth test num:  19
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312321611
+log likelihood: -105.119155935
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-161.312321611
+subgraph size: 25, train sample size: 500
+split:  1
+-170.012505864 -170.012505864 0.0 147.0 0.0
+zero smooth test num:  20
+train loglikelihood:-38.7732955676 test loglikelihood:-170.012505864
+-170.012505864 -170.012505864 0.0 147.0 0.0
+zero smooth test num:  20
+train loglikelihood:-38.7732955676 test loglikelihood:-170.012505864
+-170.012505864 -170.012505864 0.0 147.0 0.0
+zero smooth test num:  20
+train loglikelihood:-38.7732955676 test loglikelihood:-170.012505864
+-170.012505864 -170.012505864 0.0 147.0 0.0
+zero smooth test num:  20
+train loglikelihood:-38.7732955676 test loglikelihood:-170.012505864
+-170.012505864 -170.012505864 0.0 147.0 0.0
+zero smooth test num:  20
+train loglikelihood:-38.7732955676 test loglikelihood:-170.012505864
+log likelihood: -105.883087958
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-170.012505864
+subgraph size: 25, train sample size: 500
+split:  1
+-151.800672856 -151.800672856 0.0 156.0 0.0
+zero smooth test num:  21
+train loglikelihood:-38.7732955676 test loglikelihood:-151.800672856
+-151.800672856 -151.800672856 0.0 156.0 0.0
+zero smooth test num:  21
+train loglikelihood:-38.7732955676 test loglikelihood:-151.800672856
+-151.800672856 -151.800672856 0.0 156.0 0.0
+zero smooth test num:  21
+train loglikelihood:-38.7732955676 test loglikelihood:-151.800672856
+-151.800672856 -151.800672856 0.0 156.0 0.0
+zero smooth test num:  21
+train loglikelihood:-38.7732955676 test loglikelihood:-151.800672856
+-151.800672856 -151.800672856 0.0 156.0 0.0
+zero smooth test num:  21
+train loglikelihood:-38.7732955676 test loglikelihood:-151.800672856
+log likelihood: -94.5479168189
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-151.800672856
+subgraph size: 25, train sample size: 500
+split:  1
+-150.103052988 -150.103052988 0.0 140.0 0.0
+zero smooth test num:  22
+train loglikelihood:-38.7732955676 test loglikelihood:-150.103052988
+-150.103052988 -150.103052988 0.0 140.0 0.0
+zero smooth test num:  22
+train loglikelihood:-38.7732955676 test loglikelihood:-150.103052988
+-150.103052988 -150.103052988 0.0 140.0 0.0
+zero smooth test num:  22
+train loglikelihood:-38.7732955676 test loglikelihood:-150.103052988
+-150.103052988 -150.103052988 0.0 140.0 0.0
+zero smooth test num:  22
+train loglikelihood:-38.7732955676 test loglikelihood:-150.103052988
+-150.103052988 -150.103052988 0.0 140.0 0.0
+zero smooth test num:  22
+train loglikelihood:-38.7732955676 test loglikelihood:-150.103052988
+log likelihood: -100.537477717
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-150.103052988
+subgraph size: 25, train sample size: 500
+split:  1
+-163.022462435 -163.022462435 0.0 139.0 0.0
+zero smooth test num:  23
+train loglikelihood:-38.7732955676 test loglikelihood:-163.022462435
+-163.022462435 -163.022462435 0.0 139.0 0.0
+zero smooth test num:  23
+train loglikelihood:-38.7732955676 test loglikelihood:-163.022462435
+-163.022462435 -163.022462435 0.0 139.0 0.0
+zero smooth test num:  23
+train loglikelihood:-38.7732955676 test loglikelihood:-163.022462435
+-163.022462435 -163.022462435 0.0 139.0 0.0
+zero smooth test num:  23
+train loglikelihood:-38.7732955676 test loglikelihood:-163.022462435
+-163.022462435 -163.022462435 0.0 139.0 0.0
+zero smooth test num:  23
+train loglikelihood:-38.7732955676 test loglikelihood:-163.022462435
+log likelihood: -105.009211393
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-163.022462435
+subgraph size: 25, train sample size: 500
+split:  1
+-160.928447153 -160.928447153 0.0 142.0 0.0
+zero smooth test num:  24
+train loglikelihood:-38.7732955676 test loglikelihood:-160.928447153
+-160.928447153 -160.928447153 0.0 142.0 0.0
+zero smooth test num:  24
+train loglikelihood:-38.7732955676 test loglikelihood:-160.928447153
+-160.928447153 -160.928447153 0.0 142.0 0.0
+zero smooth test num:  24
+train loglikelihood:-38.7732955676 test loglikelihood:-160.928447153
+-160.928447153 -160.928447153 0.0 142.0 0.0
+zero smooth test num:  24
+train loglikelihood:-38.7732955676 test loglikelihood:-160.928447153
+-160.928447153 -160.928447153 0.0 142.0 0.0
+zero smooth test num:  24
+train loglikelihood:-38.7732955676 test loglikelihood:-160.928447153
+log likelihood: -112.809697249
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-160.928447153
+subgraph size: 25, train sample size: 500
+split:  1
+-200.485842736 -200.485842736 0.0 151.0 0.0
+zero smooth test num:  25
+train loglikelihood:-38.7732955676 test loglikelihood:-200.485842736
+-200.485842736 -200.485842736 0.0 151.0 0.0
+zero smooth test num:  25
+train loglikelihood:-38.7732955676 test loglikelihood:-200.485842736
+-200.485842736 -200.485842736 0.0 151.0 0.0
+zero smooth test num:  25
+train loglikelihood:-38.7732955676 test loglikelihood:-200.485842736
+-200.485842736 -200.485842736 0.0 151.0 0.0
+zero smooth test num:  25
+train loglikelihood:-38.7732955676 test loglikelihood:-200.485842736
+-200.485842736 -200.485842736 0.0 151.0 0.0
+zero smooth test num:  25
+train loglikelihood:-38.7732955676 test loglikelihood:-200.485842736
+log likelihood: -95.1645261934
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-200.485842736
+subgraph size: 25, train sample size: 500
+split:  1
+-160.940126058 -160.940126058 0.0 156.0 0.0
+zero smooth test num:  26
+train loglikelihood:-38.7732955676 test loglikelihood:-160.940126058
+-160.940126058 -160.940126058 0.0 156.0 0.0
+zero smooth test num:  26
+train loglikelihood:-38.7732955676 test loglikelihood:-160.940126058
+-160.940126058 -160.940126058 0.0 156.0 0.0
+zero smooth test num:  26
+train loglikelihood:-38.7732955676 test loglikelihood:-160.940126058
+-160.940126058 -160.940126058 0.0 156.0 0.0
+zero smooth test num:  26
+train loglikelihood:-38.7732955676 test loglikelihood:-160.940126058
+-160.940126058 -160.940126058 0.0 156.0 0.0
+zero smooth test num:  26
+train loglikelihood:-38.7732955676 test loglikelihood:-160.940126058
+log likelihood: -112.419632364
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-160.940126058
+subgraph size: 25, train sample size: 500
+split:  1
+-154.792697089 -154.792697089 0.0 148.0 0.0
+zero smooth test num:  27
+train loglikelihood:-38.7732955676 test loglikelihood:-154.792697089
+-154.792697089 -154.792697089 0.0 148.0 0.0
+zero smooth test num:  27
+train loglikelihood:-38.7732955676 test loglikelihood:-154.792697089
+-154.792697089 -154.792697089 0.0 148.0 0.0
+zero smooth test num:  27
+train loglikelihood:-38.7732955676 test loglikelihood:-154.792697089
+-154.792697089 -154.792697089 0.0 148.0 0.0
+zero smooth test num:  27
+train loglikelihood:-38.7732955676 test loglikelihood:-154.792697089
+-154.792697089 -154.792697089 0.0 148.0 0.0
+zero smooth test num:  27
+train loglikelihood:-38.7732955676 test loglikelihood:-154.792697089
+log likelihood: -104.167255387
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-154.792697089
+subgraph size: 25, train sample size: 500
+split:  1
+-200.815960489 -200.815960489 0.0 147.0 0.0
+zero smooth test num:  28
+train loglikelihood:-38.7732955676 test loglikelihood:-200.815960489
+-200.815960489 -200.815960489 0.0 147.0 0.0
+zero smooth test num:  28
+train loglikelihood:-38.7732955676 test loglikelihood:-200.815960489
+-200.815960489 -200.815960489 0.0 147.0 0.0
+zero smooth test num:  28
+train loglikelihood:-38.7732955676 test loglikelihood:-200.815960489
+-200.815960489 -200.815960489 0.0 147.0 0.0
+zero smooth test num:  28
+train loglikelihood:-38.7732955676 test loglikelihood:-200.815960489
+-200.815960489 -200.815960489 0.0 147.0 0.0
+zero smooth test num:  28
+train loglikelihood:-38.7732955676 test loglikelihood:-200.815960489
+log likelihood: -121.278128026
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-200.815960489
+subgraph size: 25, train sample size: 500
+split:  1
+-10207.6150196 -207.615019611 1.0 148.0 0.00675675675675
+train loglikelihood:-38.7732955676 test loglikelihood:-207.615019611
+-10207.6150196 -207.615019611 1.0 148.0 0.00675675675675
+train loglikelihood:-38.7732955676 test loglikelihood:-207.615019611
+-10207.6150196 -207.615019611 1.0 148.0 0.00675675675675
+train loglikelihood:-38.7732955676 test loglikelihood:-207.615019611
+-10207.6150196 -207.615019611 1.0 148.0 0.00675675675675
+train loglikelihood:-38.7732955676 test loglikelihood:-207.615019611
+-10207.6150196 -207.615019611 1.0 148.0 0.00675675675675
+train loglikelihood:-38.7732955676 test loglikelihood:-207.615019611
+log likelihood: -126.51531133
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 1
+smooth count:1.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-207.615019611
+subgraph size: 25, train sample size: 500
+split:  1
+-144.322221788 -144.322221788 0.0 146.0 0.0
+zero smooth test num:  30
+train loglikelihood:-38.7732955676 test loglikelihood:-144.322221788
+-144.322221788 -144.322221788 0.0 146.0 0.0
+zero smooth test num:  30
+train loglikelihood:-38.7732955676 test loglikelihood:-144.322221788
+-144.322221788 -144.322221788 0.0 146.0 0.0
+zero smooth test num:  30
+train loglikelihood:-38.7732955676 test loglikelihood:-144.322221788
+-144.322221788 -144.322221788 0.0 146.0 0.0
+zero smooth test num:  30
+train loglikelihood:-38.7732955676 test loglikelihood:-144.322221788
+-144.322221788 -144.322221788 0.0 146.0 0.0
+zero smooth test num:  30
+train loglikelihood:-38.7732955676 test loglikelihood:-144.322221788
+log likelihood: -145.431807907
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-144.322221788
+subgraph size: 25, train sample size: 500
+split:  1
+-10170.8533434 -170.853343387 1.0 140.0 0.00714285714285
+train loglikelihood:-38.7732955676 test loglikelihood:-170.853343387
+-10170.8533434 -170.853343387 1.0 140.0 0.00714285714285
+train loglikelihood:-38.7732955676 test loglikelihood:-170.853343387
+-10170.8533434 -170.853343387 1.0 140.0 0.00714285714285
+train loglikelihood:-38.7732955676 test loglikelihood:-170.853343387
+-10170.8533434 -170.853343387 1.0 140.0 0.00714285714285
+train loglikelihood:-38.7732955676 test loglikelihood:-170.853343387
+-10170.8533434 -170.853343387 1.0 140.0 0.00714285714285
+train loglikelihood:-38.7732955676 test loglikelihood:-170.853343387
+log likelihood: -98.8965313689
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 1
+smooth count:1.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-170.853343387
+subgraph size: 25, train sample size: 500
+split:  1
+-181.127490418 -181.127490418 0.0 153.0 0.0
+zero smooth test num:  32
+train loglikelihood:-38.7732955676 test loglikelihood:-181.127490418
+-181.127490418 -181.127490418 0.0 153.0 0.0
+zero smooth test num:  32
+train loglikelihood:-38.7732955676 test loglikelihood:-181.127490418
+-181.127490418 -181.127490418 0.0 153.0 0.0
+zero smooth test num:  32
+train loglikelihood:-38.7732955676 test loglikelihood:-181.127490418
+-181.127490418 -181.127490418 0.0 153.0 0.0
+zero smooth test num:  32
+train loglikelihood:-38.7732955676 test loglikelihood:-181.127490418
+-181.127490418 -181.127490418 0.0 153.0 0.0
+zero smooth test num:  32
+train loglikelihood:-38.7732955676 test loglikelihood:-181.127490418
+log likelihood: -92.9288701355
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-181.127490418
+subgraph size: 25, train sample size: 500
+split:  1
+-175.846257234 -175.846257234 0.0 150.0 0.0
+zero smooth test num:  33
+train loglikelihood:-38.7732955676 test loglikelihood:-175.846257234
+-175.846257234 -175.846257234 0.0 150.0 0.0
+zero smooth test num:  33
+train loglikelihood:-38.7732955676 test loglikelihood:-175.846257234
+-175.846257234 -175.846257234 0.0 150.0 0.0
+zero smooth test num:  33
+train loglikelihood:-38.7732955676 test loglikelihood:-175.846257234
+-175.846257234 -175.846257234 0.0 150.0 0.0
+zero smooth test num:  33
+train loglikelihood:-38.7732955676 test loglikelihood:-175.846257234
+-175.846257234 -175.846257234 0.0 150.0 0.0
+zero smooth test num:  33
+train loglikelihood:-38.7732955676 test loglikelihood:-175.846257234
+log likelihood: -111.668221577
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-175.846257234
+subgraph size: 25, train sample size: 500
+split:  1
+-163.900238412 -163.900238412 0.0 154.0 0.0
+zero smooth test num:  34
+train loglikelihood:-38.7732955676 test loglikelihood:-163.900238412
+-163.900238412 -163.900238412 0.0 154.0 0.0
+zero smooth test num:  34
+train loglikelihood:-38.7732955676 test loglikelihood:-163.900238412
+-163.900238412 -163.900238412 0.0 154.0 0.0
+zero smooth test num:  34
+train loglikelihood:-38.7732955676 test loglikelihood:-163.900238412
+-163.900238412 -163.900238412 0.0 154.0 0.0
+zero smooth test num:  34
+train loglikelihood:-38.7732955676 test loglikelihood:-163.900238412
+-163.900238412 -163.900238412 0.0 154.0 0.0
+zero smooth test num:  34
+train loglikelihood:-38.7732955676 test loglikelihood:-163.900238412
+log likelihood: -112.594953296
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-163.900238412
+subgraph size: 25, train sample size: 500
+split:  1
+-150.666641189 -150.666641189 0.0 152.0 0.0
+zero smooth test num:  35
+train loglikelihood:-38.7732955676 test loglikelihood:-150.666641189
+-150.666641189 -150.666641189 0.0 152.0 0.0
+zero smooth test num:  35
+train loglikelihood:-38.7732955676 test loglikelihood:-150.666641189
+-150.666641189 -150.666641189 0.0 152.0 0.0
+zero smooth test num:  35
+train loglikelihood:-38.7732955676 test loglikelihood:-150.666641189
+-150.666641189 -150.666641189 0.0 152.0 0.0
+zero smooth test num:  35
+train loglikelihood:-38.7732955676 test loglikelihood:-150.666641189
+-150.666641189 -150.666641189 0.0 152.0 0.0
+zero smooth test num:  35
+train loglikelihood:-38.7732955676 test loglikelihood:-150.666641189
+log likelihood: -115.739155371
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-150.666641189
+subgraph size: 25, train sample size: 500
+split:  1
+-173.862033058 -173.862033058 0.0 140.0 0.0
+zero smooth test num:  36
+train loglikelihood:-38.7732955676 test loglikelihood:-173.862033058
+-173.862033058 -173.862033058 0.0 140.0 0.0
+zero smooth test num:  36
+train loglikelihood:-38.7732955676 test loglikelihood:-173.862033058
+-173.862033058 -173.862033058 0.0 140.0 0.0
+zero smooth test num:  36
+train loglikelihood:-38.7732955676 test loglikelihood:-173.862033058
+-173.862033058 -173.862033058 0.0 140.0 0.0
+zero smooth test num:  36
+train loglikelihood:-38.7732955676 test loglikelihood:-173.862033058
+-173.862033058 -173.862033058 0.0 140.0 0.0
+zero smooth test num:  36
+train loglikelihood:-38.7732955676 test loglikelihood:-173.862033058
+log likelihood: -99.030807746
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-173.862033058
+subgraph size: 25, train sample size: 500
+split:  1
+-163.39185557 -163.39185557 0.0 147.0 0.0
+zero smooth test num:  37
+train loglikelihood:-38.7732955676 test loglikelihood:-163.39185557
+-163.39185557 -163.39185557 0.0 147.0 0.0
+zero smooth test num:  37
+train loglikelihood:-38.7732955676 test loglikelihood:-163.39185557
+-163.39185557 -163.39185557 0.0 147.0 0.0
+zero smooth test num:  37
+train loglikelihood:-38.7732955676 test loglikelihood:-163.39185557
+-163.39185557 -163.39185557 0.0 147.0 0.0
+zero smooth test num:  37
+train loglikelihood:-38.7732955676 test loglikelihood:-163.39185557
+-163.39185557 -163.39185557 0.0 147.0 0.0
+zero smooth test num:  37
+train loglikelihood:-38.7732955676 test loglikelihood:-163.39185557
+log likelihood: -106.832050132
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-163.39185557
+subgraph size: 25, train sample size: 500
+split:  1
+-168.498001231 -168.498001231 0.0 146.0 0.0
+zero smooth test num:  38
+train loglikelihood:-38.7732955676 test loglikelihood:-168.498001231
+-168.498001231 -168.498001231 0.0 146.0 0.0
+zero smooth test num:  38
+train loglikelihood:-38.7732955676 test loglikelihood:-168.498001231
+-168.498001231 -168.498001231 0.0 146.0 0.0
+zero smooth test num:  38
+train loglikelihood:-38.7732955676 test loglikelihood:-168.498001231
+-168.498001231 -168.498001231 0.0 146.0 0.0
+zero smooth test num:  38
+train loglikelihood:-38.7732955676 test loglikelihood:-168.498001231
+-168.498001231 -168.498001231 0.0 146.0 0.0
+zero smooth test num:  38
+train loglikelihood:-38.7732955676 test loglikelihood:-168.498001231
+log likelihood: -93.8329728874
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-168.498001231
+subgraph size: 25, train sample size: 500
+split:  1
+-138.485795918 -138.485795918 0.0 163.0 0.0
+zero smooth test num:  39
+train loglikelihood:-38.7732955676 test loglikelihood:-138.485795918
+-138.485795918 -138.485795918 0.0 163.0 0.0
+zero smooth test num:  39
+train loglikelihood:-38.7732955676 test loglikelihood:-138.485795918
+-138.485795918 -138.485795918 0.0 163.0 0.0
+zero smooth test num:  39
+train loglikelihood:-38.7732955676 test loglikelihood:-138.485795918
+-138.485795918 -138.485795918 0.0 163.0 0.0
+zero smooth test num:  39
+train loglikelihood:-38.7732955676 test loglikelihood:-138.485795918
+-138.485795918 -138.485795918 0.0 163.0 0.0
+zero smooth test num:  39
+train loglikelihood:-38.7732955676 test loglikelihood:-138.485795918
+log likelihood: -122.17205751
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-138.485795918
+subgraph size: 25, train sample size: 500
+split:  1
+-184.420879479 -184.420879479 0.0 136.0 0.0
+zero smooth test num:  40
+train loglikelihood:-38.7732955676 test loglikelihood:-184.420879479
+-184.420879479 -184.420879479 0.0 136.0 0.0
+zero smooth test num:  40
+train loglikelihood:-38.7732955676 test loglikelihood:-184.420879479
+-184.420879479 -184.420879479 0.0 136.0 0.0
+zero smooth test num:  40
+train loglikelihood:-38.7732955676 test loglikelihood:-184.420879479
+-184.420879479 -184.420879479 0.0 136.0 0.0
+zero smooth test num:  40
+train loglikelihood:-38.7732955676 test loglikelihood:-184.420879479
+-184.420879479 -184.420879479 0.0 136.0 0.0
+zero smooth test num:  40
+train loglikelihood:-38.7732955676 test loglikelihood:-184.420879479
+log likelihood: -102.105543734
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-184.420879479
+subgraph size: 25, train sample size: 500
+split:  1
+-165.830330189 -165.830330189 0.0 154.0 0.0
+zero smooth test num:  41
+train loglikelihood:-38.7732955676 test loglikelihood:-165.830330189
+-165.830330189 -165.830330189 0.0 154.0 0.0
+zero smooth test num:  41
+train loglikelihood:-38.7732955676 test loglikelihood:-165.830330189
+-165.830330189 -165.830330189 0.0 154.0 0.0
+zero smooth test num:  41
+train loglikelihood:-38.7732955676 test loglikelihood:-165.830330189
+-165.830330189 -165.830330189 0.0 154.0 0.0
+zero smooth test num:  41
+train loglikelihood:-38.7732955676 test loglikelihood:-165.830330189
+-165.830330189 -165.830330189 0.0 154.0 0.0
+zero smooth test num:  41
+train loglikelihood:-38.7732955676 test loglikelihood:-165.830330189
+log likelihood: -113.224348014
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-165.830330189
+subgraph size: 25, train sample size: 500
+split:  1
+-168.626967139 -168.626967139 0.0 143.0 0.0
+zero smooth test num:  42
+train loglikelihood:-38.7732955676 test loglikelihood:-168.626967139
+-168.626967139 -168.626967139 0.0 143.0 0.0
+zero smooth test num:  42
+train loglikelihood:-38.7732955676 test loglikelihood:-168.626967139
+-168.626967139 -168.626967139 0.0 143.0 0.0
+zero smooth test num:  42
+train loglikelihood:-38.7732955676 test loglikelihood:-168.626967139
+-168.626967139 -168.626967139 0.0 143.0 0.0
+zero smooth test num:  42
+train loglikelihood:-38.7732955676 test loglikelihood:-168.626967139
+-168.626967139 -168.626967139 0.0 143.0 0.0
+zero smooth test num:  42
+train loglikelihood:-38.7732955676 test loglikelihood:-168.626967139
+log likelihood: -102.088898711
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-168.626967139
+subgraph size: 25, train sample size: 500
+split:  1
+-157.0095357 -157.0095357 0.0 138.0 0.0
+zero smooth test num:  43
+train loglikelihood:-38.7732955676 test loglikelihood:-157.0095357
+-157.0095357 -157.0095357 0.0 138.0 0.0
+zero smooth test num:  43
+train loglikelihood:-38.7732955676 test loglikelihood:-157.0095357
+-157.0095357 -157.0095357 0.0 138.0 0.0
+zero smooth test num:  43
+train loglikelihood:-38.7732955676 test loglikelihood:-157.0095357
+-157.0095357 -157.0095357 0.0 138.0 0.0
+zero smooth test num:  43
+train loglikelihood:-38.7732955676 test loglikelihood:-157.0095357
+-157.0095357 -157.0095357 0.0 138.0 0.0
+zero smooth test num:  43
+train loglikelihood:-38.7732955676 test loglikelihood:-157.0095357
+log likelihood: -113.299852471
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-157.0095357
+subgraph size: 25, train sample size: 500
+split:  1
+-157.999590653 -157.999590653 0.0 159.0 0.0
+zero smooth test num:  44
+train loglikelihood:-38.7732955676 test loglikelihood:-157.999590653
+-157.999590653 -157.999590653 0.0 159.0 0.0
+zero smooth test num:  44
+train loglikelihood:-38.7732955676 test loglikelihood:-157.999590653
+-157.999590653 -157.999590653 0.0 159.0 0.0
+zero smooth test num:  44
+train loglikelihood:-38.7732955676 test loglikelihood:-157.999590653
+-157.999590653 -157.999590653 0.0 159.0 0.0
+zero smooth test num:  44
+train loglikelihood:-38.7732955676 test loglikelihood:-157.999590653
+-157.999590653 -157.999590653 0.0 159.0 0.0
+zero smooth test num:  44
+train loglikelihood:-38.7732955676 test loglikelihood:-157.999590653
+log likelihood: -111.948274341
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-157.999590653
+subgraph size: 25, train sample size: 500
+split:  1
+-156.825533881 -156.825533881 0.0 135.0 0.0
+zero smooth test num:  45
+train loglikelihood:-38.7732955676 test loglikelihood:-156.825533881
+-156.825533881 -156.825533881 0.0 135.0 0.0
+zero smooth test num:  45
+train loglikelihood:-38.7732955676 test loglikelihood:-156.825533881
+-156.825533881 -156.825533881 0.0 135.0 0.0
+zero smooth test num:  45
+train loglikelihood:-38.7732955676 test loglikelihood:-156.825533881
+-156.825533881 -156.825533881 0.0 135.0 0.0
+zero smooth test num:  45
+train loglikelihood:-38.7732955676 test loglikelihood:-156.825533881
+-156.825533881 -156.825533881 0.0 135.0 0.0
+zero smooth test num:  45
+train loglikelihood:-38.7732955676 test loglikelihood:-156.825533881
+log likelihood: -105.872677028
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-156.825533881
+subgraph size: 25, train sample size: 500
+split:  1
+-133.283304004 -133.283304004 0.0 158.0 0.0
+zero smooth test num:  46
+train loglikelihood:-38.7732955676 test loglikelihood:-133.283304004
+-133.283304004 -133.283304004 0.0 158.0 0.0
+zero smooth test num:  46
+train loglikelihood:-38.7732955676 test loglikelihood:-133.283304004
+-133.283304004 -133.283304004 0.0 158.0 0.0
+zero smooth test num:  46
+train loglikelihood:-38.7732955676 test loglikelihood:-133.283304004
+-133.283304004 -133.283304004 0.0 158.0 0.0
+zero smooth test num:  46
+train loglikelihood:-38.7732955676 test loglikelihood:-133.283304004
+-133.283304004 -133.283304004 0.0 158.0 0.0
+zero smooth test num:  46
+train loglikelihood:-38.7732955676 test loglikelihood:-133.283304004
+log likelihood: -141.078810348
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-133.283304004
+subgraph size: 25, train sample size: 500
+split:  1
+-158.45800626 -158.45800626 0.0 144.0 0.0
+zero smooth test num:  47
+train loglikelihood:-38.7732955676 test loglikelihood:-158.45800626
+-158.45800626 -158.45800626 0.0 144.0 0.0
+zero smooth test num:  47
+train loglikelihood:-38.7732955676 test loglikelihood:-158.45800626
+-158.45800626 -158.45800626 0.0 144.0 0.0
+zero smooth test num:  47
+train loglikelihood:-38.7732955676 test loglikelihood:-158.45800626
+-158.45800626 -158.45800626 0.0 144.0 0.0
+zero smooth test num:  47
+train loglikelihood:-38.7732955676 test loglikelihood:-158.45800626
+-158.45800626 -158.45800626 0.0 144.0 0.0
+zero smooth test num:  47
+train loglikelihood:-38.7732955676 test loglikelihood:-158.45800626
+log likelihood: -120.924320256
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-158.45800626
+subgraph size: 25, train sample size: 500
+split:  1
+-174.054832904 -174.054832904 0.0 153.0 0.0
+zero smooth test num:  48
+train loglikelihood:-38.7732955676 test loglikelihood:-174.054832904
+-174.054832904 -174.054832904 0.0 153.0 0.0
+zero smooth test num:  48
+train loglikelihood:-38.7732955676 test loglikelihood:-174.054832904
+-174.054832904 -174.054832904 0.0 153.0 0.0
+zero smooth test num:  48
+train loglikelihood:-38.7732955676 test loglikelihood:-174.054832904
+-174.054832904 -174.054832904 0.0 153.0 0.0
+zero smooth test num:  48
+train loglikelihood:-38.7732955676 test loglikelihood:-174.054832904
+-174.054832904 -174.054832904 0.0 153.0 0.0
+zero smooth test num:  48
+train loglikelihood:-38.7732955676 test loglikelihood:-174.054832904
+log likelihood: -102.642919365
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-174.054832904
+subgraph size: 25, train sample size: 500
+split:  1
+-159.289609887 -159.289609887 0.0 150.0 0.0
+zero smooth test num:  49
+train loglikelihood:-38.7732955676 test loglikelihood:-159.289609887
+-159.289609887 -159.289609887 0.0 150.0 0.0
+zero smooth test num:  49
+train loglikelihood:-38.7732955676 test loglikelihood:-159.289609887
+-159.289609887 -159.289609887 0.0 150.0 0.0
+zero smooth test num:  49
+train loglikelihood:-38.7732955676 test loglikelihood:-159.289609887
+-159.289609887 -159.289609887 0.0 150.0 0.0
+zero smooth test num:  49
+train loglikelihood:-38.7732955676 test loglikelihood:-159.289609887
+-159.289609887 -159.289609887 0.0 150.0 0.0
+zero smooth test num:  49
+train loglikelihood:-38.7732955676 test loglikelihood:-159.289609887
+log likelihood: -100.009508423
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-159.289609887
+subgraph size: 25, train sample size: 500
+split:  1
+-142.781767116 -142.781767116 0.0 149.0 0.0
+zero smooth test num:  50
+train loglikelihood:-38.7732955676 test loglikelihood:-142.781767116
+-142.781767116 -142.781767116 0.0 149.0 0.0
+zero smooth test num:  50
+train loglikelihood:-38.7732955676 test loglikelihood:-142.781767116
+-142.781767116 -142.781767116 0.0 149.0 0.0
+zero smooth test num:  50
+train loglikelihood:-38.7732955676 test loglikelihood:-142.781767116
+-142.781767116 -142.781767116 0.0 149.0 0.0
+zero smooth test num:  50
+train loglikelihood:-38.7732955676 test loglikelihood:-142.781767116
+-142.781767116 -142.781767116 0.0 149.0 0.0
+zero smooth test num:  50
+train loglikelihood:-38.7732955676 test loglikelihood:-142.781767116
+log likelihood: -141.38662758
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-142.781767116
+subgraph size: 25, train sample size: 500
+split:  1
+-199.327055184 -199.327055184 0.0 136.0 0.0
+zero smooth test num:  51
+train loglikelihood:-38.7732955676 test loglikelihood:-199.327055184
+-199.327055184 -199.327055184 0.0 136.0 0.0
+zero smooth test num:  51
+train loglikelihood:-38.7732955676 test loglikelihood:-199.327055184
+-199.327055184 -199.327055184 0.0 136.0 0.0
+zero smooth test num:  51
+train loglikelihood:-38.7732955676 test loglikelihood:-199.327055184
+-199.327055184 -199.327055184 0.0 136.0 0.0
+zero smooth test num:  51
+train loglikelihood:-38.7732955676 test loglikelihood:-199.327055184
+-199.327055184 -199.327055184 0.0 136.0 0.0
+zero smooth test num:  51
+train loglikelihood:-38.7732955676 test loglikelihood:-199.327055184
+log likelihood: -103.161996507
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-199.327055184
+subgraph size: 25, train sample size: 500
+split:  1
+-129.693725222 -129.693725222 0.0 158.0 0.0
+zero smooth test num:  52
+train loglikelihood:-38.7732955676 test loglikelihood:-129.693725222
+-129.693725222 -129.693725222 0.0 158.0 0.0
+zero smooth test num:  52
+train loglikelihood:-38.7732955676 test loglikelihood:-129.693725222
+-129.693725222 -129.693725222 0.0 158.0 0.0
+zero smooth test num:  52
+train loglikelihood:-38.7732955676 test loglikelihood:-129.693725222
+-129.693725222 -129.693725222 0.0 158.0 0.0
+zero smooth test num:  52
+train loglikelihood:-38.7732955676 test loglikelihood:-129.693725222
+-129.693725222 -129.693725222 0.0 158.0 0.0
+zero smooth test num:  52
+train loglikelihood:-38.7732955676 test loglikelihood:-129.693725222
+log likelihood: -100.215833164
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-129.693725222
+subgraph size: 25, train sample size: 500
+split:  1
+-10214.8946969 -214.894696941 1.0 145.0 0.00689655172413
+train loglikelihood:-38.7732955676 test loglikelihood:-214.894696941
+-10214.8946969 -214.894696941 1.0 145.0 0.00689655172413
+train loglikelihood:-38.7732955676 test loglikelihood:-214.894696941
+-10214.8946969 -214.894696941 1.0 145.0 0.00689655172413
+train loglikelihood:-38.7732955676 test loglikelihood:-214.894696941
+-10214.8946969 -214.894696941 1.0 145.0 0.00689655172413
+train loglikelihood:-38.7732955676 test loglikelihood:-214.894696941
+-10214.8946969 -214.894696941 1.0 145.0 0.00689655172413
+train loglikelihood:-38.7732955676 test loglikelihood:-214.894696941
+log likelihood: -127.379481715
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 1
+smooth count:1.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-214.894696941
+subgraph size: 25, train sample size: 500
+split:  1
+-177.591771061 -177.591771061 0.0 140.0 0.0
+zero smooth test num:  54
+train loglikelihood:-38.7732955676 test loglikelihood:-177.591771061
+-177.591771061 -177.591771061 0.0 140.0 0.0
+zero smooth test num:  54
+train loglikelihood:-38.7732955676 test loglikelihood:-177.591771061
+-177.591771061 -177.591771061 0.0 140.0 0.0
+zero smooth test num:  54
+train loglikelihood:-38.7732955676 test loglikelihood:-177.591771061
+-177.591771061 -177.591771061 0.0 140.0 0.0
+zero smooth test num:  54
+train loglikelihood:-38.7732955676 test loglikelihood:-177.591771061
+-177.591771061 -177.591771061 0.0 140.0 0.0
+zero smooth test num:  54
+train loglikelihood:-38.7732955676 test loglikelihood:-177.591771061
+log likelihood: -107.961361168
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-177.591771061
+subgraph size: 25, train sample size: 500
+split:  1
+-158.481123517 -158.481123517 0.0 155.0 0.0
+zero smooth test num:  55
+train loglikelihood:-38.7732955676 test loglikelihood:-158.481123517
+-158.481123517 -158.481123517 0.0 155.0 0.0
+zero smooth test num:  55
+train loglikelihood:-38.7732955676 test loglikelihood:-158.481123517
+-158.481123517 -158.481123517 0.0 155.0 0.0
+zero smooth test num:  55
+train loglikelihood:-38.7732955676 test loglikelihood:-158.481123517
+-158.481123517 -158.481123517 0.0 155.0 0.0
+zero smooth test num:  55
+train loglikelihood:-38.7732955676 test loglikelihood:-158.481123517
+-158.481123517 -158.481123517 0.0 155.0 0.0
+zero smooth test num:  55
+train loglikelihood:-38.7732955676 test loglikelihood:-158.481123517
+log likelihood: -112.277308093
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-158.481123517
+subgraph size: 25, train sample size: 500
+split:  1
+-151.636129497 -151.636129497 0.0 157.0 0.0
+zero smooth test num:  56
+train loglikelihood:-38.7732955676 test loglikelihood:-151.636129497
+-151.636129497 -151.636129497 0.0 157.0 0.0
+zero smooth test num:  56
+train loglikelihood:-38.7732955676 test loglikelihood:-151.636129497
+-151.636129497 -151.636129497 0.0 157.0 0.0
+zero smooth test num:  56
+train loglikelihood:-38.7732955676 test loglikelihood:-151.636129497
+-151.636129497 -151.636129497 0.0 157.0 0.0
+zero smooth test num:  56
+train loglikelihood:-38.7732955676 test loglikelihood:-151.636129497
+-151.636129497 -151.636129497 0.0 157.0 0.0
+zero smooth test num:  56
+train loglikelihood:-38.7732955676 test loglikelihood:-151.636129497
+log likelihood: -136.415813626
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-151.636129497
+subgraph size: 25, train sample size: 500
+split:  1
+-165.653262887 -165.653262887 0.0 156.0 0.0
+zero smooth test num:  57
+train loglikelihood:-38.7732955676 test loglikelihood:-165.653262887
+-165.653262887 -165.653262887 0.0 156.0 0.0
+zero smooth test num:  57
+train loglikelihood:-38.7732955676 test loglikelihood:-165.653262887
+-165.653262887 -165.653262887 0.0 156.0 0.0
+zero smooth test num:  57
+train loglikelihood:-38.7732955676 test loglikelihood:-165.653262887
+-165.653262887 -165.653262887 0.0 156.0 0.0
+zero smooth test num:  57
+train loglikelihood:-38.7732955676 test loglikelihood:-165.653262887
+-165.653262887 -165.653262887 0.0 156.0 0.0
+zero smooth test num:  57
+train loglikelihood:-38.7732955676 test loglikelihood:-165.653262887
+log likelihood: -116.899803557
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-165.653262887
+subgraph size: 25, train sample size: 500
+split:  1
+-146.589474205 -146.589474205 0.0 145.0 0.0
+zero smooth test num:  58
+train loglikelihood:-38.7732955676 test loglikelihood:-146.589474205
+-146.589474205 -146.589474205 0.0 145.0 0.0
+zero smooth test num:  58
+train loglikelihood:-38.7732955676 test loglikelihood:-146.589474205
+-146.589474205 -146.589474205 0.0 145.0 0.0
+zero smooth test num:  58
+train loglikelihood:-38.7732955676 test loglikelihood:-146.589474205
+-146.589474205 -146.589474205 0.0 145.0 0.0
+zero smooth test num:  58
+train loglikelihood:-38.7732955676 test loglikelihood:-146.589474205
+-146.589474205 -146.589474205 0.0 145.0 0.0
+zero smooth test num:  58
+train loglikelihood:-38.7732955676 test loglikelihood:-146.589474205
+log likelihood: -93.0900162183
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-146.589474205
+subgraph size: 25, train sample size: 500
+split:  1
+-141.00480691 -141.00480691 0.0 153.0 0.0
+zero smooth test num:  59
+train loglikelihood:-38.7732955676 test loglikelihood:-141.00480691
+-141.00480691 -141.00480691 0.0 153.0 0.0
+zero smooth test num:  59
+train loglikelihood:-38.7732955676 test loglikelihood:-141.00480691
+-141.00480691 -141.00480691 0.0 153.0 0.0
+zero smooth test num:  59
+train loglikelihood:-38.7732955676 test loglikelihood:-141.00480691
+-141.00480691 -141.00480691 0.0 153.0 0.0
+zero smooth test num:  59
+train loglikelihood:-38.7732955676 test loglikelihood:-141.00480691
+-141.00480691 -141.00480691 0.0 153.0 0.0
+zero smooth test num:  59
+train loglikelihood:-38.7732955676 test loglikelihood:-141.00480691
+log likelihood: -150.738901395
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-141.00480691
+subgraph size: 25, train sample size: 500
+split:  1
+-151.471824727 -151.471824727 0.0 140.0 0.0
+zero smooth test num:  60
+train loglikelihood:-38.7732955676 test loglikelihood:-151.471824727
+-151.471824727 -151.471824727 0.0 140.0 0.0
+zero smooth test num:  60
+train loglikelihood:-38.7732955676 test loglikelihood:-151.471824727
+-151.471824727 -151.471824727 0.0 140.0 0.0
+zero smooth test num:  60
+train loglikelihood:-38.7732955676 test loglikelihood:-151.471824727
+-151.471824727 -151.471824727 0.0 140.0 0.0
+zero smooth test num:  60
+train loglikelihood:-38.7732955676 test loglikelihood:-151.471824727
+-151.471824727 -151.471824727 0.0 140.0 0.0
+zero smooth test num:  60
+train loglikelihood:-38.7732955676 test loglikelihood:-151.471824727
+log likelihood: -101.186425304
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-151.471824727
+subgraph size: 25, train sample size: 500
+split:  1
+-151.368395841 -151.368395841 0.0 147.0 0.0
+zero smooth test num:  61
+train loglikelihood:-38.7732955676 test loglikelihood:-151.368395841
+-151.368395841 -151.368395841 0.0 147.0 0.0
+zero smooth test num:  61
+train loglikelihood:-38.7732955676 test loglikelihood:-151.368395841
+-151.368395841 -151.368395841 0.0 147.0 0.0
+zero smooth test num:  61
+train loglikelihood:-38.7732955676 test loglikelihood:-151.368395841
+-151.368395841 -151.368395841 0.0 147.0 0.0
+zero smooth test num:  61
+train loglikelihood:-38.7732955676 test loglikelihood:-151.368395841
+-151.368395841 -151.368395841 0.0 147.0 0.0
+zero smooth test num:  61
+train loglikelihood:-38.7732955676 test loglikelihood:-151.368395841
+log likelihood: -97.8990194272
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-151.368395841
+subgraph size: 25, train sample size: 500
+split:  1
+-151.496066125 -151.496066125 0.0 142.0 0.0
+zero smooth test num:  62
+train loglikelihood:-38.7732955676 test loglikelihood:-151.496066125
+-151.496066125 -151.496066125 0.0 142.0 0.0
+zero smooth test num:  62
+train loglikelihood:-38.7732955676 test loglikelihood:-151.496066125
+-151.496066125 -151.496066125 0.0 142.0 0.0
+zero smooth test num:  62
+train loglikelihood:-38.7732955676 test loglikelihood:-151.496066125
+-151.496066125 -151.496066125 0.0 142.0 0.0
+zero smooth test num:  62
+train loglikelihood:-38.7732955676 test loglikelihood:-151.496066125
+-151.496066125 -151.496066125 0.0 142.0 0.0
+zero smooth test num:  62
+train loglikelihood:-38.7732955676 test loglikelihood:-151.496066125
+log likelihood: -120.951445184
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-151.496066125
+subgraph size: 25, train sample size: 500
+split:  1
+-124.188319401 -124.188319401 0.0 164.0 0.0
+zero smooth test num:  63
+train loglikelihood:-38.7732955676 test loglikelihood:-124.188319401
+-124.188319401 -124.188319401 0.0 164.0 0.0
+zero smooth test num:  63
+train loglikelihood:-38.7732955676 test loglikelihood:-124.188319401
+-124.188319401 -124.188319401 0.0 164.0 0.0
+zero smooth test num:  63
+train loglikelihood:-38.7732955676 test loglikelihood:-124.188319401
+-124.188319401 -124.188319401 0.0 164.0 0.0
+zero smooth test num:  63
+train loglikelihood:-38.7732955676 test loglikelihood:-124.188319401
+-124.188319401 -124.188319401 0.0 164.0 0.0
+zero smooth test num:  63
+train loglikelihood:-38.7732955676 test loglikelihood:-124.188319401
+log likelihood: -103.265541973
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-124.188319401
+subgraph size: 25, train sample size: 500
+split:  1
+-147.959003896 -147.959003896 0.0 160.0 0.0
+zero smooth test num:  64
+train loglikelihood:-38.7732955676 test loglikelihood:-147.959003896
+-147.959003896 -147.959003896 0.0 160.0 0.0
+zero smooth test num:  64
+train loglikelihood:-38.7732955676 test loglikelihood:-147.959003896
+-147.959003896 -147.959003896 0.0 160.0 0.0
+zero smooth test num:  64
+train loglikelihood:-38.7732955676 test loglikelihood:-147.959003896
+-147.959003896 -147.959003896 0.0 160.0 0.0
+zero smooth test num:  64
+train loglikelihood:-38.7732955676 test loglikelihood:-147.959003896
+-147.959003896 -147.959003896 0.0 160.0 0.0
+zero smooth test num:  64
+train loglikelihood:-38.7732955676 test loglikelihood:-147.959003896
+log likelihood: -99.6337353236
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-147.959003896
+subgraph size: 25, train sample size: 500
+split:  1
+-135.931351691 -135.931351691 0.0 156.0 0.0
+zero smooth test num:  65
+train loglikelihood:-38.7732955676 test loglikelihood:-135.931351691
+-135.931351691 -135.931351691 0.0 156.0 0.0
+zero smooth test num:  65
+train loglikelihood:-38.7732955676 test loglikelihood:-135.931351691
+-135.931351691 -135.931351691 0.0 156.0 0.0
+zero smooth test num:  65
+train loglikelihood:-38.7732955676 test loglikelihood:-135.931351691
+-135.931351691 -135.931351691 0.0 156.0 0.0
+zero smooth test num:  65
+train loglikelihood:-38.7732955676 test loglikelihood:-135.931351691
+-135.931351691 -135.931351691 0.0 156.0 0.0
+zero smooth test num:  65
+train loglikelihood:-38.7732955676 test loglikelihood:-135.931351691
+log likelihood: -88.7502111122
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-135.931351691
+subgraph size: 25, train sample size: 500
+split:  1
+-149.232637354 -149.232637354 0.0 171.0 0.0
+zero smooth test num:  66
+train loglikelihood:-38.7732955676 test loglikelihood:-149.232637354
+-149.232637354 -149.232637354 0.0 171.0 0.0
+zero smooth test num:  66
+train loglikelihood:-38.7732955676 test loglikelihood:-149.232637354
+-149.232637354 -149.232637354 0.0 171.0 0.0
+zero smooth test num:  66
+train loglikelihood:-38.7732955676 test loglikelihood:-149.232637354
+-149.232637354 -149.232637354 0.0 171.0 0.0
+zero smooth test num:  66
+train loglikelihood:-38.7732955676 test loglikelihood:-149.232637354
+-149.232637354 -149.232637354 0.0 171.0 0.0
+zero smooth test num:  66
+train loglikelihood:-38.7732955676 test loglikelihood:-149.232637354
+log likelihood: -98.9016618953
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-149.232637354
+subgraph size: 25, train sample size: 500
+split:  1
+-143.748169513 -143.748169513 0.0 160.0 0.0
+zero smooth test num:  67
+train loglikelihood:-38.7732955676 test loglikelihood:-143.748169513
+-143.748169513 -143.748169513 0.0 160.0 0.0
+zero smooth test num:  67
+train loglikelihood:-38.7732955676 test loglikelihood:-143.748169513
+-143.748169513 -143.748169513 0.0 160.0 0.0
+zero smooth test num:  67
+train loglikelihood:-38.7732955676 test loglikelihood:-143.748169513
+-143.748169513 -143.748169513 0.0 160.0 0.0
+zero smooth test num:  67
+train loglikelihood:-38.7732955676 test loglikelihood:-143.748169513
+-143.748169513 -143.748169513 0.0 160.0 0.0
+zero smooth test num:  67
+train loglikelihood:-38.7732955676 test loglikelihood:-143.748169513
+log likelihood: -106.625628658
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-143.748169513
+subgraph size: 25, train sample size: 500
+split:  1
+-159.120674415 -159.120674415 0.0 150.0 0.0
+zero smooth test num:  68
+train loglikelihood:-38.7732955676 test loglikelihood:-159.120674415
+-159.120674415 -159.120674415 0.0 150.0 0.0
+zero smooth test num:  68
+train loglikelihood:-38.7732955676 test loglikelihood:-159.120674415
+-159.120674415 -159.120674415 0.0 150.0 0.0
+zero smooth test num:  68
+train loglikelihood:-38.7732955676 test loglikelihood:-159.120674415
+-159.120674415 -159.120674415 0.0 150.0 0.0
+zero smooth test num:  68
+train loglikelihood:-38.7732955676 test loglikelihood:-159.120674415
+-159.120674415 -159.120674415 0.0 150.0 0.0
+zero smooth test num:  68
+train loglikelihood:-38.7732955676 test loglikelihood:-159.120674415
+log likelihood: -92.8186536406
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-159.120674415
+subgraph size: 25, train sample size: 500
+split:  1
+-133.254507514 -133.254507514 0.0 160.0 0.0
+zero smooth test num:  69
+train loglikelihood:-38.7732955676 test loglikelihood:-133.254507514
+-133.254507514 -133.254507514 0.0 160.0 0.0
+zero smooth test num:  69
+train loglikelihood:-38.7732955676 test loglikelihood:-133.254507514
+-133.254507514 -133.254507514 0.0 160.0 0.0
+zero smooth test num:  69
+train loglikelihood:-38.7732955676 test loglikelihood:-133.254507514
+-133.254507514 -133.254507514 0.0 160.0 0.0
+zero smooth test num:  69
+train loglikelihood:-38.7732955676 test loglikelihood:-133.254507514
+-133.254507514 -133.254507514 0.0 160.0 0.0
+zero smooth test num:  69
+train loglikelihood:-38.7732955676 test loglikelihood:-133.254507514
+log likelihood: -96.9353695314
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-133.254507514
+subgraph size: 25, train sample size: 500
+split:  1
+-148.659626788 -148.659626788 0.0 151.0 0.0
+zero smooth test num:  70
+train loglikelihood:-38.7732955676 test loglikelihood:-148.659626788
+-148.659626788 -148.659626788 0.0 151.0 0.0
+zero smooth test num:  70
+train loglikelihood:-38.7732955676 test loglikelihood:-148.659626788
+-148.659626788 -148.659626788 0.0 151.0 0.0
+zero smooth test num:  70
+train loglikelihood:-38.7732955676 test loglikelihood:-148.659626788
+-148.659626788 -148.659626788 0.0 151.0 0.0
+zero smooth test num:  70
+train loglikelihood:-38.7732955676 test loglikelihood:-148.659626788
+-148.659626788 -148.659626788 0.0 151.0 0.0
+zero smooth test num:  70
+train loglikelihood:-38.7732955676 test loglikelihood:-148.659626788
+log likelihood: -106.142816876
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-148.659626788
+subgraph size: 25, train sample size: 500
+split:  1
+-140.158069291 -140.158069291 0.0 151.0 0.0
+zero smooth test num:  71
+train loglikelihood:-38.7732955676 test loglikelihood:-140.158069291
+-140.158069291 -140.158069291 0.0 151.0 0.0
+zero smooth test num:  71
+train loglikelihood:-38.7732955676 test loglikelihood:-140.158069291
+-140.158069291 -140.158069291 0.0 151.0 0.0
+zero smooth test num:  71
+train loglikelihood:-38.7732955676 test loglikelihood:-140.158069291
+-140.158069291 -140.158069291 0.0 151.0 0.0
+zero smooth test num:  71
+train loglikelihood:-38.7732955676 test loglikelihood:-140.158069291
+-140.158069291 -140.158069291 0.0 151.0 0.0
+zero smooth test num:  71
+train loglikelihood:-38.7732955676 test loglikelihood:-140.158069291
+log likelihood: -107.424915048
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-140.158069291
+subgraph size: 25, train sample size: 500
+split:  1
+-156.123006057 -156.123006057 0.0 154.0 0.0
+zero smooth test num:  72
+train loglikelihood:-38.7732955676 test loglikelihood:-156.123006057
+-156.123006057 -156.123006057 0.0 154.0 0.0
+zero smooth test num:  72
+train loglikelihood:-38.7732955676 test loglikelihood:-156.123006057
+-156.123006057 -156.123006057 0.0 154.0 0.0
+zero smooth test num:  72
+train loglikelihood:-38.7732955676 test loglikelihood:-156.123006057
+-156.123006057 -156.123006057 0.0 154.0 0.0
+zero smooth test num:  72
+train loglikelihood:-38.7732955676 test loglikelihood:-156.123006057
+-156.123006057 -156.123006057 0.0 154.0 0.0
+zero smooth test num:  72
+train loglikelihood:-38.7732955676 test loglikelihood:-156.123006057
+log likelihood: -102.938312851
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-156.123006057
+subgraph size: 25, train sample size: 500
+split:  1
+-177.253122606 -177.253122606 0.0 163.0 0.0
+zero smooth test num:  73
+train loglikelihood:-38.7732955676 test loglikelihood:-177.253122606
+-177.253122606 -177.253122606 0.0 163.0 0.0
+zero smooth test num:  73
+train loglikelihood:-38.7732955676 test loglikelihood:-177.253122606
+-177.253122606 -177.253122606 0.0 163.0 0.0
+zero smooth test num:  73
+train loglikelihood:-38.7732955676 test loglikelihood:-177.253122606
+-177.253122606 -177.253122606 0.0 163.0 0.0
+zero smooth test num:  73
+train loglikelihood:-38.7732955676 test loglikelihood:-177.253122606
+-177.253122606 -177.253122606 0.0 163.0 0.0
+zero smooth test num:  73
+train loglikelihood:-38.7732955676 test loglikelihood:-177.253122606
+log likelihood: -110.659710494
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-177.253122606
+subgraph size: 25, train sample size: 500
+split:  1
+-161.182337421 -161.182337421 0.0 139.0 0.0
+zero smooth test num:  74
+train loglikelihood:-38.7732955676 test loglikelihood:-161.182337421
+-161.182337421 -161.182337421 0.0 139.0 0.0
+zero smooth test num:  74
+train loglikelihood:-38.7732955676 test loglikelihood:-161.182337421
+-161.182337421 -161.182337421 0.0 139.0 0.0
+zero smooth test num:  74
+train loglikelihood:-38.7732955676 test loglikelihood:-161.182337421
+-161.182337421 -161.182337421 0.0 139.0 0.0
+zero smooth test num:  74
+train loglikelihood:-38.7732955676 test loglikelihood:-161.182337421
+-161.182337421 -161.182337421 0.0 139.0 0.0
+zero smooth test num:  74
+train loglikelihood:-38.7732955676 test loglikelihood:-161.182337421
+log likelihood: -102.131148387
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-161.182337421
+subgraph size: 25, train sample size: 500
+split:  1
+-191.516657416 -191.516657416 0.0 143.0 0.0
+zero smooth test num:  75
+train loglikelihood:-38.7732955676 test loglikelihood:-191.516657416
+-191.516657416 -191.516657416 0.0 143.0 0.0
+zero smooth test num:  75
+train loglikelihood:-38.7732955676 test loglikelihood:-191.516657416
+-191.516657416 -191.516657416 0.0 143.0 0.0
+zero smooth test num:  75
+train loglikelihood:-38.7732955676 test loglikelihood:-191.516657416
+-191.516657416 -191.516657416 0.0 143.0 0.0
+zero smooth test num:  75
+train loglikelihood:-38.7732955676 test loglikelihood:-191.516657416
+-191.516657416 -191.516657416 0.0 143.0 0.0
+zero smooth test num:  75
+train loglikelihood:-38.7732955676 test loglikelihood:-191.516657416
+log likelihood: -102.644279572
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-191.516657416
+subgraph size: 25, train sample size: 500
+split:  1
+-135.503628219 -135.503628219 0.0 156.0 0.0
+zero smooth test num:  76
+train loglikelihood:-38.7732955676 test loglikelihood:-135.503628219
+-135.503628219 -135.503628219 0.0 156.0 0.0
+zero smooth test num:  76
+train loglikelihood:-38.7732955676 test loglikelihood:-135.503628219
+-135.503628219 -135.503628219 0.0 156.0 0.0
+zero smooth test num:  76
+train loglikelihood:-38.7732955676 test loglikelihood:-135.503628219
+-135.503628219 -135.503628219 0.0 156.0 0.0
+zero smooth test num:  76
+train loglikelihood:-38.7732955676 test loglikelihood:-135.503628219
+-135.503628219 -135.503628219 0.0 156.0 0.0
+zero smooth test num:  76
+train loglikelihood:-38.7732955676 test loglikelihood:-135.503628219
+log likelihood: -114.869210717
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-135.503628219
+subgraph size: 25, train sample size: 500
+split:  1
+-150.424864686 -150.424864686 0.0 145.0 0.0
+zero smooth test num:  77
+train loglikelihood:-38.7732955676 test loglikelihood:-150.424864686
+-150.424864686 -150.424864686 0.0 145.0 0.0
+zero smooth test num:  77
+train loglikelihood:-38.7732955676 test loglikelihood:-150.424864686
+-150.424864686 -150.424864686 0.0 145.0 0.0
+zero smooth test num:  77
+train loglikelihood:-38.7732955676 test loglikelihood:-150.424864686
+-150.424864686 -150.424864686 0.0 145.0 0.0
+zero smooth test num:  77
+train loglikelihood:-38.7732955676 test loglikelihood:-150.424864686
+-150.424864686 -150.424864686 0.0 145.0 0.0
+zero smooth test num:  77
+train loglikelihood:-38.7732955676 test loglikelihood:-150.424864686
+log likelihood: -108.17302701
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-150.424864686
+subgraph size: 25, train sample size: 500
+split:  1
+-171.743079497 -171.743079497 0.0 153.0 0.0
+zero smooth test num:  78
+train loglikelihood:-38.7732955676 test loglikelihood:-171.743079497
+-171.743079497 -171.743079497 0.0 153.0 0.0
+zero smooth test num:  78
+train loglikelihood:-38.7732955676 test loglikelihood:-171.743079497
+-171.743079497 -171.743079497 0.0 153.0 0.0
+zero smooth test num:  78
+train loglikelihood:-38.7732955676 test loglikelihood:-171.743079497
+-171.743079497 -171.743079497 0.0 153.0 0.0
+zero smooth test num:  78
+train loglikelihood:-38.7732955676 test loglikelihood:-171.743079497
+-171.743079497 -171.743079497 0.0 153.0 0.0
+zero smooth test num:  78
+train loglikelihood:-38.7732955676 test loglikelihood:-171.743079497
+log likelihood: -93.0249917859
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-171.743079497
+subgraph size: 25, train sample size: 500
+split:  1
+-163.127256212 -163.127256212 0.0 144.0 0.0
+zero smooth test num:  79
+train loglikelihood:-38.7732955676 test loglikelihood:-163.127256212
+-163.127256212 -163.127256212 0.0 144.0 0.0
+zero smooth test num:  79
+train loglikelihood:-38.7732955676 test loglikelihood:-163.127256212
+-163.127256212 -163.127256212 0.0 144.0 0.0
+zero smooth test num:  79
+train loglikelihood:-38.7732955676 test loglikelihood:-163.127256212
+-163.127256212 -163.127256212 0.0 144.0 0.0
+zero smooth test num:  79
+train loglikelihood:-38.7732955676 test loglikelihood:-163.127256212
+-163.127256212 -163.127256212 0.0 144.0 0.0
+zero smooth test num:  79
+train loglikelihood:-38.7732955676 test loglikelihood:-163.127256212
+log likelihood: -114.173435025
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-163.127256212
+subgraph size: 25, train sample size: 500
+split:  1
+-164.000648941 -164.000648941 0.0 147.0 0.0
+zero smooth test num:  80
+train loglikelihood:-38.7732955676 test loglikelihood:-164.000648941
+-164.000648941 -164.000648941 0.0 147.0 0.0
+zero smooth test num:  80
+train loglikelihood:-38.7732955676 test loglikelihood:-164.000648941
+-164.000648941 -164.000648941 0.0 147.0 0.0
+zero smooth test num:  80
+train loglikelihood:-38.7732955676 test loglikelihood:-164.000648941
+-164.000648941 -164.000648941 0.0 147.0 0.0
+zero smooth test num:  80
+train loglikelihood:-38.7732955676 test loglikelihood:-164.000648941
+-164.000648941 -164.000648941 0.0 147.0 0.0
+zero smooth test num:  80
+train loglikelihood:-38.7732955676 test loglikelihood:-164.000648941
+log likelihood: -115.270579362
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-164.000648941
+subgraph size: 25, train sample size: 500
+split:  1
+-161.312927687 -161.312927687 0.0 147.0 0.0
+zero smooth test num:  81
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312927687
+-161.312927687 -161.312927687 0.0 147.0 0.0
+zero smooth test num:  81
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312927687
+-161.312927687 -161.312927687 0.0 147.0 0.0
+zero smooth test num:  81
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312927687
+-161.312927687 -161.312927687 0.0 147.0 0.0
+zero smooth test num:  81
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312927687
+-161.312927687 -161.312927687 0.0 147.0 0.0
+zero smooth test num:  81
+train loglikelihood:-38.7732955676 test loglikelihood:-161.312927687
+log likelihood: -109.107001391
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-161.312927687
+subgraph size: 25, train sample size: 500
+split:  1
+-204.244423889 -204.244423889 0.0 146.0 0.0
+zero smooth test num:  82
+train loglikelihood:-38.7732955676 test loglikelihood:-204.244423889
+-204.244423889 -204.244423889 0.0 146.0 0.0
+zero smooth test num:  82
+train loglikelihood:-38.7732955676 test loglikelihood:-204.244423889
+-204.244423889 -204.244423889 0.0 146.0 0.0
+zero smooth test num:  82
+train loglikelihood:-38.7732955676 test loglikelihood:-204.244423889
+-204.244423889 -204.244423889 0.0 146.0 0.0
+zero smooth test num:  82
+train loglikelihood:-38.7732955676 test loglikelihood:-204.244423889
+-204.244423889 -204.244423889 0.0 146.0 0.0
+zero smooth test num:  82
+train loglikelihood:-38.7732955676 test loglikelihood:-204.244423889
+log likelihood: -115.692424972
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-204.244423889
+subgraph size: 25, train sample size: 500
+split:  1
+-160.365364541 -160.365364541 0.0 143.0 0.0
+zero smooth test num:  83
+train loglikelihood:-38.7732955676 test loglikelihood:-160.365364541
+-160.365364541 -160.365364541 0.0 143.0 0.0
+zero smooth test num:  83
+train loglikelihood:-38.7732955676 test loglikelihood:-160.365364541
+-160.365364541 -160.365364541 0.0 143.0 0.0
+zero smooth test num:  83
+train loglikelihood:-38.7732955676 test loglikelihood:-160.365364541
+-160.365364541 -160.365364541 0.0 143.0 0.0
+zero smooth test num:  83
+train loglikelihood:-38.7732955676 test loglikelihood:-160.365364541
+-160.365364541 -160.365364541 0.0 143.0 0.0
+zero smooth test num:  83
+train loglikelihood:-38.7732955676 test loglikelihood:-160.365364541
+log likelihood: -96.602972945
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-160.365364541
+subgraph size: 25, train sample size: 500
+split:  1
+-180.247233711 -180.247233711 0.0 156.0 0.0
+zero smooth test num:  84
+train loglikelihood:-38.7732955676 test loglikelihood:-180.247233711
+-180.247233711 -180.247233711 0.0 156.0 0.0
+zero smooth test num:  84
+train loglikelihood:-38.7732955676 test loglikelihood:-180.247233711
+-180.247233711 -180.247233711 0.0 156.0 0.0
+zero smooth test num:  84
+train loglikelihood:-38.7732955676 test loglikelihood:-180.247233711
+-180.247233711 -180.247233711 0.0 156.0 0.0
+zero smooth test num:  84
+train loglikelihood:-38.7732955676 test loglikelihood:-180.247233711
+-180.247233711 -180.247233711 0.0 156.0 0.0
+zero smooth test num:  84
+train loglikelihood:-38.7732955676 test loglikelihood:-180.247233711
+log likelihood: -102.309201509
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-180.247233711
+subgraph size: 25, train sample size: 500
+split:  1
+-136.439968251 -136.439968251 0.0 154.0 0.0
+zero smooth test num:  85
+train loglikelihood:-38.7732955676 test loglikelihood:-136.439968251
+-136.439968251 -136.439968251 0.0 154.0 0.0
+zero smooth test num:  85
+train loglikelihood:-38.7732955676 test loglikelihood:-136.439968251
+-136.439968251 -136.439968251 0.0 154.0 0.0
+zero smooth test num:  85
+train loglikelihood:-38.7732955676 test loglikelihood:-136.439968251
+-136.439968251 -136.439968251 0.0 154.0 0.0
+zero smooth test num:  85
+train loglikelihood:-38.7732955676 test loglikelihood:-136.439968251
+-136.439968251 -136.439968251 0.0 154.0 0.0
+zero smooth test num:  85
+train loglikelihood:-38.7732955676 test loglikelihood:-136.439968251
+log likelihood: -109.751898859
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-136.439968251
+subgraph size: 25, train sample size: 500
+split:  1
+-153.522104702 -153.522104702 0.0 138.0 0.0
+zero smooth test num:  86
+train loglikelihood:-38.7732955676 test loglikelihood:-153.522104702
+-153.522104702 -153.522104702 0.0 138.0 0.0
+zero smooth test num:  86
+train loglikelihood:-38.7732955676 test loglikelihood:-153.522104702
+-153.522104702 -153.522104702 0.0 138.0 0.0
+zero smooth test num:  86
+train loglikelihood:-38.7732955676 test loglikelihood:-153.522104702
+-153.522104702 -153.522104702 0.0 138.0 0.0
+zero smooth test num:  86
+train loglikelihood:-38.7732955676 test loglikelihood:-153.522104702
+-153.522104702 -153.522104702 0.0 138.0 0.0
+zero smooth test num:  86
+train loglikelihood:-38.7732955676 test loglikelihood:-153.522104702
+log likelihood: -117.653160268
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-153.522104702
+subgraph size: 25, train sample size: 500
+split:  1
+-169.525541038 -169.525541038 0.0 141.0 0.0
+zero smooth test num:  87
+train loglikelihood:-38.7732955676 test loglikelihood:-169.525541038
+-169.525541038 -169.525541038 0.0 141.0 0.0
+zero smooth test num:  87
+train loglikelihood:-38.7732955676 test loglikelihood:-169.525541038
+-169.525541038 -169.525541038 0.0 141.0 0.0
+zero smooth test num:  87
+train loglikelihood:-38.7732955676 test loglikelihood:-169.525541038
+-169.525541038 -169.525541038 0.0 141.0 0.0
+zero smooth test num:  87
+train loglikelihood:-38.7732955676 test loglikelihood:-169.525541038
+-169.525541038 -169.525541038 0.0 141.0 0.0
+zero smooth test num:  87
+train loglikelihood:-38.7732955676 test loglikelihood:-169.525541038
+log likelihood: -109.135848748
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-169.525541038
+subgraph size: 25, train sample size: 500
+split:  1
+-175.533098242 -175.533098242 0.0 143.0 0.0
+zero smooth test num:  88
+train loglikelihood:-38.7732955676 test loglikelihood:-175.533098242
+-175.533098242 -175.533098242 0.0 143.0 0.0
+zero smooth test num:  88
+train loglikelihood:-38.7732955676 test loglikelihood:-175.533098242
+-175.533098242 -175.533098242 0.0 143.0 0.0
+zero smooth test num:  88
+train loglikelihood:-38.7732955676 test loglikelihood:-175.533098242
+-175.533098242 -175.533098242 0.0 143.0 0.0
+zero smooth test num:  88
+train loglikelihood:-38.7732955676 test loglikelihood:-175.533098242
+-175.533098242 -175.533098242 0.0 143.0 0.0
+zero smooth test num:  88
+train loglikelihood:-38.7732955676 test loglikelihood:-175.533098242
+log likelihood: -124.405991874
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-175.533098242
+subgraph size: 25, train sample size: 500
+split:  1
+-139.249352574 -139.249352574 0.0 151.0 0.0
+zero smooth test num:  89
+train loglikelihood:-38.7732955676 test loglikelihood:-139.249352574
+-139.249352574 -139.249352574 0.0 151.0 0.0
+zero smooth test num:  89
+train loglikelihood:-38.7732955676 test loglikelihood:-139.249352574
+-139.249352574 -139.249352574 0.0 151.0 0.0
+zero smooth test num:  89
+train loglikelihood:-38.7732955676 test loglikelihood:-139.249352574
+-139.249352574 -139.249352574 0.0 151.0 0.0
+zero smooth test num:  89
+train loglikelihood:-38.7732955676 test loglikelihood:-139.249352574
+-139.249352574 -139.249352574 0.0 151.0 0.0
+zero smooth test num:  89
+train loglikelihood:-38.7732955676 test loglikelihood:-139.249352574
+log likelihood: -90.2834104838
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-139.249352574
+subgraph size: 25, train sample size: 500
+split:  1
+-163.940336295 -163.940336295 0.0 137.0 0.0
+zero smooth test num:  90
+train loglikelihood:-38.7732955676 test loglikelihood:-163.940336295
+-163.940336295 -163.940336295 0.0 137.0 0.0
+zero smooth test num:  90
+train loglikelihood:-38.7732955676 test loglikelihood:-163.940336295
+-163.940336295 -163.940336295 0.0 137.0 0.0
+zero smooth test num:  90
+train loglikelihood:-38.7732955676 test loglikelihood:-163.940336295
+-163.940336295 -163.940336295 0.0 137.0 0.0
+zero smooth test num:  90
+train loglikelihood:-38.7732955676 test loglikelihood:-163.940336295
+-163.940336295 -163.940336295 0.0 137.0 0.0
+zero smooth test num:  90
+train loglikelihood:-38.7732955676 test loglikelihood:-163.940336295
+log likelihood: -112.898299198
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-163.940336295
+subgraph size: 25, train sample size: 500
+split:  1
+-144.581332402 -144.581332402 0.0 157.0 0.0
+zero smooth test num:  91
+train loglikelihood:-38.7732955676 test loglikelihood:-144.581332402
+-144.581332402 -144.581332402 0.0 157.0 0.0
+zero smooth test num:  91
+train loglikelihood:-38.7732955676 test loglikelihood:-144.581332402
+-144.581332402 -144.581332402 0.0 157.0 0.0
+zero smooth test num:  91
+train loglikelihood:-38.7732955676 test loglikelihood:-144.581332402
+-144.581332402 -144.581332402 0.0 157.0 0.0
+zero smooth test num:  91
+train loglikelihood:-38.7732955676 test loglikelihood:-144.581332402
+-144.581332402 -144.581332402 0.0 157.0 0.0
+zero smooth test num:  91
+train loglikelihood:-38.7732955676 test loglikelihood:-144.581332402
+log likelihood: -118.529100859
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-144.581332402
+subgraph size: 25, train sample size: 500
+split:  1
+-170.520526176 -170.520526176 0.0 142.0 0.0
+zero smooth test num:  92
+train loglikelihood:-38.7732955676 test loglikelihood:-170.520526176
+-170.520526176 -170.520526176 0.0 142.0 0.0
+zero smooth test num:  92
+train loglikelihood:-38.7732955676 test loglikelihood:-170.520526176
+-170.520526176 -170.520526176 0.0 142.0 0.0
+zero smooth test num:  92
+train loglikelihood:-38.7732955676 test loglikelihood:-170.520526176
+-170.520526176 -170.520526176 0.0 142.0 0.0
+zero smooth test num:  92
+train loglikelihood:-38.7732955676 test loglikelihood:-170.520526176
+-170.520526176 -170.520526176 0.0 142.0 0.0
+zero smooth test num:  92
+train loglikelihood:-38.7732955676 test loglikelihood:-170.520526176
+log likelihood: -123.437245077
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-170.520526176
+subgraph size: 25, train sample size: 500
+split:  1
+-177.361779706 -177.361779706 0.0 137.0 0.0
+zero smooth test num:  93
+train loglikelihood:-38.7732955676 test loglikelihood:-177.361779706
+-177.361779706 -177.361779706 0.0 137.0 0.0
+zero smooth test num:  93
+train loglikelihood:-38.7732955676 test loglikelihood:-177.361779706
+-177.361779706 -177.361779706 0.0 137.0 0.0
+zero smooth test num:  93
+train loglikelihood:-38.7732955676 test loglikelihood:-177.361779706
+-177.361779706 -177.361779706 0.0 137.0 0.0
+zero smooth test num:  93
+train loglikelihood:-38.7732955676 test loglikelihood:-177.361779706
+-177.361779706 -177.361779706 0.0 137.0 0.0
+zero smooth test num:  93
+train loglikelihood:-38.7732955676 test loglikelihood:-177.361779706
+log likelihood: -103.007827295
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-177.361779706
+subgraph size: 25, train sample size: 500
+split:  1
+-166.138428766 -166.138428766 0.0 141.0 0.0
+zero smooth test num:  94
+train loglikelihood:-38.7732955676 test loglikelihood:-166.138428766
+-166.138428766 -166.138428766 0.0 141.0 0.0
+zero smooth test num:  94
+train loglikelihood:-38.7732955676 test loglikelihood:-166.138428766
+-166.138428766 -166.138428766 0.0 141.0 0.0
+zero smooth test num:  94
+train loglikelihood:-38.7732955676 test loglikelihood:-166.138428766
+-166.138428766 -166.138428766 0.0 141.0 0.0
+zero smooth test num:  94
+train loglikelihood:-38.7732955676 test loglikelihood:-166.138428766
+-166.138428766 -166.138428766 0.0 141.0 0.0
+zero smooth test num:  94
+train loglikelihood:-38.7732955676 test loglikelihood:-166.138428766
+log likelihood: -114.532182387
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-166.138428766
+subgraph size: 25, train sample size: 500
+split:  1
+-159.089054507 -159.089054507 0.0 150.0 0.0
+zero smooth test num:  95
+train loglikelihood:-38.7732955676 test loglikelihood:-159.089054507
+-159.089054507 -159.089054507 0.0 150.0 0.0
+zero smooth test num:  95
+train loglikelihood:-38.7732955676 test loglikelihood:-159.089054507
+-159.089054507 -159.089054507 0.0 150.0 0.0
+zero smooth test num:  95
+train loglikelihood:-38.7732955676 test loglikelihood:-159.089054507
+-159.089054507 -159.089054507 0.0 150.0 0.0
+zero smooth test num:  95
+train loglikelihood:-38.7732955676 test loglikelihood:-159.089054507
+-159.089054507 -159.089054507 0.0 150.0 0.0
+zero smooth test num:  95
+train loglikelihood:-38.7732955676 test loglikelihood:-159.089054507
+log likelihood: -112.754492889
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-159.089054507
+subgraph size: 25, train sample size: 500
+split:  1
+-162.924636527 -162.924636527 0.0 153.0 0.0
+zero smooth test num:  96
+train loglikelihood:-38.7732955676 test loglikelihood:-162.924636527
+-162.924636527 -162.924636527 0.0 153.0 0.0
+zero smooth test num:  96
+train loglikelihood:-38.7732955676 test loglikelihood:-162.924636527
+-162.924636527 -162.924636527 0.0 153.0 0.0
+zero smooth test num:  96
+train loglikelihood:-38.7732955676 test loglikelihood:-162.924636527
+-162.924636527 -162.924636527 0.0 153.0 0.0
+zero smooth test num:  96
+train loglikelihood:-38.7732955676 test loglikelihood:-162.924636527
+-162.924636527 -162.924636527 0.0 153.0 0.0
+zero smooth test num:  96
+train loglikelihood:-38.7732955676 test loglikelihood:-162.924636527
+log likelihood: -123.84487864
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-162.924636527
+subgraph size: 25, train sample size: 500
+split:  1
+-156.12240979 -156.12240979 0.0 157.0 0.0
+zero smooth test num:  97
+train loglikelihood:-38.7732955676 test loglikelihood:-156.12240979
+-156.12240979 -156.12240979 0.0 157.0 0.0
+zero smooth test num:  97
+train loglikelihood:-38.7732955676 test loglikelihood:-156.12240979
+-156.12240979 -156.12240979 0.0 157.0 0.0
+zero smooth test num:  97
+train loglikelihood:-38.7732955676 test loglikelihood:-156.12240979
+-156.12240979 -156.12240979 0.0 157.0 0.0
+zero smooth test num:  97
+train loglikelihood:-38.7732955676 test loglikelihood:-156.12240979
+-156.12240979 -156.12240979 0.0 157.0 0.0
+zero smooth test num:  97
+train loglikelihood:-38.7732955676 test loglikelihood:-156.12240979
+log likelihood: -104.842395663
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-156.12240979
+subgraph size: 25, train sample size: 500
+split:  1
+-143.066600579 -143.066600579 0.0 149.0 0.0
+zero smooth test num:  98
+train loglikelihood:-38.7732955676 test loglikelihood:-143.066600579
+-143.066600579 -143.066600579 0.0 149.0 0.0
+zero smooth test num:  98
+train loglikelihood:-38.7732955676 test loglikelihood:-143.066600579
+-143.066600579 -143.066600579 0.0 149.0 0.0
+zero smooth test num:  98
+train loglikelihood:-38.7732955676 test loglikelihood:-143.066600579
+-143.066600579 -143.066600579 0.0 149.0 0.0
+zero smooth test num:  98
+train loglikelihood:-38.7732955676 test loglikelihood:-143.066600579
+-143.066600579 -143.066600579 0.0 149.0 0.0
+zero smooth test num:  98
+train loglikelihood:-38.7732955676 test loglikelihood:-143.066600579
+log likelihood: -92.2475942916
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-143.066600579
+subgraph size: 25, train sample size: 500
+split:  1
+-183.247274831 -183.247274831 0.0 140.0 0.0
+zero smooth test num:  99
+train loglikelihood:-38.7732955676 test loglikelihood:-183.247274831
+-183.247274831 -183.247274831 0.0 140.0 0.0
+zero smooth test num:  99
+train loglikelihood:-38.7732955676 test loglikelihood:-183.247274831
+-183.247274831 -183.247274831 0.0 140.0 0.0
+zero smooth test num:  99
+train loglikelihood:-38.7732955676 test loglikelihood:-183.247274831
+-183.247274831 -183.247274831 0.0 140.0 0.0
+zero smooth test num:  99
+train loglikelihood:-38.7732955676 test loglikelihood:-183.247274831
+-183.247274831 -183.247274831 0.0 140.0 0.0
+zero smooth test num:  99
+train loglikelihood:-38.7732955676 test loglikelihood:-183.247274831
+log likelihood: -132.319043863
+log likelihood: -38.7732955676
+log likelihood: -38.7732955676
+original grammar count: 44
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.7732955676
+test loglikelihood:-183.247274831

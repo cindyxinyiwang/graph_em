@@ -1,0 +1,12 @@
+split 1:
+average:  -323.545807283
+standard deviation:  27.381499849
+split 2:
+average:  -310.340709996
+standard deviation:  28.5536927622
+split 3:
+average:  -307.042751836
+standard deviation:  25.581879869
+split 4:
+average:  -309.380174002
+standard deviation:  26.7981143199
