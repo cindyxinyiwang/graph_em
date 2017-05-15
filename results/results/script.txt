@@ -1,2 +1,0 @@
-grep -E "^smooth count:|^test loglikelihood:" ba_test/split_4/* > ba_split_4.txt 
-sed '$!N;s/\n/ /' ba_split_4.txt | sed -n -e 's/.*smooth count:0.0 .*test loglikelihood:\(.*\)/\1/p' > ba_split_4.txt
