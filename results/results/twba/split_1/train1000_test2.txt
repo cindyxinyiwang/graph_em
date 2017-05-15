@@ -1,0 +1,4 @@
+subgraph size: 25, train sample size: 1000
+split: 1
+-30264.9647021 -264.964702007 3.00000000001 150.0 0.0200000000001
+train loglikelihood:-29.5784709936 test loglikelihood:-264.964702007

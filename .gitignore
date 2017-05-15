@@ -2,6 +2,5 @@
 out_graphs
 data
 nonterm_graphs
-Results/*
 ProdRules/*
 *.swp

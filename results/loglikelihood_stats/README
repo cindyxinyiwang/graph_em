@@ -1,0 +1,33 @@
+This folder contains test loglikelihoods for latent variable HRGs
+1. as
+autonomous systems
+train:cit-hep-th https://snap.stanford.edu/data/cit-HepTh.html 
+test:cit-hep-ph https://snap.stanford.edu/data/cit-HepPh.html
+
+2. ba
+barabasi albert graph
+train:ba graph with node n=30000, m=2
+test:ba graph with node n=30000, m=3
+
+3. ws
+watts_strogatz graph
+train:same ba graph with n=30000, m=2 as in 2.
+test: ws graph with node n=30000, k=4, p=0.3
+
+4.twba
+train on watts_strogatz graph, test on barabasi albert graph
+train :ws graph with node n=30000, k=4, p=0.2
+test:ba graph with node n=30000, m=3
+
+5.twws
+train on watts_strogatz graph, test on barabasi albert graph
+train: ws graph with node n=30000, k=4, p=0.2
+test: ws graph with node n=30000, k=4, p=0.3
+
+6.cit
+citation graphs
+train: cit-hep-th
+test: cit-hep-ph
+
+
+Each file in the folder contains log likelihoods of test samples of a certain split. *_stats.txt file is a summary stats for the corresponding folder

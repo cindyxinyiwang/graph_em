@@ -1,0 +1,15 @@
+subgraph size: 25, train sample size: 500
+split: 3
+-139.551632211 -139.551632211 0.0 151.0 0.0train loglikelihood:-38.5279487566 test loglikelihood:-139.551632211
+-139.347034571 -139.347034571 0.0 151.0 0.0train loglikelihood:-38.6289182157 test loglikelihood:-139.347034571
+-137.887088704 -137.887088704 0.0 151.0 0.0train loglikelihood:-38.3282221901 test loglikelihood:-137.887088704
+-137.492290719 -137.492290719 0.0 151.0 0.0train loglikelihood:-38.175259463 test loglikelihood:-137.492290719
+-138.339634376 -138.339634376 0.0 151.0 0.0train loglikelihood:-38.4102560601 test loglikelihood:-138.339634376
+log likelihood: -138.310193246
+log likelihood: -38.3936873212
+log likelihood: -38.175259463
+original grammar count: 834
+added grammar count: 0
+smooth count:0.0
+train loglikelihood:-38.175259463
+test loglikelihood:-137.492290719

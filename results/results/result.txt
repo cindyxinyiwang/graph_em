@@ -1,0 +1,102 @@
+twws
+split: 1
+average: -228.928509921
+standard deviation: 8.18352655185
+confidence interval: -230.560479482 -227.296540361
+split: 2
+average: -222.57618887
+standard deviation: 7.73996868495
+confidence interval: -224.119703542 -221.032674199
+split: 3
+average: -221.809586056
+standard deviation: 7.56214559774
+confidence interval: -223.317639015 -220.301533097
+split: 4
+average: -221.396298284
+standard deviation: 7.24955685356
+confidence interval: -222.842014387 -219.950582181
+twba
+split: 1
+average: -258.005281177
+standard deviation: 21.4884847608
+confidence interval: -267.058197794 -248.952364561
+split: 2
+average: -256.488005472
+standard deviation: 19.7384438232
+confidence interval: -265.002083132 -247.973927813
+split: 3
+average: -256.429154088
+standard deviation: 20.5319148158
+confidence interval: -265.285491437 -247.572816739
+split: 4
+average: -255.128919421
+standard deviation: 19.8071993338
+confidence interval: -263.672654422 -246.58518442
+ws
+split: 1
+average: -323.545807283
+standard deviation: 27.381499849
+confidence interval: -331.492195892 -315.599418673
+split: 2
+average: -310.340709996
+standard deviation: 28.5536927622
+confidence interval: -318.627280862 -302.054139129
+split: 3
+average: -307.042751836
+standard deviation: 25.581879869
+confidence interval: -314.466872498 -299.618631173
+split: 4
+average: -309.380174002
+standard deviation: 26.7981143199
+confidence interval: -317.157258222 -301.603089783
+ba
+split: 1
+average: -158.797964834
+standard deviation: 16.3748452805
+confidence interval: -162.133233526 -155.462696142
+split: 2
+average: -153.35121318
+standard deviation: 15.9000579305
+confidence interval: -156.589776018 -150.112650341
+split: 3
+average: -152.614743396
+standard deviation: 15.5769472424
+confidence interval: -155.787494257 -149.441992536
+split: 4
+average: -152.769117636
+standard deviation: 15.3481801405
+confidence interval: -155.895272651 -149.64296262
+cit
+split: 1
+average: -330.377882455
+standard deviation: 10.8741314643
+confidence interval: -335.068383925 -325.687380985
+split: 2
+average: -300.217177085
+standard deviation: 12.1176118587
+confidence interval: -305.444047518 -294.990306652
+split: 3
+average: -296.256934621
+standard deviation: 17.9056397757
+confidence interval: -303.980441548 -288.533427694
+split: 4
+average: -302.745591116
+standard deviation: 26.104781056
+confidence interval: -316.10354959 -289.387632643
+as
+split: 1
+average: -240.089110038
+standard deviation: 26.0166520204
+confidence interval: -246.433302672 -233.744917404
+split: 2
+average: -186.588688348
+standard deviation: 30.2526324882
+confidence interval: -193.965830036 -179.21154666
+split: 3
+average: -180.191567074
+standard deviation: 28.6549258001
+confidence interval: -187.179106018 -173.20402813
+split: 4
+average: -177.526834685
+standard deviation: 28.0141720039
+confidence interval: -184.358125027 -170.695544343
