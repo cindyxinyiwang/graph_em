@@ -1,0 +1,19 @@
+This folder contains generated graphs from the four graph grammars. For each training graph, 1, 2, 3, 4 split grammars are extracted and trained. Each version of the grammar generated 50 graphs, each of size 5000
+
+1. as-train-topo
+The as-train-topo.txt is the training graph for autonomous system graphs
+The as-train-topo folder contains grammar extracted from the as training graph, and the generated graphs from each grammar. Each graph has a 1, 2, 3, 4 split grammar, and each folder contains 50 generated graphs, each of size 5000.
+
+2. cit-HepTh
+cit-HepTh.txt is the training graph for citation networks
+cit-HepTh folder contains the generated graphs
+
+3. ba
+ba.txt is the training graph for barabasi albert graph
+ba folder contains the generated graphs
+
+4. ws-train
+ws-train.txt is the training graph for ws graph
+ws-train folder contains the generated graphs
+
+graph_stats.py is the python script that used to calculate graph statistics of the generated graphs, as well as their similarity with the training graphs
