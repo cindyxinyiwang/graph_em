@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('pdf')
 import os 
 from glob import glob
 from prepare_tree_rules.graph_sampler import rwr_sample
@@ -26,7 +28,7 @@ def load_edgelist(gfname):
 
 fname = "./data/out.cit-HepTh"
 G = load_edgelist(fname)
-sg_gen = rwr_sample(G, 1, 500)
+sg_gen = rwr_sample(G, 1, 5000)
 for sg in sg_gen:
   sg.name = os.path.basename(fname)
   print nx.info(sg)
@@ -36,6 +38,5 @@ hStars = [nx.read_edgelist(f) for f in s_graphs]
 
 ## metrics
 metricx = ['degree', 'hops', 'clust', 'assort', 'kcore', 'eigen', 'gcd']
-metricx = ['gcd']
 metrics.network_properties([sg], metricx, hStars, name=os.path.basename(fname)+"_5000", out_tsv=True)
 
