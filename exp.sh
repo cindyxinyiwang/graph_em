@@ -5,4 +5,4 @@ bname=`basename "$1" | cut -d'.' -f1`
 bname=`basename "$1"`
 bname="${bname#*.}"
 
-parallel "python exp_gcd.py  >> Results/gem"$TS".log 2>&1" ::: {1..20}
+parallel "python exp_gcd.py  >> Results/gem"$TS".log 2>&1" ::: {1..50}

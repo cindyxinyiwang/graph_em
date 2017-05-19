@@ -432,8 +432,12 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			synth_Deg.mean(axis=1).plot(ax=ax0,alpha=0.5, color='r')
 			synth_Deg.max(axis=1).plot(ax=ax0,alpha=0.2, color='r')
 			synth_Deg.min(axis=1).plot(ax=ax0,alpha=0.2, color='r')
-			orig__Deg.mean(axis=1).to_csv('Results/degree_orig_{}.tsv'.format(name),sep='\t')
-			synth_Deg.mean(axis=1).to_csv('Results/degree_hrg_{}.tsv'.format(name),sep='\t')
+			if out_tsv: orig__Deg.mean(axis=1).to_csv('Results/degree_orig_{}.tsv'.format(name),sep='\t', mode='a', header=False)
+			print '\torig'
+			print orig__Deg.mean(axis=1).to_string()
+			if out_tsv: synth_Deg.mean(axis=1).to_csv('Results/degree_hrg_{}.tsv'.format(name),sep='\t', mode='a', header=False)
+			print '\tsynth'
+			print synth_Deg.mean(axis=1).to_string()
 			ax0.set_title('Degree distributuion', y=0.9)
 			ax0.set_xscale('log')
 			ax0.set_yscale('log')
@@ -447,9 +451,13 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			synth_Hop_Plot.max(axis=1).plot(ax=ax1, color='r', alpha=0.2)
 			synth_Hop_Plot.min(axis=1).plot(ax=ax1, color='r', alpha=0.2)
 			ax1.set_title('Hop Plot', y=0.9)
-
-			orig__Hop_Plot.mean(axis=1).to_csv('Results/hops_orig_{}.tsv'.format(name),sep='\t')
-			synth_Hop_Plot.mean(axis=1).to_csv('Results/hops_hrg_{}.tsv'.format(name),sep='\t')
+			print '	orig'
+			orig__Hop_Plot.mean(axis=1).to_csv('Results/hops_orig_{}.tsv'.format(name),sep='\t', mode='a', header=False)
+			print orig__Hop_Plot.mean(axis=1).to_string()
+			print 
+			print '	synth'
+			synth_Hop_Plot.mean(axis=1).to_csv('Results/hops_hrg_{}.tsv'.format(name),sep='\t', mode='a', header=False)
+			print synth_Hop_Plot.mean(axis=1).to_string()
 
 		if 'clust' in net_mets:
 			print 'Clustering Coef'
@@ -458,12 +466,16 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 
 			gb = orig__clust_coef.groupby(['k'])
 			gb['cc'].mean().plot(ax=ax2, marker='o', ls="None", markeredgecolor="w", color='b', alpha=0.8)
-			gb['cc'].mean().to_csv('Results/clust_orig_{}.tsv'.format(name),sep='\t')
+			if out_tsv: gb['cc'].mean().to_csv('Results/clust_orig_{}.tsv'.format(name),sep='\t', mode='a', header=False)
+			print '	orig'
+			print gb['cc'].mean().to_string()
 
 			gb = synth_clust_coef.groupby(['k'])
 			gb['cc'].mean().plot(ax=ax2, marker='o', ls="None", markeredgecolor="w", color='r',	alpha=0.8 )
 			ax2.set_title('Avg Clustering Coefficient', y=0.9)
-			gb['cc'].mean().to_csv('Results/clust_hrg_{}.tsv'.format(name),sep='\t')
+			if out_tsv: gb['cc'].mean().to_csv('Results/clust_hrg_{}.tsv'.format(name),sep='\t', mode='a', header=False)
+			print '	synth'
+			print gb['cc'].mean().to_string()
 
 		if 'assort' in net_mets:
 			print 'Assortativity'
@@ -501,11 +513,11 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 
 			orig__eigenvec= orig__eigenvec.transpose()
 			orig__eigenvec.plot(ax=ax5, marker='o', ls="None", markeredgecolor="w", color='b',	alpha=0.8)
-			orig__eigenvec.mean(axis=1).to_csv('Results/eigenv_orig_{}.tsv'.format(name),sep='\t')
+			if out_tsv: orig__eigenvec.mean(axis=1).to_csv('Results/eigenv_orig_{}.tsv'.format(name),sep='\t')
 
 			synth_eigenvec= synth_eigenvec.transpose()
 			synth_eigenvec.mean(axis=1).plot(ax=ax5, marker='s', ls="None", markeredgecolor="w", color='r',	alpha=0.8)
-			synth_eigenvec.mean(axis=1).to_csv('Results/eigenv_hrg_{}.tsv'.format(name),sep='\t')
+			if out_tsv: synth_eigenvec.mean(axis=1).to_csv('Results/eigenv_hrg_{}.tsv'.format(name),sep='\t')
 			ax5.set_title('eigenvector', y=0.9)
 
 		import pprint as pp
@@ -531,9 +543,10 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			ax6.get_xaxis().tick_bottom() ## Remove top axes and right axes ticks
 			ax6.get_yaxis().tick_left()
 			ax6.set_xlim(0, 5)
-			with open ('Results/gcd_{}.tsv'.format(name), 'w') as f:
-				f.write('{}\t{}\n'.format(gcd_hrg_mean,gcd_hrg_std))
-
+			if out_tsv: 
+				with open ('Results/gcd_{}.tsv'.format(name), 'a') as f:
+					f.write('{}\t{}\n'.format(gcd_hrg_mean,gcd_hrg_std))
+			print "{}, {}, {}".format(name,gcd_hrg_mean,gcd_hrg_std)
 		oufigname = '/tmp/outfig_{}.pdf'.format(name)
 		plt.savefig(oufigname, bbox_inches='tight')
 		if os.path.exists(oufigname): print 'Output: ',oufigname
