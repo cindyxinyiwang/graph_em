@@ -6,13 +6,13 @@ from os.path import isfile, join
 import csv
 import networkx as nx
 import pandas as pd
-import numpy as np
+import numpy  as np
 import treedecomps.load_edgelist_from_dataframe as ledf
 import treedecomps.graph_utils as gutil
 import treedecomps.experiments as exps # graph stats
-from prepare_tree_rules.xphrg_graph_gen import xphrg_graph_gen
+from   prepare_tree_rules.xphrg_graph_gen import xphrg_graph_gen
 import traceback
-from collections import defaultdict
+from   collections import defaultdict
 import prepare_tree_rules.PHRG as phrg #import phrg_derive_prod_rules_partition
 import prepare_tree_rules.graph_sampler as gs
 import prepare_tree_rules.tree_decomposition as td
