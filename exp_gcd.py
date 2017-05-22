@@ -17,6 +17,7 @@ def get_parser ():
   parser = argparse.ArgumentParser(description='Experiemnts Workflow for CIKM')
   parser.add_argument('--orig', required=True, nargs=1,help="Edgelist filename")
   parser.add_argument('--cgs',  required=True, nargs=1,help="Gen graph")
+  parser.add_argument('--xnbr',  required=False, nargs=1,help="Run nbr (ignore)")
   parser.add_argument('--version', action='version', version=__version__)
   return parser
 
@@ -56,9 +57,10 @@ if __name__ == '__main__':
   for sg in sg_gen:
     sg.name = os.path.basename(fname)
     print nx.info(sg)
-
+  #~~#
+  #~~# K HRG graphs compared against (<|>) a 5K node subgraph sampled from the reference graph
+  #~~#
   s_graphs = glob ("results/sampled_graphs/"+ cindy_graphs +"/*")
-  #s_graphs = s_graphs[:10]
   hStars = [nx.read_edgelist(f) for f in s_graphs]
 
   ## metrics

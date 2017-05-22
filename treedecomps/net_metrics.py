@@ -1041,18 +1041,22 @@ def external_rage(G,netname):
 		giant_nodes = sorted(nx.connected_component_subgraphs(G), key=len, reverse=True)
 
 		G = nx.subgraph(G, giant_nodes[0])
+		if G.number_of_nodes()<=1:
+			print "G is None!!"*10
+			exit(1)
 
 		current_milli_time = lambda: int(round(time.time() * 1000))
 		tmp_file = "/tmp/{}_{}.csv".format(netname,str(current_milli_time()))
 		with open(tmp_file, 'w') as tmp:
 				for e in G.edges():
+					if e is NaN: contine
 					try:
 						src = int(e[0])+1
 						trg = int(e[1])+1
 						tmp.write(str(src) + " " + str(trg) + "\n")
 					except Exception, err:
 						print str(err)
-						print e
+						print ">"*100, e
 						traceback.print_exc()
 						exit(1)
 		
