@@ -5,3 +5,5 @@ nonterm_graphs
 ProdRules/*
 *.swp
 Results
+*.txt
+GraphEm*

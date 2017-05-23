@@ -43,6 +43,26 @@ def load_edgelist(gfname):
 	g.name = os.path.basename(gfname)
 	return g
 
+def do_random_graphs(pathfrag=None):
+  print "---< do_random_graphs >---"
+  print "  ", pathfrag
+  synth_fs = glob(pathfrag +"/*")
+  
+  hStars = [nx.read_edgelist(f) for f in synth_fs]
+#  for f in synth_fs:
+#    print f
+#    exit()
+  print "  ", "Synth graphs loaded."
+  n = 30000
+  G = nx.barabasi_albert_graph(n, 2)
+  ## metrics
+  import datetime
+  ts = datetime.datetime.now().strftime("%d%b%y-%H%M")
+  metricx = ['degree', 'hops', 'clust', 'assort', 'kcore', 'eigen', 'gcd']
+  metricx = ['degree', 'hops', 'clust', 'gcd']
+  metrics.network_properties([G], metricx, hStars, name=os.path.basename(fname)+"_5k"+ts)
+
+
 if __name__ == '__main__':
 	parser = get_parser()
 	args = vars(parser.parse_args())
@@ -86,4 +106,3 @@ if __name__ == '__main__':
 	metricx = ['gcd']
 	metrics.network_properties(	[sg], metricx, hStars, \
 															name=os.path.basename(fname)+"_5k"+ts, out_tsv=True)
-
