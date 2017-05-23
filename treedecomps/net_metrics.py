@@ -526,14 +526,13 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			ax6.set_title('GCD', y=0.9)
 			gcd_hrg = []
 			df_g = external_rage(orig[0],name) # original graph
-			print '^',
 			for synthG in synth_graphs_lst:
 				gcd_network = external_rage(synthG,name)
 				# rgfd =	tijana_eval_rgfd(df_g, gcd_network)	## what is this?
 				gcm_g = tijana_eval_compute_gcm(df_g)
 				gcm_h = tijana_eval_compute_gcm(gcd_network)
 				gcd_hrg.append(tijana_eval_compute_gcd(gcm_g, gcm_h))
-				print '.',
+			
 			gcd_hrg_mean = np.mean(gcd_hrg)
 			gcd_hrg_std	= np.std(gcd_hrg)
 			print
@@ -1049,7 +1048,7 @@ def external_rage(G,netname):
 		tmp_file = "/tmp/{}_{}.csv".format(netname,str(current_milli_time()))
 		with open(tmp_file, 'w') as tmp:
 				for e in G.edges():
-					if e is NaN: contine
+					if e is np.nan: continue
 					try:
 						src = int(e[0])+1
 						trg = int(e[1])+1
