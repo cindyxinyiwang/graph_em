@@ -13,6 +13,12 @@ import math
 import os
 from threading import Timer
 import platform
+"""Notes:
+Added this to: tijana_eval_compute_gcm
+Because:
+I decided to ignore this after verifying that the output indeed looks like it should. So, using "with np.errstate(invalid='ignore', divide='ignore'):"
+[1] https://stackoverflow.com/questions/27842884/numpy-invalid-value-encountered-in-true-divide
+"""
 
 def draw_ugander_graphlet_plot(orig_g, mG, ergm=[], rmat=[]):
 		df = pd.DataFrame(mG)
@@ -526,7 +532,6 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			ax6.set_title('GCD', y=0.9)
 			gcd_hrg = []
 			df_g = external_rage(orig[0],name) # original graph
-			print '^',
 			for synthG in synth_graphs_lst:
 				gcd_network = external_rage(synthG,name)
 				# rgfd =	tijana_eval_rgfd(df_g, gcd_network)	## what is this?
@@ -1049,7 +1054,7 @@ def external_rage(G,netname):
 		tmp_file = "/tmp/{}_{}.csv".format(netname,str(current_milli_time()))
 		with open(tmp_file, 'w') as tmp:
 				for e in G.edges():
-					if e is NaN: contine
+					if e is np.nan: contine
 					try:
 						src = int(e[0])+1
 						trg = int(e[1])+1
@@ -1116,9 +1121,10 @@ def tijana_eval_compute_gcm(G_df):
 		for column_G in G_df:
 				j = 0
 				for column_H in G_df:
-						gcm[i, j] = scipy.stats.spearmanr(G_df[column_G].tolist(), G_df[column_H].tolist())[0]
+						with np.errstate(invalid='ignore', divide='ignore'): 
+							gcm[i, j] = scipy.stats.spearmanr(G_df[column_G].tolist(), G_df[column_H].tolist())[0]
 						if scipy.isnan(gcm[i, j]):
-								gcm[i, j] = 1.0
+							gcm[i, j] = 1.0
 						j += 1
 				i += 1
 		return gcm
