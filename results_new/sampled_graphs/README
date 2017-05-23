@@ -1,0 +1,10 @@
+This folder contains generated graphs from the grammar
+
+1. degree_*.txt contains degree distribution distance statistics of the graphs. Since twws and twba both uses watts strogatz graphs as training graph, these two files have siimlar results
+2. Each folder contains generated graphs of the grammar trained on the corresponding graphs
+	as: trained on autonomous systems graph
+	cit: trained on citation graphs
+	ba: trained on barabasi albert graph
+	ws: trained on barabasi albert graph
+	twba:  trained on watts strogatz graph
+	twws: trained on watts strogatz graph

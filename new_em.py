@@ -344,11 +344,10 @@ def get_level_nodes(tree):
 	return level_tree_nodes
 
 class EM(object):
-	def __init__(self, gram, tree, cur_str_result):
+	def __init__(self, gram, tree):
 		self.gram = gram
 		self.tree = tree
 		self.loglikelihood = 0
-		self.cur_str_result = cur_str_result	# record the print strings in a list
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
@@ -650,8 +649,7 @@ class EM(object):
 				for tree in self.tree:
 					self.expect(tree)
 				self.maximize()
-				self.cur_str_result.append( "log likelihood: " + str(self.loglikelihood / len(self.tree)))
-
+				
 				if self.loglikelihood / len(self.tree) - prev_loglikelihood < converge:
 					self.loglikelihood = self.loglikelihood / len(self.tree)
 					break
@@ -668,8 +666,7 @@ class EM(object):
 				for tree in self.tree:
 					self.expect(tree)
 				self.maximize()
-				self.cur_str_result.append( "log likelihood: "+ str(self.loglikelihood / len(self.tree)))
-
+				
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			delete_rules = set()
