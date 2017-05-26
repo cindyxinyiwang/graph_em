@@ -77,10 +77,10 @@ if __name__ == '__main__':
 	
 	#G = load_edgelist(fname)
 	try: 
-		G = nx.read_edgelist(fname)
+		G = nx.read_edgelist(fname, comments="%")
 	except Exception, e:
 		print str(e)
-		G = nx.read_edgelist(fname, comments="%")
+		G = nx.read_edgelist(fname, comments="#")
 		exit(1)
 
 	print nx.info(G)

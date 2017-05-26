@@ -1054,11 +1054,7 @@ def external_rage(G,netname):
 		tmp_file = "/tmp/{}_{}.csv".format(netname,str(current_milli_time()))
 		with open(tmp_file, 'w') as tmp:
 				for e in G.edges():
-<<<<<<< HEAD
 					if e is np.nan: continue
-=======
-					if e is np.nan: contine
->>>>>>> e0b4820efa186355759f898ee4f3d466aa81c7fa
 					try:
 						src = int(e[0])+1
 						trg = int(e[1])+1
