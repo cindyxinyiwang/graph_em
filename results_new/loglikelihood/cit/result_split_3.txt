@@ -1,0 +1,103 @@
+subgraph size:25, train sample size:500
+split: 3
+train loglikelihood:-62.1742271028
+train loglikelihood:-61.3856831102
+train loglikelihood:-60.955257696
+train loglikelihood:-60.7426660045
+train loglikelihood:-60.6132334396
+-318.2213116 -318.2213116 0.0 140.0 0.0
+test number:4
+smooth count:0.0
+test loglikelihood:-318.2213116
+-286.449854573 -286.449854573 0.0 130.0 0.0
+test number:6
+smooth count:0.0
+test loglikelihood:-286.449854573
+-355.753671683 -355.753671683 0.0 121.0 0.0
+test number:15
+smooth count:0.0
+test loglikelihood:-355.753671683
+-382.443722023 -382.443722023 0.0 130.0 0.0
+test number:16
+smooth count:0.0
+test loglikelihood:-382.443722023
+-535.443279177 -535.443279177 0.0 121.0 0.0
+test number:21
+smooth count:0.0
+test loglikelihood:-535.443279177
+-286.621193541 -286.621193541 0.0 117.0 0.0
+test number:23
+smooth count:0.0
+test loglikelihood:-286.621193541
+-355.8535803 -355.8535803 0.0 120.0 0.0
+test number:35
+smooth count:0.0
+test loglikelihood:-355.8535803
+-314.314364883 -314.314364883 0.0 127.0 0.0
+test number:44
+smooth count:0.0
+test loglikelihood:-314.314364883
+-286.88737869 -286.88737869 0.0 130.0 0.0
+test number:58
+smooth count:0.0
+test loglikelihood:-286.88737869
+-355.330561991 -355.330561991 0.0 117.0 0.0
+test number:72
+smooth count:0.0
+test loglikelihood:-355.330561991
+-312.881759723 -312.881759723 0.0 119.0 0.0
+test number:75
+smooth count:0.0
+test loglikelihood:-312.881759723
+-353.185048456 -353.185048456 0.0 125.0 0.0
+test number:78
+smooth count:0.0
+test loglikelihood:-353.185048456
+-420.10751541 -420.10751541 0.0 121.0 0.0
+test number:120
+smooth count:0.0
+test loglikelihood:-420.10751541
+-346.916856701 -346.916856701 0.0 118.0 0.0
+test number:127
+smooth count:0.0
+test loglikelihood:-346.916856701
+-297.860101869 -297.860101869 0.0 122.0 0.0
+test number:132
+smooth count:0.0
+test loglikelihood:-297.860101869
+-316.70190458 -316.70190458 0.0 126.0 0.0
+test number:138
+smooth count:0.0
+test loglikelihood:-316.70190458
+-434.785176917 -434.785176917 0.0 135.0 0.0
+test number:143
+smooth count:0.0
+test loglikelihood:-434.785176917
+-279.783494622 -279.783494622 0.0 120.0 0.0
+test number:148
+smooth count:0.0
+test loglikelihood:-279.783494622
+-789.985897733 -789.985897733 0.0 116.0 0.0
+test number:152
+smooth count:0.0
+test loglikelihood:-789.985897733
+-339.717420278 -339.717420278 0.0 120.0 0.0
+test number:156
+smooth count:0.0
+test loglikelihood:-339.717420278
+-289.255987232 -289.255987232 0.0 132.0 0.0
+test number:162
+smooth count:0.0
+test loglikelihood:-289.255987232
+-304.226459736 -304.226459736 0.0 137.0 0.0
+test number:167
+smooth count:0.0
+test loglikelihood:-304.226459736
+-338.214325568 -338.214325568 0.0 130.0 0.0
+test number:185
+smooth count:0.0
+test loglikelihood:-338.214325568
+-351.347963903 -351.347963903 0.0 119.0 0.0
+test number:190
+smooth count:0.0
+test loglikelihood:-351.347963903

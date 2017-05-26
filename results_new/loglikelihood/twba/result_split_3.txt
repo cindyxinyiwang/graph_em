@@ -1,0 +1,407 @@
+subgraph size:25, train sample size:500
+split: 3
+train loglikelihood:-55.210060133
+train loglikelihood:-54.3695321573
+train loglikelihood:-53.314517788
+train loglikelihood:-52.3521821714
+train loglikelihood:-51.7105003828
+-215.134776301 -215.134776301 0.0 140.0 0.0
+test number:0
+smooth count:0.0
+test loglikelihood:-215.134776301
+-201.995439957 -201.995439957 0.0 134.0 0.0
+test number:1
+smooth count:0.0
+test loglikelihood:-201.995439957
+-231.896022732 -231.896022732 0.0 158.0 0.0
+test number:2
+smooth count:0.0
+test loglikelihood:-231.896022732
+-214.144474716 -214.144474716 0.0 146.0 0.0
+test number:3
+smooth count:0.0
+test loglikelihood:-214.144474716
+-237.445909652 -237.445909652 0.0 158.0 0.0
+test number:4
+smooth count:0.0
+test loglikelihood:-237.445909652
+-223.152519951 -223.152519951 0.0 149.0 0.0
+test number:5
+smooth count:0.0
+test loglikelihood:-223.152519951
+-234.59624034 -234.59624034 0.0 161.0 0.0
+test number:6
+smooth count:0.0
+test loglikelihood:-234.59624034
+-217.311140303 -217.311140303 0.0 147.0 0.0
+test number:7
+smooth count:0.0
+test loglikelihood:-217.311140303
+-207.461565436 -207.461565436 0.0 139.0 0.0
+test number:8
+smooth count:0.0
+test loglikelihood:-207.461565436
+-221.972803914 -221.972803914 0.0 155.0 0.0
+test number:9
+smooth count:0.0
+test loglikelihood:-221.972803914
+-223.651816801 -223.651816801 0.0 154.0 0.0
+test number:10
+smooth count:0.0
+test loglikelihood:-223.651816801
+-221.577356397 -221.577356397 0.0 154.0 0.0
+test number:11
+smooth count:0.0
+test loglikelihood:-221.577356397
+-213.38893886 -213.38893886 0.0 143.0 0.0
+test number:12
+smooth count:0.0
+test loglikelihood:-213.38893886
+-215.533947595 -215.533947595 0.0 148.0 0.0
+test number:13
+smooth count:0.0
+test loglikelihood:-215.533947595
+-228.746705535 -228.746705535 0.0 160.0 0.0
+test number:14
+smooth count:0.0
+test loglikelihood:-228.746705535
+-212.881452772 -212.881452772 0.0 136.0 0.0
+test number:15
+smooth count:0.0
+test loglikelihood:-212.881452772
+-224.548453299 -224.548453299 0.0 152.0 0.0
+test number:16
+smooth count:0.0
+test loglikelihood:-224.548453299
+-220.745604053 -220.745604053 0.0 150.0 0.0
+test number:17
+smooth count:0.0
+test loglikelihood:-220.745604053
+-240.717009126 -240.717009126 0.0 161.0 0.0
+test number:18
+smooth count:0.0
+test loglikelihood:-240.717009126
+-225.681729036 -225.681729036 0.0 153.0 0.0
+test number:19
+smooth count:0.0
+test loglikelihood:-225.681729036
+-220.404228007 -220.404228007 0.0 152.0 0.0
+test number:20
+smooth count:0.0
+test loglikelihood:-220.404228007
+-226.172318698 -226.172318698 0.0 154.0 0.0
+test number:21
+smooth count:0.0
+test loglikelihood:-226.172318698
+-212.757926026 -212.757926026 0.0 141.0 0.0
+test number:22
+smooth count:0.0
+test loglikelihood:-212.757926026
+-206.535923626 -206.535923626 0.0 139.0 0.0
+test number:23
+smooth count:0.0
+test loglikelihood:-206.535923626
+-214.577588589 -214.577588589 0.0 144.0 0.0
+test number:24
+smooth count:0.0
+test loglikelihood:-214.577588589
+-221.736235232 -221.736235232 0.0 146.0 0.0
+test number:25
+smooth count:0.0
+test loglikelihood:-221.736235232
+-226.680978984 -226.680978984 0.0 155.0 0.0
+test number:26
+smooth count:0.0
+test loglikelihood:-226.680978984
+-217.006235249 -217.006235249 0.0 151.0 0.0
+test number:27
+smooth count:0.0
+test loglikelihood:-217.006235249
+-220.15573304 -220.15573304 0.0 144.0 0.0
+test number:28
+smooth count:0.0
+test loglikelihood:-220.15573304
+-222.744438866 -222.744438866 0.0 149.0 0.0
+test number:29
+smooth count:0.0
+test loglikelihood:-222.744438866
+-218.17149606 -218.17149606 0.0 151.0 0.0
+test number:30
+smooth count:0.0
+test loglikelihood:-218.17149606
+-216.311936326 -216.311936326 0.0 142.0 0.0
+test number:31
+smooth count:0.0
+test loglikelihood:-216.311936326
+-221.471057553 -221.471057553 0.0 150.0 0.0
+test number:32
+smooth count:0.0
+test loglikelihood:-221.471057553
+-218.941083497 -218.941083497 0.0 154.0 0.0
+test number:33
+smooth count:0.0
+test loglikelihood:-218.941083497
+-229.606175875 -229.606175875 0.0 156.0 0.0
+test number:34
+smooth count:0.0
+test loglikelihood:-229.606175875
+-220.696367754 -220.696367754 0.0 150.0 0.0
+test number:35
+smooth count:0.0
+test loglikelihood:-220.696367754
+-233.315889882 -233.315889882 0.0 161.0 0.0
+test number:36
+smooth count:0.0
+test loglikelihood:-233.315889882
+-212.060756961 -212.060756961 0.0 141.0 0.0
+test number:37
+smooth count:0.0
+test loglikelihood:-212.060756961
+-219.42565576 -219.42565576 0.0 150.0 0.0
+test number:38
+smooth count:0.0
+test loglikelihood:-219.42565576
+-222.98668914 -222.98668914 0.0 154.0 0.0
+test number:39
+smooth count:0.0
+test loglikelihood:-222.98668914
+-214.384201834 -214.384201834 0.0 146.0 0.0
+test number:40
+smooth count:0.0
+test loglikelihood:-214.384201834
+-221.36051155 -221.36051155 0.0 150.0 0.0
+test number:41
+smooth count:0.0
+test loglikelihood:-221.36051155
+-210.777567217 -210.777567217 0.0 141.0 0.0
+test number:42
+smooth count:0.0
+test loglikelihood:-210.777567217
+-215.597688156 -215.597688156 0.0 147.0 0.0
+test number:43
+smooth count:0.0
+test loglikelihood:-215.597688156
+-240.439686848 -240.439686848 0.0 160.0 0.0
+test number:44
+smooth count:0.0
+test loglikelihood:-240.439686848
+-220.66650967 -220.66650967 0.0 151.0 0.0
+test number:45
+smooth count:0.0
+test loglikelihood:-220.66650967
+-237.54259219 -237.54259219 0.0 164.0 0.0
+test number:46
+smooth count:0.0
+test loglikelihood:-237.54259219
+-243.742995825 -243.742995825 0.0 168.0 0.0
+test number:47
+smooth count:0.0
+test loglikelihood:-243.742995825
+-217.961359865 -217.961359865 0.0 149.0 0.0
+test number:48
+smooth count:0.0
+test loglikelihood:-217.961359865
+-219.187109619 -219.187109619 0.0 152.0 0.0
+test number:49
+smooth count:0.0
+test loglikelihood:-219.187109619
+-221.754186674 -221.754186674 0.0 152.0 0.0
+test number:50
+smooth count:0.0
+test loglikelihood:-221.754186674
+-217.168466572 -217.168466572 0.0 146.0 0.0
+test number:51
+smooth count:0.0
+test loglikelihood:-217.168466572
+-232.413998785 -232.413998785 0.0 150.0 0.0
+test number:52
+smooth count:0.0
+test loglikelihood:-232.413998785
+-214.433023911 -214.433023911 0.0 144.0 0.0
+test number:53
+smooth count:0.0
+test loglikelihood:-214.433023911
+-213.13539306 -213.13539306 0.0 143.0 0.0
+test number:54
+smooth count:0.0
+test loglikelihood:-213.13539306
+-230.802074366 -230.802074366 0.0 153.0 0.0
+test number:55
+smooth count:0.0
+test loglikelihood:-230.802074366
+-230.268707965 -230.268707965 0.0 162.0 0.0
+test number:56
+smooth count:0.0
+test loglikelihood:-230.268707965
+-212.326891599 -212.326891599 0.0 139.0 0.0
+test number:57
+smooth count:0.0
+test loglikelihood:-212.326891599
+-216.97318209 -216.97318209 0.0 151.0 0.0
+test number:58
+smooth count:0.0
+test loglikelihood:-216.97318209
+-218.92450512 -218.92450512 0.0 148.0 0.0
+test number:59
+smooth count:0.0
+test loglikelihood:-218.92450512
+-220.081141256 -220.081141256 0.0 147.0 0.0
+test number:60
+smooth count:0.0
+test loglikelihood:-220.081141256
+-203.951055518 -203.951055518 0.0 138.0 0.0
+test number:61
+smooth count:0.0
+test loglikelihood:-203.951055518
+-235.263318314 -235.263318314 0.0 153.0 0.0
+test number:62
+smooth count:0.0
+test loglikelihood:-235.263318314
+-218.77054206 -218.77054206 0.0 149.0 0.0
+test number:63
+smooth count:0.0
+test loglikelihood:-218.77054206
+-225.310351951 -225.310351951 0.0 150.0 0.0
+test number:64
+smooth count:0.0
+test loglikelihood:-225.310351951
+-215.318830818 -215.318830818 0.0 148.0 0.0
+test number:65
+smooth count:0.0
+test loglikelihood:-215.318830818
+-217.890742136 -217.890742136 0.0 141.0 0.0
+test number:66
+smooth count:0.0
+test loglikelihood:-217.890742136
+-221.129976599 -221.129976599 0.0 151.0 0.0
+test number:67
+smooth count:0.0
+test loglikelihood:-221.129976599
+-222.293741757 -222.293741757 0.0 154.0 0.0
+test number:68
+smooth count:0.0
+test loglikelihood:-222.293741757
+-223.576616702 -223.576616702 0.0 147.0 0.0
+test number:69
+smooth count:0.0
+test loglikelihood:-223.576616702
+-221.960236425 -221.960236425 0.0 143.0 0.0
+test number:70
+smooth count:0.0
+test loglikelihood:-221.960236425
+-276.097876505 -276.097876505 0.0 153.0 0.0
+test number:71
+smooth count:0.0
+test loglikelihood:-276.097876505
+-221.173397034 -221.173397034 0.0 153.0 0.0
+test number:72
+smooth count:0.0
+test loglikelihood:-221.173397034
+-217.742174381 -217.742174381 0.0 149.0 0.0
+test number:73
+smooth count:0.0
+test loglikelihood:-217.742174381
+-222.334798512 -222.334798512 0.0 152.0 0.0
+test number:74
+smooth count:0.0
+test loglikelihood:-222.334798512
+-223.713090842 -223.713090842 0.0 154.0 0.0
+test number:75
+smooth count:0.0
+test loglikelihood:-223.713090842
+-225.449516377 -225.449516377 0.0 153.0 0.0
+test number:76
+smooth count:0.0
+test loglikelihood:-225.449516377
+-219.034579362 -219.034579362 0.0 144.0 0.0
+test number:77
+smooth count:0.0
+test loglikelihood:-219.034579362
+-242.3760189 -242.3760189 0.0 151.0 0.0
+test number:78
+smooth count:0.0
+test loglikelihood:-242.3760189
+-209.13747157 -209.13747157 0.0 139.0 0.0
+test number:79
+smooth count:0.0
+test loglikelihood:-209.13747157
+-241.713652841 -241.713652841 0.0 170.0 0.0
+test number:80
+smooth count:0.0
+test loglikelihood:-241.713652841
+-212.375028049 -212.375028049 0.0 135.0 0.0
+test number:81
+smooth count:0.0
+test loglikelihood:-212.375028049
+-240.596920101 -240.596920101 0.0 145.0 0.0
+test number:82
+smooth count:0.0
+test loglikelihood:-240.596920101
+-245.197262421 -245.197262421 0.0 145.0 0.0
+test number:83
+smooth count:0.0
+test loglikelihood:-245.197262421
+-231.679133878 -231.679133878 0.0 159.0 0.0
+test number:84
+smooth count:0.0
+test loglikelihood:-231.679133878
+-207.0846556 -207.0846556 0.0 135.0 0.0
+test number:85
+smooth count:0.0
+test loglikelihood:-207.0846556
+-220.875810341 -220.875810341 0.0 150.0 0.0
+test number:86
+smooth count:0.0
+test loglikelihood:-220.875810341
+-210.700212886 -210.700212886 0.0 142.0 0.0
+test number:87
+smooth count:0.0
+test loglikelihood:-210.700212886
+-220.506355764 -220.506355764 0.0 149.0 0.0
+test number:88
+smooth count:0.0
+test loglikelihood:-220.506355764
+-214.286495528 -214.286495528 0.0 140.0 0.0
+test number:89
+smooth count:0.0
+test loglikelihood:-214.286495528
+-229.184875911 -229.184875911 0.0 153.0 0.0
+test number:90
+smooth count:0.0
+test loglikelihood:-229.184875911
+-234.456687406 -234.456687406 0.0 155.0 0.0
+test number:91
+smooth count:0.0
+test loglikelihood:-234.456687406
+-237.146410984 -237.146410984 0.0 164.0 0.0
+test number:92
+smooth count:0.0
+test loglikelihood:-237.146410984
+-231.048846872 -231.048846872 0.0 161.0 0.0
+test number:93
+smooth count:0.0
+test loglikelihood:-231.048846872
+-231.003769652 -231.003769652 0.0 155.0 0.0
+test number:94
+smooth count:0.0
+test loglikelihood:-231.003769652
+-230.606176382 -230.606176382 0.0 156.0 0.0
+test number:95
+smooth count:0.0
+test loglikelihood:-230.606176382
+-213.734053083 -213.734053083 0.0 146.0 0.0
+test number:96
+smooth count:0.0
+test loglikelihood:-213.734053083
+-210.001821572 -210.001821572 0.0 143.0 0.0
+test number:97
+smooth count:0.0
+test loglikelihood:-210.001821572
+-208.859187881 -208.859187881 0.0 141.0 0.0
+test number:98
+smooth count:0.0
+test loglikelihood:-208.859187881
+-229.167764153 -229.167764153 0.0 158.0 0.0
+test number:99
+smooth count:0.0
+test loglikelihood:-229.167764153
