@@ -2,101 +2,105 @@ twws
 split: 1
 average: -225.210256037
 standard deviation: 7.94523990234
-confidence interval: -226.811365746 -223.609146328
+confidence interval: -226.811365746 -223.609146328 (1.601109709)
 split: 2
 average: -213.470608835
 standard deviation: 6.72806504513
-confidence interval: -214.826435771 -212.1147819
+confidence interval: -214.826435771 -212.1147819 (1.355826936)
 split: 3
 average: -208.533064422
 standard deviation: 6.89039736158
-confidence interval: -209.921604258 -207.144524585
+confidence interval: -209.921604258 -207.144524585 (1.388539836)
 split: 4
 average: -205.710844636
 standard deviation: 6.73518368397
-confidence interval: -207.068106106 -204.353583166
+confidence interval: -207.068106106 -204.353583166 (1.35726147)
+
 twba
 split: 1
 average: -284.872592824
 standard deviation: 18.8793593792
-confidence interval: -288.637539346 -281.107646301
+confidence interval: -288.637539346 -281.107646301 (3.764946522)
 split: 2
 average: -262.7882677
 standard deviation: 15.8720124089
-confidence interval: -265.953485159 -259.623050241
+confidence interval: -265.953485159 -259.623050241 (3.165217459)
 split: 3
 average: -222.670338731
 standard deviation: 10.7633902302
-confidence interval: -224.816788079 -220.523889384
+confidence interval: -224.816788079 -220.523889384 (2.146449348)
 split: 4
 average: -220.386074332
 standard deviation: 9.99292161568
-confidence interval: -222.378875821 -218.393272843
+confidence interval: -222.378875821 -218.393272843 (1.992801489)
+
 ws
 split: 1
 average: -371.776420634
 standard deviation: 19.882257784
-confidence interval: -380.799167077 -362.753674191
+confidence interval: -380.799167077 -362.753674191 (9.022746443)
 split: 2
 average: -331.900946475
 standard deviation: 16.2779445805
-confidence interval: -339.288023344 -324.513869607
+confidence interval: -339.288023344 -324.513869607 (7.387076869)
 split: 3
 average: -318.732979991
 standard deviation: 16.1263828062
-confidence interval: -326.05127677 -311.414683211
+confidence interval: -326.05127677 -311.414683211 (7.318296779)
 split: 4
 average: -269.641295246
 standard deviation: 15.0174597183
-confidence interval: -276.456352808 -262.826237684
+confidence interval: -276.456352808 -262.826237684 (6.815057562)
+
 ba
 split: 1
 average: -152.776019584
 standard deviation: 16.7060166397
-confidence interval: -156.124932486 -149.427106682
+confidence interval: -156.124932486 -149.427106682 (3.348912902)
 split: 2
 average: -144.175275196
 standard deviation: 14.4413308244
-confidence interval: -147.070205816 -141.280344575
+confidence interval: -147.070205816 -141.280344575 (2.89493062)
 split: 3
 average: -141.885491821
 standard deviation: 13.4543336782
-confidence interval: -144.582567528 -139.188416114
+confidence interval: -144.582567528 -139.188416114 (2.697075707)
 split: 4
 average: -140.259644003
 standard deviation: 12.615802057
-confidence interval: -142.788626416 -137.73066159
+confidence interval: -142.788626416 -137.73066159 (2.528982413)
+
 cit
 split: 1
 average: -330.377882455
 standard deviation: 10.8741314643
-confidence interval: -335.068383925 -325.687380985
+confidence interval: -335.068383925 -325.687380985 (-4.69050147, +4.69050147)
 split: 2
 average: -321.396849871
 standard deviation: 26.6488716632
-confidence interval: -332.89170554 -309.901994202
+confidence interval: -332.89170554 -309.901994202 (-11.494855669, +11.494855669)
 split: 3
 average: -360.512034633
 standard deviation: 105.886211187
-confidence interval: -406.185514935 -314.838554331
+confidence interval: -406.185514935 -314.838554331 (-45.673480302, +45.673480302)
 split: 4
 average: -373.843602984
 standard deviation: 79.5534875159
-confidence interval: -408.15859645 -339.528609518
+confidence interval: -408.15859645 -339.528609518 (-34.314993466, +34.314993466)
 as
 split: 1
 average: -240.089110038
 standard deviation: 26.0166520204
-confidence interval: -246.433302672 -233.744917404
+confidence interval: -246.433302672 -233.744917404 (-6.344192634, +6.344192634)
 split: 2
 average: -193.238534265
 standard deviation: 32.0732405146
-confidence interval: -201.059633462 -185.417435068
+confidence interval: -201.059633462 -185.417435068 (-7.821099197, +7.821099197)
 split: 3
 average: -180.990169402
 standard deviation: 31.0320271279
-confidence interval: -188.557367432 -173.422971372
+confidence interval: -188.557367432 -173.422971372 (-7.56719803, +7.56719803)
 split: 4
 average: -182.766147277
 standard deviation: 38.6263164102
-confidence interval: -192.185222101 -173.347072453
+confidence interval: -192.185222101 -173.347072453 (-9.419074824, +9.419074824)

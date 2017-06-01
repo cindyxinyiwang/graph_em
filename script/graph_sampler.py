@@ -4,7 +4,17 @@ import networkx as nx
 from random import choice
 from collections import deque, Counter
 
+def rwr_sample(G, c, n):
+    for i in range(0,c):
+        S = choice(G.nodes())
 
+        T = nx.DiGraph()
+        T.add_node(S)
+        T.add_edges_from(bfs_edges(G,S,n))
+
+        Gprime = nx.subgraph(G, T.nodes())
+
+        yield Gprime
 
 def sample(G):
     S = [0,0,0,0]

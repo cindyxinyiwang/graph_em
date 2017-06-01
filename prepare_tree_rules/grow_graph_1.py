@@ -2,6 +2,7 @@ import networkx as nx
 import PHRG as phrg
 #import matplotlib.pyplot as plt
 import os, errno
+import sys
 
 def ensure_dir(dirname):
 	"""
@@ -24,7 +25,6 @@ def non_partition_sample(graph_name):
 	"""
 	samples = [4]
 	subgraph_size = [25]
-	#file_name = ["train", "test", "hold"]
 	file_name = [str(i) for i in xrange(500)]
 	for size in subgraph_size:
 		for s in samples:
@@ -54,18 +54,9 @@ def partition_sample(graph_name):
 			phrg.phrg_derive_prod_rules_partition(G, file_name_list, sample_size_list, subgraph_size)
 
 if __name__ == "__main__":
-	#G = nx.barabasi_albert_graph(30000, 15)
-	G = nx.read_edgelist("data/ba-30000-2.txt", comments="#")
-	#G = nx.karate_club_graph()
+	test_file = sys.argv[1]
+	test_folder = sys.argv[2]
+	G = nx.read_edgelist("data/"+test_file, comments="#")
 	G.remove_edges_from(G.selfloop_edges())
-	#orig_size = len(G)
 
-	# Get the largest connected components
-	#G_big = max(nx.connected_component_subgraphs(G), key=len)
-	#comp_size = len(G_big)
-	#print "orig_size", orig_size
-	#print "comp_size", comp_size
-	#nx.draw(G)
-	#plt.show()
-
-	non_partition_sample("ba")
+	non_partition_sample(test_folder)
