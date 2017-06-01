@@ -344,10 +344,11 @@ def get_level_nodes(tree):
 	return level_tree_nodes
 
 class EM(object):
-	def __init__(self, gram, tree):
+	def __init__(self, gram, tree, cur_str_result=None):
 		self.gram = gram
 		self.tree = tree
 		self.loglikelihood = 0
+		self.cur_str_result = cur_str_result	# record the print strings in a list
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			for r in r_rules:
@@ -360,7 +361,7 @@ class EM(object):
 		
 		return int(toks[0][1])
 
-	def get_loglikelihood(self, added_rules):
+	def get_loglikelihood(self, added_rules, result_file=None):
 		# set added_rule probability to extremely small
 		smooth_prob = -10000
 
@@ -502,6 +503,8 @@ class EM(object):
 		use_smooth_count = np.exp(use_smooth_count)
 		use_total_count = np.exp(use_total_count)
 		print self.loglikelihood, self.loglikelihood-use_smooth_count * smooth_prob, use_smooth_count, use_total_count, use_smooth_count / use_total_count
+		if result_file:
+			result_file.write("%s %s %s %s %s\n" % (str(self.loglikelihood), str(self.loglikelihood-use_smooth_count * smooth_prob), str(use_smooth_count), str(use_total_count), str(use_smooth_count / use_total_count)))
 		self.loglikelihood -= use_smooth_count * smooth_prob
 		return use_smooth_count
 
@@ -649,7 +652,8 @@ class EM(object):
 				for tree in self.tree:
 					self.expect(tree)
 				self.maximize()
-				
+				if not self.cur_str_result is None:
+					self.cur_str_result.append( "log likelihood: " + str(self.loglikelihood / len(self.tree)))
 				if self.loglikelihood / len(self.tree) - prev_loglikelihood < converge:
 					self.loglikelihood = self.loglikelihood / len(self.tree)
 					break
@@ -666,7 +670,9 @@ class EM(object):
 				for tree in self.tree:
 					self.expect(tree)
 				self.maximize()
-				
+				if not self.cur_str_result is None:
+					self.cur_str_result.append( "log likelihood: "+ str(self.loglikelihood / len(self.tree)))
+
 		for x in self.gram.rule_dict:
 			r_rules = self.gram.rule_dict[x]
 			delete_rules = set()
