@@ -14,3 +14,7 @@ This project contains code to run EM algorithm for graph grammar on a tree
 - Added the folder PHRG (which are the necessary files from the nddsg:Phoenix project) 
   This lets us use probabilistic generation to grow a graph
 
+
+## saguinag notes
+
+
