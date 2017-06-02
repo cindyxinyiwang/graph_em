@@ -1,17 +1,27 @@
-__author__ = 'tweninge'
+__author__ = 'tweninge,saguinag'
+__version__="0.1.0"
 import subprocess, shlex
 from threading import Timer
 import math
 import os
 import networkx as nx
 import numpy as np
-
+import pandas as pd
+import argparse
 import treedecomps.net_metrics as metrics
 # import HRG
 # import treedecomps.PHRG as PHRG
 # import product
 import pprint as pp
-from treedecomps.salPHRG import grow_graphs_using_krongen
+# from treedecomps.salPHRG import grow_graphs_using_krongen
+
+def get_parser ():
+	parser = argparse.ArgumentParser(description='Synth Graphs')
+	parser.add_argument('--train', required=True, nargs=1,help='Filename edgelist graph')
+	parser.add_argument('--test', required=True, nargs=1,help='Filename edgelist graph')
+	parser.add_argument('--version', action='version', version=__version__)
+	return parser
+
 
 def run(cmd, timeout_sec):
 	proc = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE,
@@ -35,6 +45,58 @@ def run(cmd, timeout_sec):
 	finally:
 		timer.cancel()
 
+def scale_norm_dist(gb):
+    # Scaled
+    gb['Sg'] = gb.apply(lambda x: x[0]/float(x.name), axis=1)
+    # gb['Sg'] = gb.apply(lambda x: x[1]/float(x[0]), axis=1)
+    # Total
+    Tg = gb['Sg'].sum()
+    # Normalized
+    gb['Ng'] = gb['Sg']/float(Tg)
+    #orig_sn_deg_dist= gb['Ng'].values
+    results = gb['Ng'].values
+    return results
+
+def ecdf(x):
+  xs = np.sort(x)
+  ys = np.arange(1, len(xs)+1)/float(len(xs))
+  return xs, ys
+
+def SNDegree_CDF_ks_2samp(glist, origG, label):
+    from scipy.stats import ks_2samp
+    print
+    print 'Scaled-Normalized Degree Dist CDF', label
+    kdeg = nx.degree_histogram(origG)[1:]
+    df = pd.DataFrame.from_dict(origG.degree().items())
+    gb = df.groupby([1]).count()
+    ## probability gb['p'] = gb.apply(lambda x: x[0]/float(origG.number_of_nodes()), axis=1)
+    # print gb
+    # exit()
+    origG_sndd = scale_norm_dist(gb)
+    # origG_sndd2 = gb.apply(lambda x: x[0]/float(origG.number_of_nodes()), axis=1)
+    xs0, ys0 = ecdf(origG_sndd)
+    results = []
+    for g in glist:
+        df = pd.DataFrame.from_dict(g.degree().items())
+        gb = df.groupby([1]).count()
+        # gb['p'] = gb.apply(lambda x: x[0]/float(g.number_of_nodes()), axis=1)
+        # print gb.head()
+        # exit()
+        hstar_sndd = scale_norm_dist(gb)
+        x1, ys2 = ecdf(hstar_sndd)
+        # if we ploat x0,ys0 and x1,ys2 ECDF we can see where they
+        # diverge most will be shown in D (or the ks_2sample) statistic
+        # print origG_sndd[:4]
+        # print hstar_sndd[:4]
+        # hstar_sndd = gb.apply(lambda x: x[0]/float(g.number_of_nodes()), axis=1)
+        # print origG_sndd2[:4]
+        # print hstar_sndd[:4]
+        # exit()
+        D,p = ks_2samp(origG_sndd, hstar_sndd)
+        # print "  {}, {}".format(D, p)
+        results.append([D,p])
+
+    return results
 # def kronfit(G):
 #   """
 #
@@ -100,7 +162,7 @@ def kronfit(G):
   if environ['HOME'] == '/home/saguinag':
 	args = ("/home/saguinag/Software/Snap-3.0/examples/kronfit/kronfit", "-i:tmp.txt","-n0:2", "-m:\"0.9 0.6; 0.6 0.1\"", "-gi:5")
   elif environ['HOME'] == '/Users/saguinag':
-	args = ("/Users/saguinag/ToolSet/Snap-2.4/examples/kronfit/kronfit", "-i:tmp.txt","-n0:2", "-m:\"0.9 0.6; 0.6 0.1\"", "-gi:5")
+	args = ("/Users/saguinag/Theory/MacOSTools/Snap-3.0/examples/kronfit/kronfit", "-i:tmp.txt","-n0:2", "-m:\"0.9 0.6; 0.6 0.1\"", "-gi:5")
   else:
 	args = ('./kronfit.exe -i:tmp.txt -n0:2 -m:"0.9 0.6; 0.6 0.1" -gi:5')
   #print (args)
@@ -245,74 +307,104 @@ def synth_plots():
 # --<
 # --< main >--
 # --<
+if __name__ == '__main__':
+	parser = get_parser()
+	args	 = vars(parser.parse_args())
 
-# 5000 node subgraphs or
-# use the entire graph
+	edgelists = [args['train'][0], args['test'][0]]
+	print edgelists
 
-#edgelists = ["out.sociopatterns-hypertext",
-#			 "out.sociopatterns-infectious"]
-#edgelists = ["as20000102_train_1_el.tsv",
-#			 "as-caida20071105_train_1_el.tsv"]
-edgelists = ["out.enron",
-			"out.dnc-corecipient"]
+	fn_train = edgelists[0]
+	fn_test  = edgelists[1]
+	from treedecomps.load_edgelist_from_dataframe import Pandas_DataFrame_From_Edgelist
+	df = Pandas_DataFrame_From_Edgelist([fn_train])
+	Gtrain = nx.from_pandas_dataframe(df[0], 'src', 'trg')
 
-fn_train = "data/"+edgelists[0]
-fn_test  = "data/"+edgelists[1]
-Gtrain = nx.read_edgelist(fn_train, comments="%", data=(('wt', int),('ts',int),))
-#Gtrain = nx.read_edgelist(fn_train, comments="%", data=(('ts', int),))
-#Gtrain = nx.read_edgelist(fn_train)
-Gtrain.name = [x for x in edgelists[0].split('.') if len(x)>3][0]
+	# Gtrain = nx.read_edgelist(fn_train, comments="%", data=(('wt', int),('ts',int),))
+	#Gtrain = nx.read_edgelist(fn_train, comments="%", data=(('ts', int),))
+	#Gtrain = nx.read_edgelist(fn_train)
+	Gtrain.name = [x for x in os.path.basename(edgelists[0]).split('.') if len(x)>3][0]
 
-Gtst = nx.read_edgelist(fn_test, comments="%", data=(('ts',int),))
-# Gtst = nx.read_edgelist(fn_test, comments="%", data=(('weight',int),('ts',int),))
-# Gtst = nx.read_edgelist(fn_test)
-Gtst.name = [x for x in edgelists[0].split('.') if len(x)>3][0]
+	df = Pandas_DataFrame_From_Edgelist([fn_test])
+	Gtst = nx.from_pandas_dataframe(df[0], 'src', 'trg')
+	# Gtst = nx.read_edgelist(fn_test, comments="%", data=(('ts',int),))
+	# Gtst = nx.read_edgelist(fn_test, comments="%", data=(('weight',int),('ts',int),))
+	# Gtst = nx.read_edgelist(fn_test)
+	Gtst.name = [x for x in os.path.basename(edgelists[0]).split('.') if len(x)>3][0]
 
-chunglu_GM = []
-kronprd_GM = []
+	chunglu_GM = []
+	kronprd_GM = []
 
-# --<
-# --< chung lu graph >--
-# --<
-z = Gtrain.degree().values()
-for i in range(0,50):
-	cl_graph = nx.expected_degree_graph(z)
-	chunglu_GM.append(cl_graph)
-# --<
-# --< Kronecker product graph >--
-# --<
-from os import environ
-tsvGraphName = "/tmp/{}kpgraph.tsv".format(Gtst.name)
-tmpGraphName = "/tmp/{}kpgraph.tmp".format(Gtst.name)
-k = int(math.log(Gtrain.number_of_nodes(),2))+1 # Nbr of Iterations
-    
-for i in range(0,50):
+	# --<
+	# --< chung lu graph >--
+	# --<
+	z = Gtrain.degree().values()
+	for i in range(0,50):
+		cl_graph = nx.expected_degree_graph(z)
+		chunglu_GM.append(cl_graph)
+	# --<
+	# --< Kronecker product graph >--
+	# --<
+	from os import environ
+	tsvGraphName = "/tmp/{}kpgraph.tsv".format(Gtst.name)
+	tmpGraphName = "/tmp/{}kpgraph.tmp".format(Gtst.name)
+	k = int(math.log(Gtrain.number_of_nodes(),2))+1 # Nbr of Iterations
+
 	P = kronfit(Gtrain)
-	# KPG = product.kronecker_random_graph(k, P)
-	M = '-m:"{} {}; {} {}"'.format(P[0][0], P[0][1], P[1][0], P[1][1])
-	if environ['HOME'] == '/home/saguinag':
-	  args = ("/home/saguinag/Software/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
-	elif environ['HOME'] == '/Users/saguinag':
-	  args = ("/Users/saguinag/ToolSet/Snap-2.4/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
-	else:
-	  args = ('./krongen.exe -o:{} '.format(tmpGraphName) +M +'-i:{}'.format(k+1))
+	for i in range(0,50):
+			# KPG = product.kronecker_random_graph(k, P)
+		M = '-m:"{} {}; {} {}"'.format(P[0][0], P[0][1], P[1][0], P[1][1])
+		if environ['HOME'] == '/home/saguinag':
+		  args = ("/home/saguinag/Software/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
+		elif environ['HOME'] == '/Users/saguinag':
+		  args = ("/Users/saguinag/Theory/MacOSTools/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
+		else:
+		  args = ('./krongen.exe -o:{} '.format(tmpGraphName) +M +'-i:{}'.format(k+1))
 
-	popen = subprocess.Popen(args, stdout=subprocess.PIPE)
-	popen.wait()
-	#output = popen.stdout.read()
+		popen = subprocess.Popen(args, stdout=subprocess.PIPE)
+		popen.wait()
+		#output = popen.stdout.read()
+		if os.path.exists(tsvGraphName):
+		  KPG = nx.read_edgelist(tsvGraphName, nodetype=int)
+		else:
+		  print "!! Error, file is missing"
 
-	if os.path.exists(tsvGraphName):
-	  KPG = nx.read_edgelist(tsvGraphName, nodetype=int)
-	else:
-	  print "!! Error, file is missing"
+		for u,v in KPG.selfloop_edges():
+		  KPG.remove_edge(u, v)
+		kp_graph = KPG
+		kronprd_GM.append(kp_graph)
 
-	for u,v in KPG.selfloop_edges():
-	  KPG.remove_edge(u, v)
-	kp_graph = KPG	
-	print kp_graph.number_of_nodes()
-	kronprd_GM.append(kp_graph)
+	# # --< metrics
+	metricx = ['gcd']
+	metrics.network_properties( [Gtst], metricx, chunglu_GM, name="clgm_"+Gtst.name, out_tsv=True)
+	metrics.network_properties( [Gtst], metricx, kronprd_GM, name="kpgm_"+Gtst.name, out_tsv=True)
 
-# --< metrics
-metricx = ['gcd']
-metrics.network_properties( [Gtst], metricx, chunglu_GM, name="clgm_"+Gtst.name, out_tsv=True)
-metrics.network_properties( [Gtst], metricx, kronprd_GM, name="kpgm_"+Gtst.name, out_tsv=True)
+	# --< Degree Distance (CDF)
+	degree_KS_tst_chlu= SNDegree_CDF_ks_2samp	(chunglu_GM, Gtst,	'chlu')
+	degree_KS_tst_kron= SNDegree_CDF_ks_2samp	(kronprd_GM, Gtst,	'kron')
+	print "CHLU"
+	dfc = pd.DataFrame(degree_KS_tst_chlu)
+	print dfc.to_string()
+	print "KRON"
+	dfc = pd.DataFrame(degree_KS_tst_kron)
+	print dfc.to_string()
+
+
+
+'''
+./gcd.sh data/out.sx-stackoverflow data/out.sx-superuser stack&
+./gcd.sh data/out.wiki-Talk        data/out.wiki-Vote wiki&
+./gcd.sh data/out.cit-HepPh        data/out.cit-HepTh cits&
+./gcd.sh data/out.amazon0302 data/out.amazon0312 amaz&
+./gcd.sh data/out.higgs-activity_time data/out.quotes_2009-04 twitr&
+./gcd.sh data/out.as20000102  data/out.as-caida20071105 internet&
+./gcd.sh data/nws_rnd_60k_exp3.tsv  data/nws_rnd_60k_exp3_test.tsv newast&
+./gcd.sh data/ba_rnd_60k_exp3.tsv  data/ba_rnd_60k_exp3_test.tsv baralb&
+
+
+data/wiki-Talk_train_1_el.tsv data/wiki-Vote_test_1_el.tsv
+data/amazon0302_train_1_el.tsv data/amazon0312_test_1_el.tsv
+data/amazon0302_train_1_el.tsv data/amazon0312_test_1_el.tsv&
+data/cit-HepTh_train_1_el.tsv data/cit-HepPh_test_1_el.tsv&
+
+'''

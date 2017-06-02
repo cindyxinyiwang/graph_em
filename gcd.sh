@@ -5,6 +5,6 @@ bname=`basename "$1" | cut -d'.' -f1`
 bname=`basename "$1"`
 bname="${bname#*.}"
 cname=`echo "$2" | tr / _`
-lognm="Results/"$1"gcd_"$TS".log"
+lognm="Results/"$3"_gcddeg_"$TS".log"
 
-python synth_graphs.py >$lognm 2>&1 
+python synth_graphs.py --train $1 --test $2 >$lognm 2>&1 

@@ -248,7 +248,6 @@ def main():
 	parser = get_parser()
 	args	 = vars(parser.parse_args())
 
-	from treedecomps.load_edgelist_from_dataframe import Pandas_DataFrame_From_Edgelist
 	'''try:
 		origG = nx.read_edgelist(args['orig'][0], data=(('wt',int),))
 	except Exception, e:
@@ -257,9 +256,10 @@ def main():
 		except Exception, e:
 			print str(e)
 	'''
+	from treedecomps.load_edgelist_from_dataframe import Pandas_DataFrame_From_Edgelist
 	df = Pandas_DataFrame_From_Edgelist(args['orig'])
-	print type(df) 
-	origG = nx.from_pandas_dataframe(df, 'src', 'trg')
+	print type(df)
+	origG = nx.from_pandas_dataframe(df[0], 'src', 'trg')
 
 	# sample_input_graph_into_sets(origG, args)
 	# write training set 1 sg of 5K nodes
@@ -275,11 +275,11 @@ if __name__ == '__main__':
 	- edgelist (datasets) are in ./data
 	- subgraphs can be saved in ./data
 	- clique trees will be placed in ./data
-	
+
 	- sample_refrence_graph: samples a large graph and saves a subgraph to disk
 	- '''
 
-	
+
 	try:
 		main()
 	except	Exception, e:
