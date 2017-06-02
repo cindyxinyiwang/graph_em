@@ -9,7 +9,7 @@ import pandas as pd
 import numpy	as np
 import treedecomps.load_edgelist_from_dataframe as ledf
 import treedecomps.graph_utils as gutil
-import treedecomps.experiments as exps # graph stats
+#import treedecomps.experiments as exps # graph stats
 from	 prepare_tree_rules.xphrg_graph_gen import xphrg_graph_gen
 import traceback
 from	 collections import defaultdict
@@ -247,14 +247,19 @@ def load_reference_graph(args):
 def main():
 	parser = get_parser()
 	args	 = vars(parser.parse_args())
-	
-	try:
+
+	from treedecomps.load_edgelist_from_dataframe import Pandas_DataFrame_From_Edgelist
+	'''try:
 		origG = nx.read_edgelist(args['orig'][0], data=(('wt',int),))
 	except Exception, e:
 		try:
 			origG = nx.read_edgelist(args['orig'][0], comments="%")
 		except Exception, e:
 			print str(e)
+	'''
+	df = Pandas_DataFrame_From_Edgelist(args['orig'])
+	print type(df) 
+	origG = nx.from_pandas_dataframe(df, 'src', 'trg')
 
 	# sample_input_graph_into_sets(origG, args)
 	# write training set 1 sg of 5K nodes

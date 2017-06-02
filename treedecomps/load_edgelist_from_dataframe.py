@@ -12,7 +12,8 @@ def Pandas_DataFrame_From_Edgelist(dataset_files_path):
           lparts = line.rstrip('\r\n').split()
           if len(lparts)>=2:
             dat.append(lparts)
-    if np.shape(dat)[1] == 4:
+    print 'shape', np.shape(dat)
+		if np.shape(dat)[1] == 4:
         df = pd.DataFrame(dat, columns=['src', 'trg','w', 'ts'], dtype=np.int64)
     elif np.shape(dat)[1]==3:
         df = pd.DataFrame(dat, columns=['src', 'trg','ts'], dtype=np.int64)
