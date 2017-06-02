@@ -1,7 +1,17 @@
-__author__ = ['Salvador Aguinaga', 'Rodrigo Palacios', 'David Chaing', 'Tim Weninger']
+__author__ = ['Salvador Aguinaga', 'Rodrigo Palacios', 'David Chiang', 'Tim Weninger']
 
 import networkx as nx
+import matplotlib
+matplotlib.use('pdf')
 import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
+params = {'legend.fontsize':'small',
+					'figure.figsize': (1.6 * 10, 1.0 * 10),
+					'axes.labelsize': 'small',
+					'axes.titlesize': 'small',
+					'xtick.labelsize':'small',
+					'ytick.labelsize':'small'}
+pylab.rcParams.update(params)
 import matplotlib.gridspec as gridspec
 import pandas as pd
 import numpy as np
@@ -10,15 +20,8 @@ import collections
 from collections import Counter
 from random import sample
 import math
-import os
 from threading import Timer
 import platform
-"""Notes:
-Added this to: tijana_eval_compute_gcm
-Because:
-I decided to ignore this after verifying that the output indeed looks like it should. So, using "with np.errstate(invalid='ignore', divide='ignore'):"
-[1] https://stackoverflow.com/questions/27842884/numpy-invalid-value-encountered-in-true-divide
-"""
 
 def draw_ugander_graphlet_plot(orig_g, mG, ergm=[], rmat=[]):
 		df = pd.DataFrame(mG)
@@ -260,12 +263,13 @@ def draw_network_value(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 		"""
 
 		eig_cents = [nx.eigenvector_centrality_numpy(g) for g in orig_g_M]	# nodes with eigencentrality
+		eig_cents = [nx.eigenvector_centrality(g) for g in orig_g_M]	# nodes with eigencentrality
 		net_vals = []
 		for cntr in eig_cents:
 				net_vals.append(sorted(cntr.values(), reverse=True))
 		df = pd.DataFrame(net_vals)
 
-
+		print "orig"
 		l = list(df.mean())
 		zz = float(len(l))
 		if not zz == 0:
@@ -273,13 +277,13 @@ def draw_network_value(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				for i in range(0, len(l), sa):
 						print "(" + str(i) + "," + str(l[i]) + ")"
 
-		eig_cents = [nx.eigenvector_centrality_numpy(g) for g in pHRG_M]	# nodes with eigencentrality
+		eig_cents = [nx.eigenvector_centrality(g) for g in pHRG_M]	# nodes with eigencentrality
 		net_vals = []
 		for cntr in eig_cents:
 				net_vals.append(sorted(cntr.values(), reverse=True))
 		df = pd.DataFrame(net_vals)
 
-
+		print "phrg"
 		l = list(df.mean())
 		zz = float(len(l))
 		if not zz == 0:
@@ -287,13 +291,13 @@ def draw_network_value(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				for i in range(0, len(l), sa):
 						print "(" + str(i) + "," + str(l[i]) + ")"
 
-		eig_cents = [nx.eigenvector_centrality_numpy(g) for g in HRG_M]	# nodes with eigencentrality
+		eig_cents = [nx.eigenvector_centrality(g) for g in HRG_M]	# nodes with eigencentrality
 		net_vals = []
 		for cntr in eig_cents:
 				net_vals.append(sorted(cntr.values(), reverse=True))
 		df = pd.DataFrame(net_vals)
 
-
+		print "hrg"
 		l = list(df.mean())
 		zz = float(len(l))
 		if not zz == 0:
@@ -301,13 +305,13 @@ def draw_network_value(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				for i in range(0, len(l), sa):
 						print "(" + str(i) + "," + str(l[i]) + ")"
 
-		eig_cents = [nx.eigenvector_centrality_numpy(g) for g in chunglu_M]	# nodes with eigencentrality
+		eig_cents = [nx.eigenvector_centrality(g) for g in chunglu_M]	# nodes with eigencentrality
 		net_vals = []
 		for cntr in eig_cents:
 				net_vals.append(sorted(cntr.values(), reverse=True))
 		df = pd.DataFrame(net_vals)
 
-
+		print "cl"
 		l = list(df.mean())
 		zz = float(len(l))
 		if not zz == 0:
@@ -315,13 +319,13 @@ def draw_network_value(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				for i in range(0, len(l), sa):
 						print "(" + str(i) + "," + str(l[i]) + ")"
 
-		eig_cents = [nx.eigenvector_centrality_numpy(g) for g in kron_M]	# nodes with eigencentrality
+		eig_cents = [nx.eigenvector_centrality(g) for g in kron_M]	# nodes with eigencentrality
 		net_vals = []
 		for cntr in eig_cents:
 				net_vals.append(sorted(cntr.values(), reverse=True))
 		df = pd.DataFrame(net_vals)
 
-
+		print "kron"
 		l = list(df.mean())
 		zz = float(len(l))
 		if not zz == 0:
@@ -330,6 +334,7 @@ def draw_network_value(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 						print "(" + str(i) + "," + str(l[i]) + ")"
 
 def degree_distribution_multiples(graphs):
+
 		if graphs is not None:
 			dorig = pd.DataFrame()
 			for g in graphs:
@@ -337,7 +342,8 @@ def degree_distribution_multiples(graphs):
 					df = pd.DataFrame.from_dict(d.items())
 					gb = df.groupby(by=[1]).count()
 					dorig = pd.concat([dorig, gb], axis=1)	# Appends to bottom new DFs
-
+		# print np.min(d.keys())
+		# There appear to be nodes of degree 0, which means they are isolated nodes
 		return dorig
 
 def hop_plot_multiples(graphs):
@@ -407,6 +413,9 @@ def eigenvector_multiples(graphs):
 
 		return df
 
+
+
+
 def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False):
 		'''
 		compute network properties
@@ -425,29 +434,79 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 		ax6 = plt.subplot(gs[2, 2])
 
 		plt.suptitle(name)
+		f = lambda m, n: [i*n//m + n//(2*m) for i in range(m)] # to select m out n elements in a list
 
 		import os
 		if not os.path.exists('./Results'):
 			os.makedirs('./Results')
 
-		if 'degree' in net_mets:
-			print 'Degree'
-			orig__Deg = degree_distribution_multiples(orig)
-			orig__Deg.mean(axis=1).plot(ax=ax0,marker='.', ls="None", markeredgecolor="w", color='b')
-			synth_Deg = degree_distribution_multiples(synth_graphs_lst)
-			synth_Deg.mean(axis=1).plot(ax=ax0,alpha=0.5, color='r')
-			synth_Deg.max(axis=1).plot(ax=ax0,alpha=0.2, color='r')
-			synth_Deg.min(axis=1).plot(ax=ax0,alpha=0.2, color='r')
-			if out_tsv: orig__Deg.mean(axis=1).to_csv('Results/degree_orig_{}.tsv'.format(name),sep='\t', mode='a', header=False)
-			print '\torig'
-			print orig__Deg.mean(axis=1).to_string()
-			if out_tsv: synth_Deg.mean(axis=1).to_csv('Results/degree_hrg_{}.tsv'.format(name),sep='\t', mode='a', header=False)
-			print '\tsynth'
-			print synth_Deg.mean(axis=1).to_string()
-			ax0.set_title('Degree distributuion', y=0.9)
-			ax0.set_xscale('log')
-			ax0.set_yscale('log')
+		if 'avgdeg' in net_mets:
+				print 'Average Degree'
+				print "	%.3f" % np.mean(orig[0].degree().values())
+				deg_val = pd.Series()
+				for g in synth_graphs_lst:
+					deg_val=pd.concat([deg_val, pd.Series(g.degree().values())])
+				print "	%.3f" % np.mean(deg_val)
 
+		if 'degree' in net_mets:
+				print 'Degree'
+				orig__Deg = degree_distribution_multiples(orig)
+				print '... Orig G'
+				for i, row in orig__Deg.itertuples():
+					print '{}, {}'.format(i, row)
+
+				orig__Deg.mean( axis=1).plot(ax=ax0, marker='o', ls="None", markeredgecolor="w", color='b',
+												label="Orig G")
+				# synthetic graph (HRG)
+				synth_Deg = degree_distribution_multiples(synth_graphs_lst)
+				print '\n... HRG G'
+				synth_Deg['meank'] = synth_Deg.mean(axis=1)
+				if 0:
+					mask = f(70, len(synth_Deg))
+					print synth_Deg['meank'].loc[mask].to_string(header=False)
+					print synth_Deg.shape
+				synth_Deg['k'] = synth_Deg.index
+				for row in synth_Deg.iterrows():
+					if row[1].k>=1.0: print "%d\t%.3f" % (row[1].k, row[1].meank)
+
+				# if out_tsv: synth_Deg.to_csv('Results/degree_synth_{}.tsv'.format(name),sep='\t',header=None, index=False)
+				#if os.path.exists('Results/degree_synth_{}.tsv'.format(name)): print 'saved to disk'
+
+				# synth_Deg.max( axis=1).plot(ax=ax0,alpha=0.4, color='r')
+				# synth_Deg.min( axis=1).plot(ax=ax0,alpha=0.4, color='r')
+				ax0.fill_between(synth_Deg.index.values,
+												 synth_Deg.mean(axis=1) - synth_Deg.sem(axis=1),
+												 synth_Deg.mean(axis=1) + synth_Deg.sem(axis=1), color='r',alpha=0.25)
+				try:
+					synth_Deg.mean(axis=1).plot(ax=ax0, alpha=0.5, marker=".", color='r', label="Synth G")
+				except Exception, e:
+					print str(e)
+
+				# ax0.set_yscale('log')
+				ax0.set_xscale('log')
+				print orig__Deg.max().values[0]
+				ax0.set_xlim([1, orig__Deg.max().values[0]])
+
+				if out_tsv:
+					orig__Deg.mean(axis=1).to_csv('Results/degree_orig_{}.tsv'.format(name),sep='\t')
+					synth_Deg.mean(axis=1).to_csv('Results/degree_hrg_{}.tsv'.format(name),sep='\t')
+				ax0.set_title('Degree distributuion', y=0.9)
+				#ax0.set_xscale('log')
+				#ax0.set_yscale('log')
+				# xdat = synth_Deg.index.values
+				# ydat = synth_Deg.median(axis=1).values
+				# zdat = synth_Deg.std(axis=1).values
+				# df1 = pd.DataFrame()
+				# df1['xdat'] = xdat
+				# df1['ydat'] = ydat
+				# df1['ysig'] = zdat
+				# # df2 = pd.DataFrame()
+				# # df2['s_med'] = zdat
+				# # df2['s_std'] = wdat
+				# # df = df1.join(df2, how='outer')
+				# df1.to_csv('Results/deg_dist_{}.tsv'.format(name),sep='\t', header=None, index=False)
+				# if os.path.exists('Results/deg_dist_{}.tsv'.format(name)):
+				#		 print '... file written:','Results/deg_dist_{}.tsv'.format(name)
 		if 'hops' in net_mets:
 			print 'Hops'
 			orig__Hop_Plot = hop_plot_multiples(orig)
@@ -457,48 +516,57 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			synth_Hop_Plot.max(axis=1).plot(ax=ax1, color='r', alpha=0.2)
 			synth_Hop_Plot.min(axis=1).plot(ax=ax1, color='r', alpha=0.2)
 			ax1.set_title('Hop Plot', y=0.9)
-			print '	orig'
-			orig__Hop_Plot.mean(axis=1).to_csv('Results/hops_orig_{}.tsv'.format(name),sep='\t', mode='a', header=False)
-			print orig__Hop_Plot.mean(axis=1).to_string()
-			print 
-			print '	synth'
-			synth_Hop_Plot.mean(axis=1).to_csv('Results/hops_hrg_{}.tsv'.format(name),sep='\t', mode='a', header=False)
-			print synth_Hop_Plot.mean(axis=1).to_string()
+
+			orig__Hop_Plot.mean(axis=1).to_csv('Results/hops_orig_{}.tsv'.format(name),sep='\t')
+			synth_Hop_Plot.mean(axis=1).to_csv('Results/hops_hrg_{}.tsv'.format(name),sep='\t')
+			print '... Orig G'
+			print orig__Hop_Plot.mean(axis=1).to_string(header=False)
+			print '\n... Synth G'
+			print synth_Hop_Plot.mean(axis=1).to_string(header=False)
 
 		if 'clust' in net_mets:
-			print 'Clustering Coef'
+			print '\nClustering Coef'
 			orig__clust_coef = clustering_coefficients_multiples(orig)
 			synth_clust_coef = clustering_coefficients_multiples(synth_graphs_lst)
 
+			print '... Orig G'
 			gb = orig__clust_coef.groupby(['k'])
 			gb['cc'].mean().plot(ax=ax2, marker='o', ls="None", markeredgecolor="w", color='b', alpha=0.8)
-			if out_tsv: gb['cc'].mean().to_csv('Results/clust_orig_{}.tsv'.format(name),sep='\t', mode='a', header=False)
-			print '	orig'
-			print gb['cc'].mean().to_string()
+			gb['cc'].mean().to_csv('Results/clust_orig_{}.tsv'.format(name),sep='\t')
+			print gb['cc'].mean().to_string(header=False)
 
-			gb = synth_clust_coef.groupby(['k'])
-			gb['cc'].mean().plot(ax=ax2, marker='o', ls="None", markeredgecolor="w", color='r',	alpha=0.8 )
-			ax2.set_title('Avg Clustering Coefficient', y=0.9)
-			if out_tsv: gb['cc'].mean().to_csv('Results/clust_hrg_{}.tsv'.format(name),sep='\t', mode='a', header=False)
-			print '	synth'
-			print gb['cc'].mean().to_string()
+			print '\n... Synth G'
+			try: 
+				gb = synth_clust_coef.groupby(['k'])
+				gb['cc'].mean().plot(ax=ax2, marker='o', ls="None", markeredgecolor="w", color='r',	alpha=0.8 )
+				ax2.set_title('Avg Clustering Coefficient', y=0.9)
+				gb['cc'].mean().to_csv('Results/clust_hrg_{}.tsv'.format(name),sep='\t')
+			except Exception, e:
+				print str(e)
+
+			print '\n... Synth G'
+			print gb['cc'].mean().to_string(header=False)
 
 		if 'assort' in net_mets:
-			print 'Assortativity'
+			print '\nAssortativity'
 			orig__assort = assortativity_coefficients_multiples(orig)
 			synth_assort = assortativity_coefficients_multiples(synth_graphs_lst)
 
 			gb = orig__assort.groupby(['k'])
 			gb[1].mean().plot(ax=ax3, marker='o', ls="None", markeredgecolor="w", color='b',	alpha=0.8 )
 			gb[1].mean().to_csv('Results/assort_orig_{}.tsv'.format(name),sep='\t')
+			print '... Orig G'
+			print gb[1].mean().to_string(header=False)
 
 			gb = synth_assort.groupby(['k'])
 			gb[1].mean().plot(ax=ax3, marker='o', ls="None", markeredgecolor="w", color='r',	alpha=0.8 )
 			ax3.set_title('Assortativity', y=0.9)
 			gb[1].mean().to_csv('Results/assort_hrg_{}.tsv'.format(name),sep='\t')
+			print '\n... Synth G'
+			print gb[1].mean().to_string(header=False)
 
 		if 'kcore' in net_mets:
-			print 'kcore_decomposition'
+			print '\nkcore_decomposition'
 			orig__kcore = kcore_decomposition_multiples(orig)
 			synth_kcore = kcore_decomposition_multiples(synth_graphs_lst)
 
@@ -511,51 +579,67 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 
 			orig__kcore.to_csv('Results/kcore_orig_{}.tsv'.format(name),sep='\t')
 			synth_kcore.mean(axis=1).to_csv('Results/kcore_hrg_{}.tsv'.format(name),sep='\t')
+			print '... Orig G'
+			print orig__kcore.to_string(header=False)
+			print '\n... Synth G'
+			print synth_kcore.mean(axis=1).to_string(header=False)
 
 		if 'eigen' in net_mets:
-			print 'eigenvec'
+			print '\nEigenval'
 			orig__eigenvec = eigenvector_multiples(orig)
 			synth_eigenvec = eigenvector_multiples(synth_graphs_lst)
 
 			orig__eigenvec= orig__eigenvec.transpose()
 			orig__eigenvec.plot(ax=ax5, marker='o', ls="None", markeredgecolor="w", color='b',	alpha=0.8)
-			if out_tsv: orig__eigenvec.mean(axis=1).to_csv('Results/eigenv_orig_{}.tsv'.format(name),sep='\t')
+			orig__eigenvec.mean(axis=1).to_csv('Results/eigenv_orig_{}.tsv'.format(name),sep='\t')
 
 			synth_eigenvec= synth_eigenvec.transpose()
 			synth_eigenvec.mean(axis=1).plot(ax=ax5, marker='s', ls="None", markeredgecolor="w", color='r',	alpha=0.8)
-			if out_tsv: synth_eigenvec.mean(axis=1).to_csv('Results/eigenv_hrg_{}.tsv'.format(name),sep='\t')
+			synth_eigenvec.mean(axis=1).to_csv('Results/eigenv_hrg_{}.tsv'.format(name),sep='\t')
 			ax5.set_title('eigenvector', y=0.9)
+			print '... Orig G'
+			Y = synth_eigenvec.mean(axis=1)
+			A = np.random.choice(synth_eigenvec.index, 70, replace=False)
+			A = np.linspace(synth_eigenvec.index.min(), synth_eigenvec.index.max(), 70)
+			A = [(int(x), Y.loc[int(x)]) for x in A]
+
+			print orig__eigenvec.mean(axis=1).to_string(header=False)
+			print '\n... Synth G'
+			for x,y in A:
+				print "{}\t{}".format(x,y)
+
 
 		import pprint as pp
 		if 'gcd' in net_mets:
-			print 'GCD'
+			print '\nGCD'
 			ax6.set_title('GCD', y=0.9)
 			gcd_hrg = []
-			df_g = external_rage(orig[0],name) # original graph
+			df_g = external_rage(orig[0], name) # original graph
 			for synthG in synth_graphs_lst:
-				gcd_network = external_rage(synthG,name)
+				gcd_network = external_rage(synthG, name)
 				# rgfd =	tijana_eval_rgfd(df_g, gcd_network)	## what is this?
 				gcm_g = tijana_eval_compute_gcm(df_g)
 				gcm_h = tijana_eval_compute_gcm(gcd_network)
 				gcd_hrg.append(tijana_eval_compute_gcd(gcm_g, gcm_h))
-			
+
 			gcd_hrg_mean = np.mean(gcd_hrg)
 			gcd_hrg_std	= np.std(gcd_hrg)
-			print
 
 			ax6.bar([1], gcd_hrg_mean, width=0.5, yerr=gcd_hrg_std)# http://blog.bharatbhole.com/creating-boxplots-with-matplotlib/
 			# ax6.set_xticklabels(['HRG'])	## Custom x-axis labels
 			ax6.get_xaxis().tick_bottom() ## Remove top axes and right axes ticks
 			ax6.get_yaxis().tick_left()
 			ax6.set_xlim(0, 5)
-			if out_tsv: 
-				with open ('Results/gcd_{}.tsv'.format(name), 'a') as f:
-					f.write('{}\t{}\n'.format(gcd_hrg_mean,gcd_hrg_std))
-			print "{}, {}, {}".format(name,gcd_hrg_mean,gcd_hrg_std)
+			with open ('Results/gcd_{}.tsv'.format(name), 'w') as f:
+				f.write('{}\t{}\n'.format(gcd_hrg_mean,gcd_hrg_std))
+			print "\n... mean\tstd"
+			print "{}\t{}".format(gcd_hrg_mean, gcd_hrg_std)
+
 		oufigname = '/tmp/outfig_{}.pdf'.format(name)
 		plt.savefig(oufigname, bbox_inches='tight')
 		if os.path.exists(oufigname): print 'Output: ',oufigname
-		return
+
+		return True
 
 
 
@@ -569,8 +653,8 @@ def draw_degree_probability_distribution(orig_g_M, chunglu_M, HRG_M, pHRG_M, kro
 				df = pd.DataFrame.from_dict(d.items())
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-
-		if not dorig.empty :
+			print "orig"
+			if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa =	int(math.ceil(zz/75))
 				if sa == 0: sa=1
@@ -584,7 +668,8 @@ def draw_degree_probability_distribution(orig_g_M, chunglu_M, HRG_M, pHRG_M, kro
 				df = pd.DataFrame.from_dict(d.items())
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-		if not dorig.empty :
+			print "hrgm"
+			if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa =	int(math.ceil(zz/75))
 				for x in range(0, len(dorig.mean(axis=1).values), sa):
@@ -597,8 +682,8 @@ def draw_degree_probability_distribution(orig_g_M, chunglu_M, HRG_M, pHRG_M, kro
 				df = pd.DataFrame.from_dict(d.items())
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-
-		if not dorig.empty :
+			print "phrgm"
+			if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa =	int(math.ceil(zz/75))
 				for x in range(0, len(dorig.mean(axis=1).values), sa):
@@ -610,7 +695,7 @@ def draw_degree_probability_distribution(orig_g_M, chunglu_M, HRG_M, pHRG_M, kro
 				df = pd.DataFrame.from_dict(d.items())
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-
+		print "cl"
 		if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa = int(math.ceil(zz/float(75)))
@@ -626,7 +711,7 @@ def draw_degree_probability_distribution(orig_g_M, chunglu_M, HRG_M, pHRG_M, kro
 				df = pd.DataFrame.from_dict(d.items())
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-
+		print "kron"
 		if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa = int(math.ceil(zz/float(75)))
@@ -687,7 +772,7 @@ def draw_hop_plot(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				c = get_graph_hops(g, 20)
 				d = dict(c)
 				m_hops_ar.append(d.values())
-				#print "Chung Lu hops finished"
+				print "Chung Lu hops finished"
 		chunglu_df = pd.DataFrame(m_hops_ar)
 
 		m_hops_ar = []
@@ -695,7 +780,7 @@ def draw_hop_plot(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				c = get_graph_hops(g, 20)
 				d = dict(c)
 				m_hops_ar.append(d.values())
-				#print "HRG hops finished"
+				print "HRG hops finished"
 		hrg_df = pd.DataFrame(m_hops_ar)
 
 		m_hops_ar = []
@@ -703,7 +788,7 @@ def draw_hop_plot(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				c = get_graph_hops(g, 20)
 				d = dict(c)
 				m_hops_ar.append(d.values())
-				#print "PHRG hops finished"
+				print "PHRG hops finished"
 		phrg_df = pd.DataFrame(m_hops_ar)
 
 		m_hops_ar = []
@@ -711,7 +796,7 @@ def draw_hop_plot(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				c = get_graph_hops(g, 20)
 				d = dict(c)
 				m_hops_ar.append(d.values())
-				#print "Kron hops finished"
+				print "Kron hops finished"
 		kron_df = pd.DataFrame(m_hops_ar)
 
 		## original plot
@@ -722,49 +807,50 @@ def draw_hop_plot(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				m_hops_ar.append(d.values())
 		dorig = pd.DataFrame(m_hops_ar)
 
-		# plt.fill_between(dorig.columns, dorig.mean() - dorig.sem(), dorig.mean() + dorig.sem(), color='black', alpha=0.2, label="se")
-		orig, = plt.plot(dorig.mean(), color='black', marker="o", markersize=10, aa=False, linewidth=3, ls='-', label="H")
-		#print "Hop plot, BA (256, 3)"
-		#print "H"
-		for x in range(0, len(dorig.mean().values)):
-				print "(" + str(dorig.mean().index[x]) + ", " + str(dorig.mean().values[x]) + ")"
+		if 0:
+			# plt.fill_between(dorig.columns, dorig.mean() - dorig.sem(), dorig.mean() + dorig.sem(), color='black', alpha=0.2, label="se")
+			orig, = plt.plot(dorig.mean(), color='black', marker="o", markersize=10, aa=False, linewidth=3, ls='-', label="H")
+			print "Hop plot, BA (256, 3)"
+			print "H"
+			for x in range(0, len(dorig.mean().values)):
+					print "(" + str(dorig.mean().index[x]) + ", " + str(dorig.mean().values[x]) + ")"
 
-		# plt.fill_between(phrg_df.columns, phrg_df.mean() - phrg_df.sem(), phrg_df.mean() + phrg_df.sem(), color='blue', alpha=0.2, label="se")
-		phrg_h, = plt.plot(phrg_df.mean(), color='blue', marker="d", aa=False, linewidth=3, ls='-', label="PHRG")
-		#print "PHRG"
-		for x in range(0, len(phrg_df.mean().values)):
-				print "(" + str(phrg_df.mean().index[x]) + ", " + str(phrg_df.mean().values[x]) + ")"
+			# plt.fill_between(phrg_df.columns, phrg_df.mean() - phrg_df.sem(), phrg_df.mean() + phrg_df.sem(), color='blue', alpha=0.2, label="se")
+			phrg_h, = plt.plot(phrg_df.mean(), color='blue', marker="d", aa=False, linewidth=3, ls='-', label="PHRG")
+			print "PHRG"
+			for x in range(0, len(phrg_df.mean().values)):
+					print "(" + str(phrg_df.mean().index[x]) + ", " + str(phrg_df.mean().values[x]) + ")"
 
-		# plt.fill_between(hrg_df.columns, hrg_df.mean() - hrg_df.sem(), hrg_df.mean() + hrg_df.sem(), color='red', alpha=0.2, label="se")
-		hrg_h, = plt.plot(hrg_df.mean(), color='red', marker="^", aa=False, linewidth=3, ls='-', label="HRG")
-		#print "HRG"
-		for x in range(0, len(hrg_df.mean().values)):
-				print "(" + str(hrg_df.mean().index[x]) + ", " + str(hrg_df.mean().values[x]) + ")"
+			# plt.fill_between(hrg_df.columns, hrg_df.mean() - hrg_df.sem(), hrg_df.mean() + hrg_df.sem(), color='red', alpha=0.2, label="se")
+			hrg_h, = plt.plot(hrg_df.mean(), color='red', marker="^", aa=False, linewidth=3, ls='-', label="HRG")
+			print "HRG"
+			for x in range(0, len(hrg_df.mean().values)):
+					print "(" + str(hrg_df.mean().index[x]) + ", " + str(hrg_df.mean().values[x]) + ")"
 
 
-		# plt.fill_between(chunglu_df.columns, chunglu_df.mean() - chunglu_df.sem(), chunglu_df.mean() + chunglu_df.sem(), color='green', alpha=0.2, label="se")
-		cl_h, = plt.plot(chunglu_df.mean(), color='green', marker="v", aa=False, linewidth=3, ls='-', label="Chung-Lu")
-		#print "CL"
+			# plt.fill_between(chunglu_df.columns, chunglu_df.mean() - chunglu_df.sem(), chunglu_df.mean() + chunglu_df.sem(), color='green', alpha=0.2, label="se")
+			cl_h, = plt.plot(chunglu_df.mean(), color='green', marker="v", aa=False, linewidth=3, ls='-', label="Chung-Lu")
+		print "CL"
 		for x in range(0, len(chunglu_df.mean().values)):
 				print "(" + str(chunglu_df.mean().index[x]) + ", " + str(chunglu_df.mean().values[x]) + ")"
 
-
-		# plt.fill_between(kron_df.columns, kron_df.mean() - kron_df.sem(), kron_df.mean() + kron_df.sem(), color='purple', alpha=0.2, label="se")
-		kron_h, = plt.plot(kron_df.mean(), color='purple', marker="s", aa=False, linewidth=3, ls='-', label="Kronecker")
-		#print "K"
+		if 0:
+			# plt.fill_between(kron_df.columns, kron_df.mean() - kron_df.sem(), kron_df.mean() + kron_df.sem(), color='purple', alpha=0.2, label="se")
+			kron_h, = plt.plot(kron_df.mean(), color='purple', marker="s", aa=False, linewidth=3, ls='-', label="Kronecker")
+		print "K"
 		for x in range(0, len(kron_df.mean().values)):
 				print "(" + str(kron_df.mean().index[x]) + ", " + str(kron_df.mean().values[x]) + ")"
 
-		#plt.title('Hop Plot')
-		#plt.ylabel('Reachable Pairs')
-		#plt.xlabel('Number of Hops')
-		# plt.ylim(ymax=max(dorig.values()) + max(dorig.values()) * .10)
+		if 0:
+			plt.title('Hop Plot')
+			plt.ylabel('Reachable Pairs')
+			plt.xlabel('Number of Hops')
+			# plt.ylim(ymax=max(dorig.values()) + max(dorig.values()) * .10)
 
-		#plt.legend([orig, phrg_h, hrg_h, cl_h, kron_h], ['$H$', 'PHRG', 'HRG', 'Chung-Lu', 'Kron'], loc=1)
-		# fig = plt.gcf()
-		# fig.set_size_inches(5, 4, forward=True)
-		#plt.show()
-
+			plt.legend([orig, phrg_h, hrg_h, cl_h, kron_h], ['$H$', 'PHRG', 'HRG', 'Chung-Lu', 'Kron'], loc=1)
+			# fig = plt.gcf()
+			# fig.set_size_inches(5, 4, forward=True)
+			plt.show()
 
 
 def draw_assortativity_coefficients(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
@@ -959,7 +1045,7 @@ def draw_kcore_decomposition(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				df[[0]] = df[[0]].astype(int)
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-		#print "orig"
+		print "orig"
 
 		if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
@@ -976,7 +1062,7 @@ def draw_kcore_decomposition(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				df[[0]] = df[[0]].astype(int)
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-		#print "phrg"
+		print "phrg"
 		if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa =	int(math.ceil(zz/75))
@@ -991,7 +1077,7 @@ def draw_kcore_decomposition(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				df[[0]] = df[[0]].astype(int)
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-		#print "hrg"
+		print "hrg"
 		if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa =	int(math.ceil(zz/75))
@@ -1007,7 +1093,7 @@ def draw_kcore_decomposition(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				df[[0]] = df[[0]].astype(int)
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-		#print "cl"
+		print "cl"
 		if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa =	int(math.ceil(zz/75))
@@ -1022,7 +1108,7 @@ def draw_kcore_decomposition(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 				df[[0]] = df[[0]].astype(int)
 				gb = df.groupby(by=[1])
 				dorig = pd.concat([dorig, gb.count()], axis=1)	# Appends to bottom new DFs
-		#print "kron"
+		print "kron"
 		if not dorig.empty :
 				zz = len(dorig.mean(axis=1).values)
 				sa =	int(math.ceil(zz/75))
@@ -1032,63 +1118,43 @@ def draw_kcore_decomposition(orig_g_M, chunglu_M, HRG_M, pHRG_M, kron_M):
 
 
 def external_rage(G,netname):
-		netname = [x for x in netname.split('.') if len(x)>3][0]
 		import subprocess
 		import networkx as nx
 		from pandas import DataFrame
-		from os.path import expanduser, basename
-		import time, traceback
+		from os.path import expanduser
 
 		# giant_nodes = max(nx.connected_component_subgraphs(G), key=len)
-		if nx.is_directed(G):
-				G = G.to_undirected()
-
 		giant_nodes = sorted(nx.connected_component_subgraphs(G), key=len, reverse=True)
 
 		G = nx.subgraph(G, giant_nodes[0])
-		if G.number_of_nodes()<=1:
-			print "G is None!!"*10
-			exit(1)
-
-		current_milli_time = lambda: int(round(time.time() * 1000))
-		tmp_file = "/tmp/{}_{}.csv".format(netname,str(current_milli_time()))
+		netname = netname.split('.')[0]
+		tmp_file = "tmp_{}.txt".format(netname)
 		with open(tmp_file, 'w') as tmp:
 				for e in G.edges():
-					if e is np.nan: continue
-					try:
-						src = int(e[0])+1
-						trg = int(e[1])+1
-						tmp.write(str(src) + " " + str(trg) + "\n")
-					except Exception, err:
-						print str(err)
-						print ">"*100, e
-						traceback.print_exc()
-						exit(1)
-		
+						tmp.write(str(int(e[0])+1) + ' ' + str(int(e[1])+1) + '\n')
+
+		# sal updates
 		if platform.system() == "Linux":
 			args = ("./bin/linux/RAGE",	tmp_file)
 		elif platform.system() == "Darwin":
-			args = ("./bin/macos/RAGE",	tmp_file)
+			args = ("./bin/mac/RAGE",	tmp_file)
 		else:
 			args = ("../RAGE.exe",	tmp_file)
-
-		proc = subprocess.Popen(args, stdout=subprocess.PIPE,
-														stderr=subprocess.PIPE)
+#		popen = subprocess.Popen(args, stdout=subprocess.PIPE)
+#		popen.wait()
+#		output = popen.stdout.read()
+		proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		kill_proc = lambda p: p.kill()
 		timer = Timer(600, kill_proc, [proc])
 		try:
-				timer.start()
-				output, stderr = proc.communicate()
+			timer.start()
+			output, stderr = proc.communicate()
 		finally:
-				timer.cancel()
+			timer.cancel()
 
 		# Results are hardcoded in the exe
-		# df = DataFrame.from_csv("./Results/UNDIR_RESULTS_tmp_{}.csv".format(netname), header=0, sep=',', index_col=0)
-		#tmp_file = basename(tmp_file)
-		df = DataFrame.from_csv(tmp_file, header=0, sep=',', index_col=0)
-		df = DataFrame.from_csv("./Results/UNDIR_RESULTS__tmp_{}.csv".format(basename(tmp_file).split('.')[0]), header=0, sep=',', index_col=0)
+		df = DataFrame.from_csv("./Results/UNDIR_RESULTS_tmp_{}.csv".format(netname), header=0, sep=',', index_col=0)
 		df = df.drop('ASType', 1)
-		
 		return df
 
 
@@ -1121,10 +1187,9 @@ def tijana_eval_compute_gcm(G_df):
 		for column_G in G_df:
 				j = 0
 				for column_H in G_df:
-						with np.errstate(invalid='ignore', divide='ignore'): 
-							gcm[i, j] = scipy.stats.spearmanr(G_df[column_G].tolist(), G_df[column_H].tolist())[0]
+						gcm[i, j] = scipy.stats.spearmanr(G_df[column_G].tolist(), G_df[column_H].tolist())[0]
 						if scipy.isnan(gcm[i, j]):
-							gcm[i, j] = 1.0
+								gcm[i, j] = 1.0
 						j += 1
 				i += 1
 		return gcm

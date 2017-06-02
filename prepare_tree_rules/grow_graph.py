@@ -23,7 +23,7 @@ def non_partition_sample(graph_name):
 	"""
 	Sample tree decomposition from the same graph without graph partition
 	"""
-	samples = [4]
+	samples = [500]
 	subgraph_size = [25]
 	#file_name = ["train", "test", "hold"]
 	file_name = [str(i) for i in xrange(500)]
