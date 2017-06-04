@@ -9,11 +9,13 @@ import numpy as np
 import pandas as pd
 import argparse
 import treedecomps.net_metrics as metrics
-# import HRG
-# import treedecomps.PHRG as PHRG
-# import product
+import treedecomps.graph_utils as gutil
+from	 collections import defaultdict
+import prepare_tree_rules.graph_sampler as gs
+
 import pprint as pp
 # from treedecomps.salPHRG import grow_graphs_using_krongen
+DEBUG = False
 
 def get_parser ():
 	parser = argparse.ArgumentParser(description='Synth Graphs')
@@ -64,8 +66,8 @@ def ecdf(x):
 
 def SNDegree_CDF_ks_2samp(glist, origG, label):
     from scipy.stats import ks_2samp
-    print
-    print 'Scaled-Normalized Degree Dist CDF', label
+    # print
+    # print 'Scaled-Normalized Degree Dist CDF', label
     kdeg = nx.degree_histogram(origG)[1:]
     df = pd.DataFrame.from_dict(origG.degree().items())
     gb = df.groupby([1]).count()
@@ -304,6 +306,111 @@ def synth_plots():
 
 	metrics.draw_network_value(G_M, chunglu_M, HRG_M, pHRG_M, kron_M)
 
+def sample_refrence_graph(G, ofname, scate, K_lst, n):
+	if G is None: return
+
+	G.remove_edges_from(G.selfloop_edges())
+	giant_nodes = max(nx.connected_component_subgraphs(G), key=len)
+	G = nx.subgraph(G, giant_nodes)
+
+	if n is None:
+			num_nodes = G.number_of_nodes()
+	else:
+			num_nodes = n
+
+	gutil.graph_checks(G)
+
+	if DEBUG: print
+	if DEBUG: print "--------------------"
+	if DEBUG: print "-Tree Decomposition-"
+	if DEBUG: print "--------------------"
+	prod_rules = {}
+	left_deriv_prod_rules = []
+
+	cntr = 1
+	subgraph_objs_lst = []
+
+	# subgraphs 50 to
+	left_deriv_file_name = "ProdRules/{}_{}_{}_prodrules.txt".format(K_lst[0],scate,ofname)
+	out_edgelist_fname = "data/{}_{}_{}_el.tsv".format(ofname,scate,K_lst[0])
+
+	cntr += 1
+	gprime_group =[]
+	print K_lst[0], n
+	for Gprime in gs.rwr_sample(G, K_lst[0], n):
+		if 0: nx.write_edgelist(Gprime, out_edgelist_fname, delimiter='\t')
+		gprime_group.append(Gprime)
+		# exit()
+		# T = td.quickbb(Gprime)
+		# root = list(T)[0]
+		# T = td.make_rooted(T, root)
+		# T = phrg.binarize(T)
+		# root = list(T)[0]
+		# root, children = T
+		# td.new_visit(T, G, prod_rules, left_deriv_prod_rules)
+	# subgraph_objs_dict[(scate,K)].append(gprime_group)
+		# left_derive_file = open(left_deriv_file_name, 'w')
+		# for r in left_deriv_prod_rules:
+		# 	left_derive_file.write(r)
+		# 	left_derive_file.write('\n')
+		# left_derive_file.close()
+
+
+	return gprime_group
+
+def chunglu_subgraph_chunks(results_tup, gTrain, gTest, nbr_of_synth_g):
+	z = gTrain.degree().values()
+	cl_graph = nx.expected_degree_graph(z)
+	tr_cl_graphs_lst =[]
+	ts_cl_graphs_lst =[]
+	tr_synth_grph = sample_refrence_graph(cl_graph, gTrain.name, "train",[nbr_of_synth_g], n=25)
+	ts_synth_grph = sample_refrence_graph(cl_graph, gTrain.name, "test", [nbr_of_synth_g], n=25)
+	for k in tr_synth_grph.keys():
+		tr_cl_graphs_lst.append( [[j.number_of_nodes() for j in x] for x in synth_grph[k]])
+	for k in ts_synth_grph.keys():
+		ts_cl_graphs_lst.append( [[j.number_of_nodes() for j in x] for x in synth_grph[k]])
+	results_tup= (tr_cl_graphs_lst,ts_cl_graphs_lst)
+	return
+
+def kronecker_subgraph_chunks(gTrain, nbr_of_synth_g):
+	# --< get a set of 50 subgraphs using Kronecker
+	from os import environ
+	tsvGraphName = "/tmp/{}kpgraph.tsv".format(gTrain.name)
+	tmpGraphName = "/tmp/{}kpgraph.tmp".format(gTrain.name)
+	k = int(math.log(gTrain.number_of_nodes(),2))+1 # Nbr of Iterations
+	P = kronfit(gTrain)
+	M = '-m:"{} {}; {} {}"'.format(P[0][0], P[0][1], P[1][0], P[1][1])
+
+	# tr_kpgraphs_lst = []
+	if environ['HOME'] == '/home/saguinag':
+	  args = ("/home/saguinag/Software/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
+	elif environ['HOME'] == '/Users/saguinag':
+	  args = ("/Users/saguinag/Theory/MacOSTools/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
+	else:
+	  args = ('./krongen.exe -o:{} '.format(tmpGraphName) +M +'-i:{}'.format(k+1))
+
+	popen = subprocess.Popen(args, stdout=subprocess.PIPE)
+	popen.wait()
+	#output = popen.stdout.read()
+	if os.path.exists(tsvGraphName):
+	  KPG = nx.read_edgelist(tsvGraphName, nodetype=int)
+	else:
+	  print "!! Error, file is missing"
+
+	for u,v in KPG.selfloop_edges():
+	  KPG.remove_edge(u, v)
+
+	# train_kron_d = sample_refrence_graph(KPG, gTrain.name, "train",[nbr_of_synth_g], 32)
+	# test_kron_d  = sample_refrence_graph(KPG, gTrain.name, "test",[nbr_of_synth_g], 32)
+	# tr_kp_graphs_lst =[]
+	# for k in train_kron_d.keys():
+	# 	tr_kp_graphs_lst.append( [[j.number_of_nodes() for j in x] for x in synth_grph[k]])
+	# ts_kp_graphs_lst =[]
+	# for k in test_kron_d.keys():
+	# 	ts_kp_graphs_lst.append( [[j.number_of_nodes() for j in x] for x in synth_grph[k]])
+	# results_tup= (tr_kp_graphs_lst,ts_kp_graphs_lst)
+
+	return KPG
 # --<
 # --< main >--
 # --<
@@ -319,75 +426,103 @@ if __name__ == '__main__':
 	from treedecomps.load_edgelist_from_dataframe import Pandas_DataFrame_From_Edgelist
 	df = Pandas_DataFrame_From_Edgelist([fn_train])
 	Gtrain = nx.from_pandas_dataframe(df[0], 'src', 'trg')
-
-	# Gtrain = nx.read_edgelist(fn_train, comments="%", data=(('wt', int),('ts',int),))
-	#Gtrain = nx.read_edgelist(fn_train, comments="%", data=(('ts', int),))
-	#Gtrain = nx.read_edgelist(fn_train)
 	Gtrain.name = [x for x in os.path.basename(edgelists[0]).split('.') if len(x)>3][0]
 
 	df = Pandas_DataFrame_From_Edgelist([fn_test])
 	Gtst = nx.from_pandas_dataframe(df[0], 'src', 'trg')
-	# Gtst = nx.read_edgelist(fn_test, comments="%", data=(('ts',int),))
-	# Gtst = nx.read_edgelist(fn_test, comments="%", data=(('weight',int),('ts',int),))
-	# Gtst = nx.read_edgelist(fn_test)
 	Gtst.name = [x for x in os.path.basename(edgelists[0]).split('.') if len(x)>3][0]
 
 	chunglu_GM = []
 	kronprd_GM = []
-
-	# --<
-	# --< chung lu graph >--
-	# --<
-	z = Gtrain.degree().values()
-	for i in range(0,50):
+	trn_graphs = sample_refrence_graph(Gtrain, Gtrain.name, 'train', [5], 24)
+	tst_graphs = sample_refrence_graph(Gtst, Gtst.name, 'test', [5], 24)
+	print 'Got training and tests sets'
+	for i,gTrain in enumerate(trn_graphs):
+		z = gTrain.degree().values()
 		cl_graph = nx.expected_degree_graph(z)
-		chunglu_GM.append(cl_graph)
-	# --<
-	# --< Kronecker product graph >--
-	# --<
-	from os import environ
-	tsvGraphName = "/tmp/{}kpgraph.tsv".format(Gtst.name)
-	tmpGraphName = "/tmp/{}kpgraph.tmp".format(Gtst.name)
-	k = int(math.log(Gtrain.number_of_nodes(),2))+1 # Nbr of Iterations
-
-	P = kronfit(Gtrain)
-	for i in range(0,50):
-			# KPG = product.kronecker_random_graph(k, P)
-		M = '-m:"{} {}; {} {}"'.format(P[0][0], P[0][1], P[1][0], P[1][1])
-		if environ['HOME'] == '/home/saguinag':
-		  args = ("/home/saguinag/Software/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
-		elif environ['HOME'] == '/Users/saguinag':
-		  args = ("/Users/saguinag/Theory/MacOSTools/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
-		else:
-		  args = ('./krongen.exe -o:{} '.format(tmpGraphName) +M +'-i:{}'.format(k+1))
-
-		popen = subprocess.Popen(args, stdout=subprocess.PIPE)
-		popen.wait()
-		#output = popen.stdout.read()
-		if os.path.exists(tsvGraphName):
-		  KPG = nx.read_edgelist(tsvGraphName, nodetype=int)
-		else:
-		  print "!! Error, file is missing"
-
-		for u,v in KPG.selfloop_edges():
-		  KPG.remove_edge(u, v)
-		kp_graph = KPG
-		kronprd_GM.append(kp_graph)
+		chunglu_GM.append( cl_graph )
+		kronprd_GM.append( kronecker_subgraph_chunks(gTrain,1))
 
 	# # --< metrics
+	print "ChungLu"
 	metricx = ['gcd']
-	metrics.network_properties( [Gtst], metricx, chunglu_GM, name="clgm_"+Gtst.name, out_tsv=True)
-	metrics.network_properties( [Gtst], metricx, kronprd_GM, name="kpgm_"+Gtst.name, out_tsv=True)
-
+	print 'GCD'
+	for j,synthg in enumerate(chunglu_GM):
+		metrics.network_properties( [tst_graphs[j]], metricx, [synthg], name="clgm_"+Gtst.name, out_tsv=True)
 	# --< Degree Distance (CDF)
-	degree_KS_tst_chlu= SNDegree_CDF_ks_2samp	(chunglu_GM, Gtst,	'chlu')
-	degree_KS_tst_kron= SNDegree_CDF_ks_2samp	(kronprd_GM, Gtst,	'kron')
-	print "CHLU"
-	dfc = pd.DataFrame(degree_KS_tst_chlu)
-	print dfc.to_string()
+	print '\nScaled-Normalized Degree Dist CDF'
+	for j,synthg in enumerate(chunglu_GM):
+		degree_KS_tst_chlu= SNDegree_CDF_ks_2samp([synthg], tst_graphs[j],	'chlu')
+		dfc = pd.DataFrame(degree_KS_tst_chlu)
+		print dfc.to_string(header=False, index=False)
+
+
 	print "KRON"
-	dfc = pd.DataFrame(degree_KS_tst_kron)
-	print dfc.to_string()
+	print 'GCD'
+	for j, synthg in enumerate(kronprd_GM):
+		metrics.network_properties( [tst_graphs[j]], metricx, [synthg], name="clgm_"+Gtst.name, out_tsv=True)
+		# --< Degree Distance (CDF)
+	print '\nScaled-Normalized Degree Dist CDF'
+	for j, synthg in enumerate(kronprd_GM):
+		degree_KS_tst_kron= SNDegree_CDF_ks_2samp([synthg], tst_graphs[j], 'kron')
+		dfc = pd.DataFrame(degree_KS_tst_kron)
+		print dfc.to_string(header=False, index=False)
+
+	original_clu_kron_synth_graphs = False
+	if original_clu_kron_synth_graphs:
+		# --<
+		# --< chung lu graph >--
+		# --<
+		z = Gtrain.degree().values()
+		for i in range(0,50):
+			cl_graph = nx.expected_degree_graph(z)
+			chunglu_GM.append(cl_graph)
+		# --<
+		# --< Kronecker product graph >--
+		# --<
+		from os import environ
+		tsvGraphName = "/tmp/{}kpgraph.tsv".format(Gtst.name)
+		tmpGraphName = "/tmp/{}kpgraph.tmp".format(Gtst.name)
+		k = int(math.log(Gtrain.number_of_nodes(),2))+1 # Nbr of Iterations
+
+		P = kronfit(Gtrain)
+		for i in range(0,50):
+				# KPG = product.kronecker_random_graph(k, P)
+			M = '-m:"{} {}; {} {}"'.format(P[0][0], P[0][1], P[1][0], P[1][1])
+			if environ['HOME'] == '/home/saguinag':
+			  args = ("/home/saguinag/Software/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
+			elif environ['HOME'] == '/Users/saguinag':
+			  args = ("/Users/saguinag/Theory/MacOSTools/Snap-3.0/examples/krongen/krongen", "-o:"+tsvGraphName, M, "-i:{}".format(k))
+			else:
+			  args = ('./krongen.exe -o:{} '.format(tmpGraphName) +M +'-i:{}'.format(k+1))
+
+			popen = subprocess.Popen(args, stdout=subprocess.PIPE)
+			popen.wait()
+			#output = popen.stdout.read()
+			if os.path.exists(tsvGraphName):
+			  KPG = nx.read_edgelist(tsvGraphName, nodetype=int)
+			else:
+			  print "!! Error, file is missing"
+
+			for u,v in KPG.selfloop_edges():
+			  KPG.remove_edge(u, v)
+			kp_graph = KPG
+			kronprd_GM.append(kp_graph)
+
+		# # --< metrics
+		metricx = ['gcd']
+		metrics.network_properties( [Gtst], metricx, chunglu_GM, name="clgm_"+Gtst.name, out_tsv=True)
+		metrics.network_properties( [Gtst], metricx, kronprd_GM, name="kpgm_"+Gtst.name, out_tsv=True)
+
+		# --< Degree Distance (CDF)
+		degree_KS_tst_chlu= SNDegree_CDF_ks_2samp	(chunglu_GM, Gtst,	'chlu')
+		degree_KS_tst_kron= SNDegree_CDF_ks_2samp	(kronprd_GM, Gtst,	'kron')
+		print "CHLU"
+		dfc = pd.DataFrame(degree_KS_tst_chlu)
+		print dfc.to_string()
+		print "KRON"
+		dfc = pd.DataFrame(degree_KS_tst_kron)
+		print dfc.to_string()
 
 
 

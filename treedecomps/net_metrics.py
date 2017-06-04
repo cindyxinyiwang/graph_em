@@ -416,7 +416,7 @@ def eigenvector_multiples(graphs):
 
 
 
-def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False):
+def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False, plotSave=False):
 		'''
 		compute network properties
 		orig:			 original graph
@@ -536,7 +536,7 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			print gb['cc'].mean().to_string(header=False)
 
 			print '\n... Synth G'
-			try: 
+			try:
 				gb = synth_clust_coef.groupby(['k'])
 				gb['cc'].mean().plot(ax=ax2, marker='o', ls="None", markeredgecolor="w", color='r',	alpha=0.8 )
 				ax2.set_title('Avg Clustering Coefficient', y=0.9)
@@ -611,7 +611,7 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 
 		import pprint as pp
 		if 'gcd' in net_mets:
-			print '\nGCD'
+			# print 'GCD'
 			ax6.set_title('GCD', y=0.9)
 			gcd_hrg = []
 			df_g = external_rage(orig[0], name) # original graph
@@ -625,19 +625,22 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False)
 			gcd_hrg_mean = np.mean(gcd_hrg)
 			gcd_hrg_std	= np.std(gcd_hrg)
 
-			ax6.bar([1], gcd_hrg_mean, width=0.5, yerr=gcd_hrg_std)# http://blog.bharatbhole.com/creating-boxplots-with-matplotlib/
-			# ax6.set_xticklabels(['HRG'])	## Custom x-axis labels
-			ax6.get_xaxis().tick_bottom() ## Remove top axes and right axes ticks
-			ax6.get_yaxis().tick_left()
-			ax6.set_xlim(0, 5)
-			with open ('Results/gcd_{}.tsv'.format(name), 'w') as f:
-				f.write('{}\t{}\n'.format(gcd_hrg_mean,gcd_hrg_std))
-			print "\n... mean\tstd"
+			if plotSave:
+				ax6.bar([1], gcd_hrg_mean, width=0.5, yerr=gcd_hrg_std)# http://blog.bharatbhole.com/creating-boxplots-with-matplotlib/
+				# ax6.set_xticklabels(['HRG'])	## Custom x-axis labels
+				ax6.get_xaxis().tick_bottom() ## Remove top axes and right axes ticks
+				ax6.get_yaxis().tick_left()
+				ax6.set_xlim(0, 5)
+			if out_tsv:
+				with open ('Results/gcd_{}.tsv'.format(name), 'w') as f:
+					f.write('{}\t{}\n'.format(gcd_hrg_mean,gcd_hrg_std))
+			# print "... mean\tstd"
 			print "{}\t{}".format(gcd_hrg_mean, gcd_hrg_std)
 
-		oufigname = '/tmp/outfig_{}.pdf'.format(name)
-		plt.savefig(oufigname, bbox_inches='tight')
-		if os.path.exists(oufigname): print 'Output: ',oufigname
+		if plotSave:
+			oufigname = '/tmp/outfig_{}.pdf'.format(name)
+			plt.savefig(oufigname, bbox_inches='tight')
+			if os.path.exists(oufigname): print 'Output: ',oufigname
 
 		return True
 
@@ -1137,7 +1140,7 @@ def external_rage(G,netname):
 		if platform.system() == "Linux":
 			args = ("./bin/linux/RAGE",	tmp_file)
 		elif platform.system() == "Darwin":
-			args = ("./bin/mac/RAGE",	tmp_file)
+			args = ("./bin/macos/RAGE",	tmp_file)
 		else:
 			args = ("../RAGE.exe",	tmp_file)
 #		popen = subprocess.Popen(args, stdout=subprocess.PIPE)
