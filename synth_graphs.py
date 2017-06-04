@@ -336,7 +336,7 @@ def sample_refrence_graph(G, ofname, scate, K_lst, n):
 
 	cntr += 1
 	gprime_group =[]
-	print K_lst[0], n
+	# print K_lst[0], n
 	for Gprime in gs.rwr_sample(G, K_lst[0], n):
 		if 0: nx.write_edgelist(Gprime, out_edgelist_fname, delimiter='\t')
 		gprime_group.append(Gprime)
@@ -434,8 +434,8 @@ if __name__ == '__main__':
 
 	chunglu_GM = []
 	kronprd_GM = []
-	trn_graphs = sample_refrence_graph(Gtrain, Gtrain.name, 'train', [5], 24)
-	tst_graphs = sample_refrence_graph(Gtst, Gtst.name, 'test', [5], 24)
+	trn_graphs = sample_refrence_graph(Gtrain, Gtrain.name, 'train', [500], 25)
+	tst_graphs = sample_refrence_graph(Gtst, Gtst.name, 'test', [500], 25)
 	print 'Got training and tests sets'
 	for i,gTrain in enumerate(trn_graphs):
 		z = gTrain.degree().values()
