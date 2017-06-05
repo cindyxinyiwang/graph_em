@@ -12,11 +12,14 @@ import treedecomps.net_metrics as metrics
 import treedecomps.graph_utils as gutil
 from	 collections import defaultdict
 import prepare_tree_rules.graph_sampler as gs
-
 import pprint as pp
-from resource import setrlimit
+# from resource import setrlimit
+#
+# setrlimit(resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
+#from resource import setrlimit
+import resource
 
-setrlimit(resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
+resource.setrlimit(resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
 
 
 # from treedecomps.salPHRG import grow_graphs_using_krongen
