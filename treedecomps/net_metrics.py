@@ -635,8 +635,9 @@ def network_properties(orig, net_mets, synth_graphs_lst, name='', out_tsv=False,
 				with open ('Results/gcd_{}.tsv'.format(name), 'w') as f:
 					f.write('{}\t{}\n'.format(gcd_hrg_mean,gcd_hrg_std))
 			# print "... mean\tstd"
-			print "{}\t{}".format(gcd_hrg_mean, gcd_hrg_std)
-
+			# print "{}\t{}".format(gcd_hrg_mean, gcd_hrg_std)
+			# THIS IS TEMPORARY, DELETE IT
+			return (gcd_hrg_mean, gcd_hrg_std)
 		if plotSave:
 			oufigname = '/tmp/outfig_{}.pdf'.format(name)
 			plt.savefig(oufigname, bbox_inches='tight')

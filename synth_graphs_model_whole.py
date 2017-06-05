@@ -17,9 +17,9 @@ import pprint as pp
 #
 # setrlimit(resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
 #from resource import setrlimit
-import resource
-
-resource.setrlimit(resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
+# import resource
+#
+# resource.setrlimit(resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
 
 
 # from treedecomps.salPHRG import grow_graphs_using_krongen
@@ -419,6 +419,31 @@ def kronecker_subgraph_chunks(gTrain, nbr_of_synth_g):
 	# results_tup= (tr_kp_graphs_lst,ts_kp_graphs_lst)
 
 	return KPG
+
+def control_test_train_to_test(trainGs, testGs, label=""):
+	if not (len (trainGs) == len(testGs)):
+		print '!!! graph list must match'
+		return
+	results_gcd = []
+	results_k_d = []
+	for i, trG in enumerate(trainGs):
+		tsG = testGs[i]
+		metricx = ['gcd']
+		results_gcd.append (
+			metrics.network_properties( [tsG], metricx, [trG], name=tsG.name, out_tsv=False))
+		# --< Degree Distance (CDF)
+		results_k_d.append( SNDegree_CDF_ks_2samp([tsG], trG, label)[0])
+
+	print "GCD"
+	df = pd.DataFrame(results_gcd)
+	print df.to_string(header=False, index=False)
+
+	print '\nScaled-Normalized Degree Dist CDF'
+	dfc = pd.DataFrame(results_k_d)
+	print dfc.to_string(header=False, index=False)
+
+
+
 # --<
 # --< main >--
 # --<
@@ -445,7 +470,9 @@ if __name__ == '__main__':
 	trn_graphs = sample_refrence_graph(Gtrain, Gtrain.name, 'train', [500], 25)
 	tst_graphs = sample_refrence_graph(Gtst, Gtst.name, 'test', [500], 25)
 	print 'Got training and tests sets'
-
+	print 'Controls'
+	control_test_train_to_test(trn_graphs, tst_graphs, 'ctrl')
+	exit()
 	z = Gtrain.degree().values()
 	cl_graph = nx.expected_degree_graph(z)
 	kp_graph = kronecker_subgraph_chunks(Gtrain,1)
@@ -511,6 +538,7 @@ if __name__ == '__main__':
 ./gcdW.sh data/out.wiki-Talk data/out.wiki-Vote wiki&
 ./gcd.sh data/out.wiki-Talk data/out.wiki-Vote wiki&
 -- wiki_gcddeg_04Jun17_0825.log cant do Kron
+
 
 
 
