@@ -14,6 +14,11 @@ from	 collections import defaultdict
 import prepare_tree_rules.graph_sampler as gs
 
 import pprint as pp
+from resource import setrlimit
+
+setrlimit(resource.RLIMIT_STACK, (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
+
+
 # from treedecomps.salPHRG import grow_graphs_using_krongen
 DEBUG = False
 
@@ -475,19 +480,45 @@ if __name__ == '__main__':
 
 
 '''
-./gcd.sh data/out.sx-stackoverflow data/out.sx-superuser stack&
-./gcd.sh data/out.wiki-Talk        data/out.wiki-Vote wiki&
-./gcd.sh data/out.cit-HepPh        data/out.cit-HepTh cits&
+./gcdW.sh data/out.sx-stackoverflow-a2q data/out.sx-superuser stackW&
+./gcd.sh data/out.sx-stackoverflow-a2q data/out.sx-superuser stack&
+-- stack_gcddeg_04Jun17_0652.log cant' do Kron
+
+./gcd.sh data/out.cit-HepPh data/out.cit-HepTh cits&
+./gcdW.sh data/out.cit-HepPh data/out.cit-HepTh citsW&
+
 ./gcd.sh data/out.amazon0302 data/out.amazon0312 amaz&
-./gcd.sh data/out.higgs-activity_time data/out.quotes_2009-04 twitr&
+./gcdW.sh data/out.amazon0302 data/out.amazon0312 amazW&
+
+./gcd.sh data/out.enron data/out.dnc-corecipient emails&
+./gcdW.sh data/out.enron data/out.dnc-corecipient emailW&
+
+./gcdW.sh data/out.as20000102  data/out.as-caida20071105 internetW&
 ./gcd.sh data/out.as20000102  data/out.as-caida20071105 internet&
+
 ./gcd.sh data/nws_rnd_60k_exp3.tsv  data/nws_rnd_60k_exp3_test.tsv newast&
+./gcdW.sh data/nws_rnd_60k_exp3.tsv  data/nws_rnd_60k_exp3_test.tsv newastW&
+
 ./gcd.sh data/ba_rnd_60k_exp3.tsv  data/ba_rnd_60k_exp3_test.tsv baralb&
+./gcdW.sh data/ba_rnd_60k_exp3.tsv  data/ba_rnd_60k_exp3_test.tsv baralbW&
+
+./gcdW.sh data/out.com-lj.ungraph  data/out.com-orkut.ungraph socnetsW&
+./gcd.sh data/out.com-lj.ungraph  data/out.com-orkut.ungraph socnets&
+
+./gcdW.sh data/out.wiki-Talk data/out.wiki-Vote wiki&
+./gcd.sh data/out.wiki-Talk data/out.wiki-Vote wiki&
+-- wiki_gcddeg_04Jun17_0825.log cant do Kron
 
 
+
+
+# ./gcd.sh data/out.higgs-activity_time data/out.quotes_2009-04 twitr&
+# ./gcdW.sh data/out.higgs-activity_time data/out.quotes_2009-04 twitr&
 data/wiki-Talk_train_1_el.tsv data/wiki-Vote_test_1_el.tsv
 data/amazon0302_train_1_el.tsv data/amazon0312_test_1_el.tsv
 data/amazon0302_train_1_el.tsv data/amazon0312_test_1_el.tsv&
 data/cit-HepTh_train_1_el.tsv data/cit-HepPh_test_1_el.tsv&
+
+
 
 '''
